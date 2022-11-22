@@ -136,6 +136,11 @@ namespace Selenium_Demo
         {
 
         }
+        [Test]
+        public void Test2()
+        {
+
+        }
         public void DisplayName(string sname)
         {
             Console.WriteLine("My name is:" + sname);
