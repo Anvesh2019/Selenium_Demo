@@ -40,7 +40,7 @@ namespace Selenium_Demo
         public void Errormsg(string city)
         {
             dr.Navigate().GoToUrl("https://www.axismf.com");
-            
+
             dr.FindElement(By.XPath("(//ion-button[@id='origin'])[2]")).Click();
             Thread.Sleep(2000);
             dr.FindElement(By.XPath("(//input[@name='pan'])[2]")).SendKeys(city);
@@ -52,7 +52,7 @@ namespace Selenium_Demo
         [Test]
         public void NavigationCommands()
         {
-            
+
             dr.Navigate().GoToUrl("http://axismf.com");
             dr.Manage().Window.Maximize();
             //dr.FindElement(By.XPath("//a[@href='about-us']")).Click();
@@ -60,13 +60,13 @@ namespace Selenium_Demo
             //dr.FindElement(By.XPath("//a[text()=' About Us ']")).Click();
             dr.FindElement(By.XPath("(//a[@id='top-pane-label'])[2]")).Click();
             string currenturl = dr.Url;
-            Assert.IsTrue(currenturl== "https://www.axismf.com/about-us","Aboutus page is not loaded");
+            Assert.IsTrue(currenturl == "https://www.axismf.com/about-us", "Aboutus page is not loaded");
             string pageTitle = dr.Title;
-            Assert.IsTrue(pageTitle.Contains("About Us"),"Aboutus page is not loaded");
-            Assert.AreEqual("About Us - Axis Mutual Fund Company in India| Axis MF",pageTitle,"Page title is not matching");
+            Assert.IsTrue(pageTitle.Contains("About Us"), "Aboutus page is not loaded");
+            Assert.AreEqual("About Us - Axis Mutual Fund Company in India| Axis MF", pageTitle, "Page title is not matching");
             dr.Navigate().Back();
             currenturl = dr.Url;
-            Assert.IsTrue(currenturl== "https://www.axismf.com/","Home page is not loaded");
+            Assert.IsTrue(currenturl == "https://www.axismf.com/", "Home page is not loaded");
             //dr.Navigate().Forward();
             //pageTitle = dr.Title;
             //Assert.IsTrue(pageTitle.Contains("About Us"), "Aboutus page is not loaded");
@@ -76,10 +76,10 @@ namespace Selenium_Demo
         [Test]
         public void Testcase2()
         {
-            
+
             DisplayName("Arun");
             //Assert.Pass();
-            string dateTime  = DateTime.Now.ToString("yyyyMMdd");
+            string dateTime = DateTime.Now.ToString("yyyyMMdd");
             Console.WriteLine(dateTime);
         }
         [Test]
@@ -106,13 +106,13 @@ namespace Selenium_Demo
             dr.Navigate().GoToUrl("https://www.ironspider.ca/forms/checkradio.htm");
             IWebElement chkBlue = dr.FindElement(By.XPath("//input[@value='blue']"));
             //Console.WriteLine("blue color is selected:" + chkBlue.Selected);
-            if(chkBlue.Selected==false)
+            if (chkBlue.Selected == false)
             {
                 chkBlue.Click();
             }
             IWebElement radioOpera = dr.FindElement(By.XPath("(//input[@type='radio'])[3]"));
             Console.WriteLine("Opera is selected1:" + radioOpera.Selected);
-            if(radioOpera.Selected==false)
+            if (radioOpera.Selected == false)
             {
                 radioOpera.Click();
             }
@@ -136,6 +136,11 @@ namespace Selenium_Demo
         {
 
         }
+        [Test]
+        public void test3_anveshbranch()
+        {
+        }
+
         public void DisplayName(string sname)
         {
             Console.WriteLine("My name is:" + sname);
