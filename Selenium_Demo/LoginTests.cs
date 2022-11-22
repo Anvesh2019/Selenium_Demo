@@ -131,7 +131,11 @@ namespace Selenium_Demo
             objSelect.SelectByText("INDIA");
             objSelect.SelectByValue("CHINA");
         }
+        [Test]
+        public void test1()
+        {
 
+        }
         public void DisplayName(string sname)
         {
             Console.WriteLine("My name is:" + sname);
