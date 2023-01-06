@@ -4,6 +4,12 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
+using System.Drawing;
+using System.Collections;
+//using Dotnetselenium
+using System.IO;
+using System.Collections.Generic;
+
 namespace Selenium_Demo
 {
     public class LoginTests
@@ -21,9 +27,74 @@ namespace Selenium_Demo
         [Test]
         public void VerifySearch()
         {
+           
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
             dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
+           
+        }
+        [Test]
+        public void VerifyNavigationCommands()
+        {
+            dr.Navigate().GoToUrl("https://techtutorialz.com");
+            dr.Manage().Window.Maximize();
+            dr.FindElement(By.XPath("//a[@title='Resumes']")).Click(); //Navigate to Resumes page
+            dr.Navigate().Back(); //browser back
+            //string expectedURL = "https://techtutorialz.com/";
+            //Assert.IsTrue(dr.Url == expectedURL, "Home page is not loaded");
+
+            IWebElement viewLibrary = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
+            Assert.IsTrue(viewLibrary.Size!=Size.Empty); //Element presents
+            dr.Navigate().Forward(); //navigate to resumes page
+
+            IWebElement bcLink = dr.FindElement(By.XPath("//div[@class='page-breadcrum']/div/ul/li/a[text()='Resumes']"));
+            Assert.IsTrue(bcLink.Text == "Resumes", "Resumes page is not loaded");
+            Thread.Sleep(2000);
+            dr.Navigate().Refresh();
+        }
+            [Test]
+        public void VerifyResumes()
+        {
+            dr.Navigate().GoToUrl("https://techtutorialz.com");
+            dr.Manage().Window.Maximize();
+
+            dr.FindElement(By.XPath("//a[@title='Resumes']")).Click();
+            //string actualUrl = dr.Url;
+            //Assert.AreEqual("https://techtutorialz.com/category/resumes/", actualUrl,"Resumes page is not loaded");
+
+            //IWebElement heading = dr.FindElement(By.XPath("//h2[@class='category-page-title']"));
+            //Assert.IsTrue(heading.Text == "RESUMES", "Resumes page not loaded");
+
+            IWebElement bcLink = dr.FindElement(By.XPath("//div[@class='page-breadcrum']/div/ul/li/a[text()='Resumes']"));
+            Assert.IsTrue(bcLink.Text=="Resumes","Resumes page is not loaded");
+        }
+        [Test]
+        public void VerifyTraining()
+        {
+            dr.Navigate().GoToUrl("https://techtutorialz.com");
+            dr.Manage().Window.Maximize();
+
+            //dr.FindElement(By.XPath("//a[@title='Training']")).Click();
+            dr.FindElement(By.LinkText("TRAINING")).Click();
+            //string actualUrl = dr.Url;
+            //Assert.AreEqual("https://techtutorialz.com/category/resumes/", actualUrl,"Resumes page is not loaded");
+
+            //IWebElement heading = dr.FindElement(By.XPath("//h2[@class='category-page-title']"));
+            //Assert.IsTrue(heading.Text == "RESUMES", "Resumes page not loaded");
+
+            IWebElement bcLink = dr.FindElement(By.XPath("//div[@class='page-breadcrum']/div/ul/li/a[text()='training']"));
+            Assert.IsTrue(bcLink.Text == "training", "training page is not loaded");
+        }
+        [Test]
+        public void OpenGmail()
+        {
+            dr.Navigate().GoToUrl("https://google.com");
+            Console.WriteLine("Title is:" + dr.Title);
+
+            dr.FindElement(By.LinkText("Gmail")).Click();
+            dr.FindElement(By.LinkText("Sign in")).Click();
+            dr.FindElement(By.Id("identifierId")).SendKeys("agummadilli@gmail.com");
+            dr.FindElement(By.XPath("//span[text()='Next']")).Click();
         }
 
         [Test]
@@ -48,6 +119,126 @@ namespace Selenium_Demo
             Thread.Sleep(2000);
             Assert.IsTrue(pan.Displayed == true, "Error message is not displayed");
 
+        }
+
+        [Test]
+       
+        public void VerifyPanNumberErrormsg()
+        {
+            dr.Navigate().GoToUrl("https://www.axismf.com");
+            dr.FindElement(By.XPath("(//ion-button[@id='origin'])[2]")).Click(); //click on Login button
+            //Thread.Sleep(5000);
+            WebDriverWait wait = new WebDriverWait(dr,TimeSpan.FromSeconds(20));
+            
+            //IWebElement elementPan = dr.FindElement(By.XPath("(//input[@name='pan'])[2]"));
+           
+            var elementPan = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("(//input[@name='pan'])[2])")));
+
+            elementPan.SendKeys("India"); //enter india in PAn number
+            
+            IWebElement panError = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
+            Thread.Sleep(2000);
+            //Assert.IsTrue(panError.Displayed == true, "Error message is not displayed");
+            Assert.IsTrue(panError.Size != Size.Empty,"validation error is not displayed for PAN"); //Error is displayed
+
+        }
+        [Test]
+
+        public void Getscreenshot()
+        {
+            try
+            {
+                dr.Navigate().GoToUrl("https://www.axismf.com");
+                dr.FindElement(By.XPath("(//ion-button[@id='origin'])[2]")).Click(); //click on Login button
+
+                IWebElement elementPan = dr.FindElement(By.XPath("(//input[@name='pan'])[2]"));
+                elementPan.SendKeys("India"); //enter india in PAn number
+
+                IWebElement panError = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
+                Thread.Sleep(2000);
+                Assert.IsTrue(panError.Size != Size.Empty, "validation error is not displayed for PAN"); //Error is displayed
+
+            }
+            catch(ElementClickInterceptedException clickex)
+            {
+                Console.WriteLine(clickex.Message);
+            }
+            catch(NoSuchElementException nosuchex)
+            {
+                Console.WriteLine(nosuchex.Message);
+            }
+            catch(NoSuchWindowException ex)
+            {
+                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                Screenshot screenshot = screenshotDriver.GetScreenshot();
+                // Creating UIScreenshot folder if not exists
+                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
+            }
+
+        }
+
+        [Test]
+        public void HandleMultipleTabs()
+        {
+            dr.Navigate().GoToUrl("https://demoqa.com/browser-windows");
+
+            string windowhandleParent = dr.CurrentWindowHandle; //getting parentwindow handle
+            IWebElement btnNewwindow = dr.FindElement(By.XPath("//button[@id='tabButton']"));
+            btnNewwindow.Click();
+            System.Collections.ObjectModel.ReadOnlyCollection<string> lstWindow = dr.WindowHandles;
+            foreach (var handle in lstWindow)
+            {
+                Console.WriteLine(handle);
+            }
+            //Switching the driver to 2nd window
+            dr.SwitchTo().Window(lstWindow[1]);
+            IWebElement sampleText = dr.FindElement(By.XPath("//h1[@id='sampleHeading']"));
+            Assert.IsTrue(sampleText.Displayed, "Sample text is not displayed");
+            dr.Navigate().GoToUrl("http://google.com");
+            dr.SwitchTo().Window(windowhandleParent); //return to parent window
+            Console.WriteLine(dr.Title); //get the parent window title and print
+        }
+
+        [Test]
+        public void HandleMultipleWindows()
+        {
+            dr.Navigate().GoToUrl("https://demoqa.com/browser-windows");
+
+            string windowhandleParent = dr.CurrentWindowHandle;
+            IWebElement btnNewwindow = dr.FindElement(By.XPath("//button[@id='windowButton']"));
+            btnNewwindow.Click();
+            System.Collections.ObjectModel.ReadOnlyCollection<string> lstWindow = dr.WindowHandles;
+            foreach (var handle in lstWindow)
+            {
+                Console.WriteLine(handle);
+            }
+            //Switching the driver to 2nd window
+            dr.SwitchTo().Window(lstWindow[1]);
+            IWebElement sampleText = dr.FindElement(By.XPath("//h1[@id='sampleHeading']"));
+            Assert.IsTrue(sampleText.Displayed,"Sample text is not displayed");
+            dr.SwitchTo().Window(windowhandleParent); //return to parent window
+            Console.WriteLine(dr.Title);
+        }
+        [Test]
+        public void Devidebyzero()
+        {
+            try
+            {
+                int x = 10;
+                int y = 0;
+                int z = x / y;
+            }
+           catch(DivideByZeroException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         [Test]
         public void NavigationCommands()
@@ -95,20 +286,21 @@ namespace Selenium_Demo
             uid.SendKeys("pallavi.pulivarthy@myplanet.com");
             Console.WriteLine("Uid text is:" + uid.GetAttribute("value"));
             Console.WriteLine("Uid type is:" + uid.GetAttribute("type"));
+            Console.WriteLine("area label is:" + uid.GetAttribute("aria-label"));
 
             dr.FindElement(By.XPath("(//span[@jsname='V67aGc'])[2]")).Click();
 
         }
 
         [Test]
-        public void InteractWithCheckBox()
+        public void InteractWithCheckBoxAndRadio()
         {
             dr.Navigate().GoToUrl("https://www.ironspider.ca/forms/checkradio.htm");
             IWebElement chkBlue = dr.FindElement(By.XPath("//input[@value='blue']"));
             //Console.WriteLine("blue color is selected:" + chkBlue.Selected);
             if (chkBlue.Selected == false)
             {
-                chkBlue.Click();
+                chkBlue.Click(); //unselect
             }
             IWebElement radioOpera = dr.FindElement(By.XPath("(//input[@type='radio'])[3]"));
             Console.WriteLine("Opera is selected1:" + radioOpera.Selected);
@@ -125,11 +317,35 @@ namespace Selenium_Demo
         {
             dr.Navigate().GoToUrl("https://demo.guru99.com/test/newtours/register.php");
             IWebElement ddCountry = dr.FindElement(By.Name("country"));
-            //ddCountry.SendKeys("Hyderabad");
-            SelectElement objSelect = new SelectElement(dr.FindElement(By.Name("country")));
-            objSelect.SelectByIndex(2);
-            objSelect.SelectByText("INDIA");
+            //ddCountry.SendKeys("HYDERABAD");
+            //SelectElement objSelect = new SelectElement(dr.FindElement(By.Name("country")));
+            SelectElement objSelect = new SelectElement(ddCountry);
+
+            //objSelect.SelectByIndex(2);
+            //objSelect.SelectByText("INDIA");
             objSelect.SelectByValue("CHINA");
+            Console.WriteLine("Multiple values allowed:" + objSelect.IsMultiple);
+
+            int optCount = objSelect.Options.Count;
+            Console.WriteLine("options count is:" + optCount);
+
+            objSelect.DeselectByValue("CHINA");
+           
+        }
+        [Test]
+        public void InteractWithListbox()
+        {
+            dr.Navigate().GoToUrl("https://output.jsbin.com/osebed/2");
+            IWebElement fruitsLB = dr.FindElement(By.XPath("//select[@id='fruits']"));
+            SelectElement objSelect = new SelectElement(fruitsLB);
+            
+            Console.WriteLine("Multi select allowed:" + objSelect.IsMultiple);
+            objSelect.SelectByValue("apple");
+            objSelect.SelectByText("Grape");
+            Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
+            objSelect.DeselectByText("Apple");
+            Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
+
         }
         [Test]
         public void test1()
@@ -175,6 +391,7 @@ namespace Selenium_Demo
         public void Cleanup()
         {
             Console.WriteLine("I am cleanup method");
+            //dr.Close();
         }
     }
 }
