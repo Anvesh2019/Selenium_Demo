@@ -9,6 +9,7 @@ using System.Collections;
 //using Dotnetselenium
 using System.IO;
 using System.Collections.Generic;
+using OpenQA.Selenium.Interactions;
 
 namespace Selenium_Demo
 {
@@ -199,6 +200,43 @@ namespace Selenium_Demo
             dr.Navigate().GoToUrl("http://google.com");
             dr.SwitchTo().Window(windowhandleParent); //return to parent window
             Console.WriteLine(dr.Title); //get the parent window title and print
+        }
+        [Test]
+        public void MovetoElementAndClick()
+        {
+            dr.Navigate().GoToUrl("https://www.browserstack.com/");
+            Actions action = new Actions(dr);
+            IWebElement element = dr.FindElement(By.XPath("//a[@id='signupModalButton']"));
+            action.MoveToElement(element).Click().Build().Perform();
+            string expectedURL = "https://www.browserstack.com/users/sign_up";
+            string actualURL = dr.Url;
+            Assert.AreEqual(expectedURL, actualURL,"User is not navigated to signup page");
+        }
+        [Test]
+        public void RightClickonElement()
+        {
+            dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
+            Actions action = new Actions(dr);
+            IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
+            action.ContextClick(element).Build().Perform();
+            
+        }
+        [Test]
+        public void DragnDrop()
+        {
+            dr.Navigate().GoToUrl("http://demo.guru99.com/test/drag_drop.html");
+
+            //Element which needs to drag.    		
+            IWebElement From = dr.FindElement(By.XPath("//*[@id='credit2']/a"));
+
+            //Element on which need to drop.		
+            IWebElement To = dr.FindElement(By.XPath("//*[@id='bank']/li"));
+
+            //Using Action class for drag and drop.		
+            Actions act = new Actions(dr);
+
+            //Dragged and dropped.		
+            act.DragAndDrop(From, To).Build().Perform();
         }
 
         [Test]
