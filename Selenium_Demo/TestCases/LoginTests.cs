@@ -10,7 +10,7 @@ using System.Collections;
 using System.IO;
 using System.Collections.Generic;
 using OpenQA.Selenium.Interactions;
-
+using System.Collections;
 namespace Selenium_Demo
 {
     public class LoginTests
@@ -24,6 +24,166 @@ namespace Selenium_Demo
             dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
 
         }
+        
+        [Test]
+        public void OpenMySite()
+        {
+            
+            dr.Navigate().GoToUrl("http://google.com");
+            dr.Manage().Window.Maximize();
+
+            dr.FindElement(By.Name("q")).SendKeys("techtutorialz");
+            dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
+            dr.Close();
+        }
+        [Test]
+        public void NavigateToGmail()
+        {
+            dr.Navigate().GoToUrl("http://google.com");
+            IWebElement linkGmail = dr.FindElement(By.XPath("//a[text()='Gmail']"));
+            linkGmail.Click();
+
+            //dr.FindElement(By.XPath("//a[text()='Gmail']")).Click();
+        }
+        [Test]
+        public void NavigateToAdbTutorial()
+        {
+            dr.Navigate().GoToUrl("http://techtutorialz.com");
+            dr.Manage().Window.Maximize();
+            dr.FindElement(By.XPath("//a[@title='Tutorials']")).Click();
+            Thread.Sleep(2000);
+            dr.FindElement(By.XPath("//a[@title='ADB Tutorial']")).Click();
+            ////a[@title='ADB Tutorial']
+        }
+
+        [Test]
+        public void VerifyAllLinks()
+        {
+            dr.Navigate().GoToUrl("http://google.com");
+            dr.Manage().Window.Maximize();
+            IReadOnlyCollection<IWebElement>  allLinks = dr.FindElements(By.XPath("//a"));
+            Console.WriteLine("Link count is:" + allLinks.Count);
+            foreach(var item in allLinks)
+            {
+                Console.WriteLine(item.Text);
+            }
+        }
+        [Test]
+        public void VerifyInvalidPANNumber()
+        {
+            dr.Navigate().GoToUrl("http://axismf.com");
+            dr.Manage().Window.Maximize();
+            dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            Thread.Sleep(3000);
+            dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")).SendKeys("1234");
+            Thread.Sleep(3000);
+            //dr.Close();
+            //IWebElement errMsg = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
+            //Assert.IsTrue(errMsg.Size!=Size.Empty);
+
+            IReadOnlyCollection<IWebElement> listerrMsg = dr.FindElements(By.XPath("//div[text()='Please enter a correct PAN']"));
+            Assert.IsTrue(listerrMsg.Count == 1); // displayed
+
+
+            IWebElement btnOTP = dr.FindElement(By.Id("btn-1"));
+            Assert.IsTrue(btnOTP.Enabled == false, "Generate OTP button is enabled"); //disabled
+        }
+        [Test]
+        public void VerifyValidPANNumber()
+        {
+            dr.Navigate().GoToUrl("http://axismf.com");
+            dr.Manage().Window.Maximize();
+            dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            Thread.Sleep(3000);
+            dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")).SendKeys("");
+            Thread.Sleep(3000);
+
+            IReadOnlyCollection<IWebElement> listerrMsg = dr.FindElements(By.XPath("//div[text()='Please enter a correct PAN']"));
+            Assert.IsTrue(listerrMsg.Count == 0); //not displayed
+
+            IWebElement btnOTP = dr.FindElement(By.Id("btn-1"));
+            Assert.IsTrue(btnOTP.Enabled == true, "Generate OTP button is disabled"); //disabled
+        }
+
+        [Test]
+        public void VerifyMaxlength()
+        {
+            dr.Navigate().GoToUrl("http://google.com");
+            dr.Manage().Window.Maximize();
+            IWebElement txtSearch = dr.FindElement(By.Name("q"));
+
+            string strMaxlength = txtSearch.GetAttribute("maxlength");
+
+            Assert.IsTrue(strMaxlength == "2048", "Max length is not matching");
+
+            IWebElement linkSignin = dr.FindElement(By.XPath("//a[text()='Sign in']"));
+            Console.WriteLine(linkSignin.GetAttribute("href"));
+
+        }
+
+            [Test]
+        public void VerifyGetattribute()
+        {
+            dr.Navigate().GoToUrl("http://google.com");
+            dr.Manage().Window.Maximize();
+            IWebElement txtSearch = dr.FindElement(By.Name("q"));
+            txtSearch.SendKeys("India");
+
+            Console.WriteLine("Text is:" +txtSearch.GetAttribute("value"));
+            string maxlength = txtSearch.GetAttribute("maxlength");
+            Console.WriteLine("maxlength of text box is:" + maxlength);
+        }
+        [Test]
+        public void VerifyLinkText()
+        {
+            dr.Navigate().GoToUrl("http://google.com");
+            dr.Manage().Window.Maximize();
+            IWebElement linkGmail = dr.FindElement(By.LinkText("Gmail"));
+
+            Console.WriteLine("Gmail link is enabled:" + linkGmail.Enabled);
+            if(linkGmail.Size==Size.Empty) //gamil link not exists
+            {
+                Console.WriteLine("Gmail link not displayed");
+            }
+            else
+            {
+                linkGmail.Click();
+            }
+               
+
+            string strTitle= dr.Title;
+            Console.WriteLine(strTitle);
+            Assert.IsTrue(strTitle.Contains("Gmail")==true,"Gmail page is not loaded");
+
+            string strUrl = dr.Url;
+            Assert.IsTrue(strUrl.Contains("gmail"),"Gmail page is not loaded");
+        }
+
+        [Test]
+        public void SearchCourse()
+        {
+            dr.Navigate().GoToUrl("http://techtutorialz.com");
+            dr.Manage().Window.Maximize();
+            dr.FindElement(By.Id("s")).SendKeys("Manual Testing");
+            dr.FindElement(By.XPath("//button[text()='search']")).Click();
+            dr.Navigate().Back();
+            Thread.Sleep(2000);
+            dr.Navigate().Forward();
+            dr.Navigate().Refresh();
+        }
+        [Test]
+        public void VerifyCardetails()
+        {
+            OpenMySite();
+             clsBMW objBmw = new clsBMW();
+            string carname = objBmw.GetCarName();
+            Console.WriteLine("Car name is:" + carname);
+            Console.WriteLine("Car model is:" + objBmw.GetCarModel(2022));
+            Console.WriteLine(objBmw.GetCarCity());
+            Console.WriteLine(clsCar.GetCollegename());
+            
+        }
+
 
         [Test]
         public void VerifySearch()
@@ -144,6 +304,27 @@ namespace Selenium_Demo
 
         }
         [Test]
+        public void VerifyTryCtach()
+        {
+            try
+            {
+                int x = 10;
+                int y = 5;
+                Console.WriteLine("Z is:" + x / y);
+
+            }
+           
+            catch(DivideByZeroException dbyzex)
+            {
+                Console.WriteLine(dbyzex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+
+        }
+        [Test]
 
         public void Getscreenshot()
         {
@@ -156,7 +337,7 @@ namespace Selenium_Demo
                 elementPan.SendKeys("India"); //enter india in PAn number
 
                 IWebElement panError = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
-                Thread.Sleep(2000);
+                //Thread.Sleep(2000);
                 Assert.IsTrue(panError.Size != Size.Empty, "validation error is not displayed for PAN"); //Error is displayed
 
             }
@@ -167,6 +348,14 @@ namespace Selenium_Demo
             catch(NoSuchElementException nosuchex)
             {
                 Console.WriteLine(nosuchex.Message);
+                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                Screenshot screenshot = screenshotDriver.GetScreenshot();
+                // Creating UIScreenshot folder if not exists
+                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
             }
             catch(NoSuchWindowException ex)
             {
@@ -174,7 +363,9 @@ namespace Selenium_Demo
                 Screenshot screenshot = screenshotDriver.GetScreenshot();
                 // Creating UIScreenshot folder if not exists
                 System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+
                 screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
             }
 
@@ -222,7 +413,7 @@ namespace Selenium_Demo
             
         }
         [Test]
-        public void DragnDrop()
+        public void DragnDropElement()
         {
             dr.Navigate().GoToUrl("http://demo.guru99.com/test/drag_drop.html");
 
@@ -237,6 +428,10 @@ namespace Selenium_Demo
 
             //Dragged and dropped.		
             act.DragAndDrop(From, To).Build().Perform();
+            Thread.Sleep(2000);
+
+            IWebElement debtMovement = dr.FindElement(By.XPath("//td[normalize-space(text())='Debit Movement']"));
+            Assert.IsTrue(debtMovement.Size!=Size.Empty,"Debit movement is not displayed");
         }
 
         [Test]
@@ -334,11 +529,11 @@ namespace Selenium_Demo
         public void InteractWithCheckBoxAndRadio()
         {
             dr.Navigate().GoToUrl("https://www.ironspider.ca/forms/checkradio.htm");
-            IWebElement chkBlue = dr.FindElement(By.XPath("//input[@value='blue']"));
+            IWebElement chkBlue = dr.FindElement(By.XPath("//input[@value='red']"));
             //Console.WriteLine("blue color is selected:" + chkBlue.Selected);
             if (chkBlue.Selected == false)
             {
-                chkBlue.Click(); //unselect
+                chkBlue.Click(); //select
             }
             IWebElement radioOpera = dr.FindElement(By.XPath("(//input[@type='radio'])[3]"));
             Console.WriteLine("Opera is selected1:" + radioOpera.Selected);
@@ -359,16 +554,16 @@ namespace Selenium_Demo
             //SelectElement objSelect = new SelectElement(dr.FindElement(By.Name("country")));
             SelectElement objSelect = new SelectElement(ddCountry);
 
-            //objSelect.SelectByIndex(2);
-            //objSelect.SelectByText("INDIA");
+            objSelect.SelectByIndex(2);
+            objSelect.SelectByText("INDIA");
             objSelect.SelectByValue("CHINA");
             Console.WriteLine("Multiple values allowed:" + objSelect.IsMultiple);
 
             int optCount = objSelect.Options.Count;
             Console.WriteLine("options count is:" + optCount);
 
-            objSelect.DeselectByValue("CHINA");
-           
+            //objSelect.DeselectByValue("CHINA");
+            
         }
         [Test]
         public void InteractWithListbox()

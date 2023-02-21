@@ -25,6 +25,13 @@ namespace Selenium_Demo
             dr.SwitchTo().Frame(elementFrame);
             IWebElement imgJmeter = dr.FindElement(By.XPath("//a[@href='http://www.guru99.com/live-selenium-project.html']"));
             imgJmeter.Click();
+
+            System.Collections.ObjectModel.ReadOnlyCollection<string> listHandles = dr.WindowHandles;
+            
+            dr.SwitchTo().Window(listHandles[1]);
+
+            Console.WriteLine(dr.Url);
+            Assert.IsTrue(dr.Url.Contains("live-selenium-project.html"),"Live project page is not loaded");
         }
     }
 }

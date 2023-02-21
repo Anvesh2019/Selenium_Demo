@@ -19,6 +19,29 @@ namespace Selenium_Demo
             dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
 
         }
+        public void NavigateToSite(string strUrl)
+        {
+            dr.Navigate().GoToUrl(strUrl);
+        }
+        public void enterSearchCity(string strCity)
+        {
+            dr.FindElement(By.XPath("//button[@aria-label='Going to']")).Click();
+            dr.FindElement(By.Id("destination_form_field")).SendKeys(strCity);
+            System.Threading.Thread.Sleep(2000);
+            dr.FindElement(By.XPath("//strong[text()='"+ strCity + "']")).Click();
+        }
+
+        public void ClickonSearchButton()
+        {
+            dr.FindElement(By.Id("search_button")).Click();
+        }
+        [Test]
+        public void SearchHotel()
+        {
+            NavigateToSite("http://hotels.com");
+            enterSearchCity("Goa");
+            ClickonSearchButton();
+        }
         [Test]
         public void VerifyPageElements()
         {
@@ -45,7 +68,8 @@ namespace Selenium_Demo
         [Test]
         public void VerifyGoingToIsRequired()
         {
-            dr.Navigate().GoToUrl("http://hotels.com");
+            NavigateToSite("http://hotels.com");
+            //dr.Navigate().GoToUrl("http://hotels.com");
             //dr.FindElement(By.Id("submit_button")).Click();
             dr.FindElement(By.XPath("//button[@id='submit_button']")).Click();
             IWebElement error = dr.FindElement(By.XPath("//div[text()='Please select a destination']"));
