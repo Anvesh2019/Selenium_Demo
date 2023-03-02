@@ -6,17 +6,20 @@ using System.Drawing;
 using System.Threading;
 using System.Collections;
 using System.Collections.ObjectModel;
+using Selenium_Demo.Pages;
 
 namespace Selenium_Demo
 {
     public class clsHotels
     {
+        HotelsHomePage _homepage;
         public IWebDriver dr;
         [SetUp]
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
             dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
+            _homepage = new HotelsHomePage(dr);
 
         }
         public void NavigateToSite(string strUrl)
@@ -68,13 +71,24 @@ namespace Selenium_Demo
         [Test]
         public void VerifyGoingToIsRequired()
         {
+            HotelsHomePage _homepage = new HotelsHomePage(dr);
+
             NavigateToSite("http://hotels.com");
             //dr.Navigate().GoToUrl("http://hotels.com");
             //dr.FindElement(By.Id("submit_button")).Click();
-            dr.FindElement(By.XPath("//button[@id='submit_button']")).Click();
-            IWebElement error = dr.FindElement(By.XPath("//div[text()='Please select a destination']"));
+            //dr.FindElement(By.XPath("//button[@id='search_button']")).Click();
+            _homepage.ClickonSearchButton();
+            //IWebElement error = dr.FindElement(By.XPath("//div[text()='Please select a destination']"));
             //Assert.IsTrue(error.Size!=Size.Empty);
-            Assert.IsTrue(error.Displayed == true,"Going to field is not required field");
+            Assert.IsTrue(_homepage.errorDestinationRequired.Displayed == true,"Going to field is not required field");
+        }
+
+        [Test]
+        public void VerifyGoingToIsRequired_new()
+        {
+             NavigateToSite("http://hotels.com");
+            _homepage.ClickonSearchButton();
+            Assert.IsTrue(_homepage.errorDestinationRequired.Displayed == true, "Going to field is not required field");
         }
 
         [Test]

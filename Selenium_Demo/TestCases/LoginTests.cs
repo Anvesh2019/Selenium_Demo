@@ -11,10 +11,14 @@ using System.IO;
 using System.Collections.Generic;
 using OpenQA.Selenium.Interactions;
 using System.Collections;
+using log4net;
+
 namespace Selenium_Demo
 {
     public class LoginTests
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        clsMyLogger objLogger = new clsMyLogger();
 
         public IWebDriver dr;
         [SetUp]
@@ -23,6 +27,11 @@ namespace Selenium_Demo
             Console.WriteLine("I am from setup method");
             dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
 
+        }
+        [Test]
+        public void testCase1()
+        {
+            Console.WriteLine("I am test case1");
         }
         
         [Test]
@@ -71,22 +80,38 @@ namespace Selenium_Demo
         [Test]
         public void VerifyInvalidPANNumber()
         {
-            dr.Navigate().GoToUrl("http://axismf.com");
-            dr.Manage().Window.Maximize();
-            dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
-            Thread.Sleep(3000);
-            dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")).SendKeys("1234");
-            Thread.Sleep(3000);
-            //dr.Close();
-            //IWebElement errMsg = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
-            //Assert.IsTrue(errMsg.Size!=Size.Empty);
+            try
+            {
+                  objLogger.LogMessage("Started executing VerifyInvalidPANNumber");
 
-            IReadOnlyCollection<IWebElement> listerrMsg = dr.FindElements(By.XPath("//div[text()='Please enter a correct PAN']"));
-            Assert.IsTrue(listerrMsg.Count == 1); // displayed
+                dr.Navigate().GoToUrl("http://axismf.com");
+                dr.Manage().Window.Maximize();
+                log.Info("Home page loaded");
+                dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+                Thread.Sleep(3000);
+                dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")).SendKeys("1234");
 
+                objLogger.LogMessage("Entered invalid PAN numbver");
 
-            IWebElement btnOTP = dr.FindElement(By.Id("btn-1"));
-            Assert.IsTrue(btnOTP.Enabled == false, "Generate OTP button is enabled"); //disabled
+                Thread.Sleep(3000);
+                //dr.Close();
+                //IWebElement errMsg = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
+                //Assert.IsTrue(errMsg.Size!=Size.Empty);
+
+                IReadOnlyCollection<IWebElement> listerrMsg = dr.FindElements(By.XPath("//div[text()='Please enter a correct PAN']"));
+                Assert.IsTrue(listerrMsg.Count == 1); // displayed
+
+                objLogger.LogMessage("Verified PAN error message ");
+
+                IWebElement btnOTP = dr.FindElement(By.Id("btn-1"));
+                Assert.IsTrue(btnOTP.Enabled == false, "Generate OTP button is enabled"); //disabled
+
+                objLogger.LogMessage("test case passed successfully");
+            }
+            catch(Exception ex)
+            {
+                objLogger.LogMessage(ex.Message);
+            }
         }
         [Test]
         public void VerifyValidPANNumber()
