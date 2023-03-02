@@ -286,7 +286,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyStudname()
         {
-            clsStud objStud = new clsStud();
+            clsStudNew objStud = new clsStudNew();
             objStud.DisplaySname();
         }
         [Test]
