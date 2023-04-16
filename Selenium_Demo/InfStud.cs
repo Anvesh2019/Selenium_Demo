@@ -6,9 +6,10 @@ namespace Selenium_Demo
 {
     public interface InfStud
     {
-        public void getStudBySno();
-        public void getStudBySname();
-        public void getAllStudDetails();
+        
+        void getStudBySno();
+        void getStudBySname();
+        void getAllStudDetails();
             public void GetCollegename()
             {
                 Console.WriteLine("VRSEC");
