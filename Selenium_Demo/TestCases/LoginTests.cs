@@ -43,6 +43,11 @@ namespace Selenium_Demo
             
             _axisPage.NavigatetoAxisMF();
         }
+        [Test]
+        public void Avilash_test()
+        {
+
+        }
 
         [Test]
         public void OpenMySite()
