@@ -25,6 +25,13 @@ namespace Selenium_Demo
             dr.FindElement(By.Name("q")).SendKeys("India");
             dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
         }
+        [Test]
+        public void GetTitle()
+        {
+            dr.Navigate().GoToUrl("https://google.com");
+            string strTitle = dr.Title;
+            Console.WriteLine("Title is:" + strTitle);
+        }
 
         [Test]
         public void VerifyStudname()
