@@ -82,7 +82,7 @@ namespace Selenium_Demo
         {
             try
             {
-                  objLogger.LogMessage("Started executing VerifyInvalidPANNumber");
+                objLogger.LogMessage("VerifyInvalidPANNumber Started executing");
 
                 dr.Navigate().GoToUrl("http://axismf.com");
                 dr.Manage().Window.Maximize();
@@ -106,7 +106,7 @@ namespace Selenium_Demo
                 IWebElement btnOTP = dr.FindElement(By.Id("btn-1"));
                 Assert.IsTrue(btnOTP.Enabled == false, "Generate OTP button is enabled"); //disabled
 
-                objLogger.LogMessage("test case passed successfully");
+                objLogger.LogMessage("VerifyInvalidPANNumber passed successfully");
             }
             catch(Exception ex)
             {
@@ -308,9 +308,48 @@ namespace Selenium_Demo
         }
 
         [Test]
+        public void VerifyImplicitWait()
+        {
+            //dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            String eTitle = "Demo Guru99 Page";
+            String aTitle = "";
+            // launch Chrome and redirect it to the Base URL
+            dr.Navigate().GoToUrl("http://demo.guru99.com/test/guru99home/");
+            //Maximizes the browser window
+            dr.Manage().Window.Maximize();
+            //get the actual value of the title
+            aTitle = dr.Title;
+            //compare the actual title with the expected title
+            if (aTitle.Contains(eTitle))
+            {
+                Console.WriteLine("Test Passed");
+                dr.Close();
+                Assert.Pass();
+            }
+            else
+            {
+                Console.WriteLine("Test Failed");
+                Assert.Fail();
+            }
+            //close browser
+           
+        }
+
+        [Test]
+        public void VerifyFileUplaod()
+        {
+            dr.Navigate().GoToUrl("https://www.naukri.com/registration/createAccount?othersrcp=11499&wExp=N");
+            string filePath = @"C:\Anand_Details\CSharp_Sessions.docx";
+            dr.FindElement(By.XPath("//input[@type='file']")).SendKeys(filePath);
+        }
+        [Test]
        
         public void VerifyPanNumberErrormsg()
         {
+          
+
+            //dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
             dr.Navigate().GoToUrl("https://www.axismf.com");
             dr.FindElement(By.XPath("(//ion-button[@id='origin'])[2]")).Click(); //click on Login button
             //Thread.Sleep(5000);
@@ -323,7 +362,7 @@ namespace Selenium_Demo
             elementPan.SendKeys("India"); //enter india in PAn number
             
             IWebElement panError = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             //Assert.IsTrue(panError.Displayed == true, "Error message is not displayed");
             Assert.IsTrue(panError.Size != Size.Empty,"validation error is not displayed for PAN"); //Error is displayed
 

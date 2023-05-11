@@ -6,6 +6,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Firefox;
 using NUnit.Framework;
+using OpenQA.Selenium.Edge;
 
 namespace Selenium_Demo
 {
@@ -21,6 +22,10 @@ namespace Selenium_Demo
             if (browser == "firefox")
             {
                 dr = new FirefoxDriver();
+            }
+            else if(browser=="edge")
+            {
+                dr = new EdgeDriver(@"C:\Users\v-anandag\Desktop");
             }
             //Check if parameter passed as 'chrome'
             else if (browser == "chrome")

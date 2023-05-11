@@ -8,6 +8,7 @@ namespace Selenium_Demo
     public class clsMyLogger
     {
         string path = @"C:\Logs\Mylogs.txt";
+        public static bool logsEnabled = false;
         public void LogMessage(string logMsg)
         {
             StreamWriter sw;
@@ -27,8 +28,11 @@ namespace Selenium_Demo
         }
         private static void LogWrite(string logMessage, StreamWriter w)
         {
-            w.WriteLine("{0}", logMessage);
-            w.WriteLine("----------------------------------------");
+            if (logsEnabled==true)
+            {
+                w.WriteLine("{0}", logMessage);
+                w.WriteLine("----------------------------------------");
+            }
         }
     }
 }

@@ -1,12 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Interactions;
-using System.Drawing;
 using System.Threading;
+using OpenQA.Selenium.Support.UI;
+using System.Drawing;
+using System.Collections;
+//using Dotnetselenium
+using System.IO;
+using System.Collections.Generic;
+using OpenQA.Selenium.Interactions;
+using System.Collections;
+using log4net;
 namespace Selenium_Demo.TestCases
 {
     public class InteractWithElements
