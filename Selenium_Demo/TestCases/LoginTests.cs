@@ -290,6 +290,11 @@ namespace Selenium_Demo
             //objStud.DisplaySname();
         }
         [Test]
+        public void Sampletestcase()
+        {
+            Console.WriteLine("Sample test case");
+        }
+        [Test]
         [TestCase("India")]
         [TestCase("Daton")]
         [TestCase("Cleveland")]
