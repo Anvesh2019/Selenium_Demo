@@ -10,30 +10,45 @@ using System.Collections;
 using System.IO;
 using System.Collections.Generic;
 using OpenQA.Selenium.Interactions;
-using System.Collections;
 using log4net;
+using Selenium_Demo_Abstract;
+using Selenium_Demo.Pages;
 
 namespace Selenium_Demo
 {
     public class LoginTests
     {
+        
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         clsMyLogger objLogger = new clsMyLogger();
 
         public IWebDriver dr;
+        AxisMfPage _axisPage;
         [SetUp]
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
             dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
-
+            objLogger.logsEnabled = true;
+            _axisPage = new AxisMfPage(dr);
         }
         [Test]
         public void testCase1()
         {
             Console.WriteLine("I am test case1");
         }
-        
+        [Test]
+        public void VerifyLoginOptions()
+        {
+            
+            _axisPage.NavigatetoAxisMF();
+        }
+        [Test]
+        public void Avilash_test()
+        {
+
+        }
+
         [Test]
         public void OpenMySite()
         {
@@ -286,9 +301,48 @@ namespace Selenium_Demo
         [Test]
         public void VerifyStudname()
         {
+
             clsStudNew objStud = new clsStudNew();
             //objStud.DisplaySname();
+            //clsStudNew objStud = new clsStudNew();
+            //objStud.DisplaySname();
+            //clsStud objStud = new clsStud();
+            //objStud.sname = "prashanthi";
+            //objStud.courseName = "Restsharp";
+            //Console.WriteLine(clsStud.city); //
+
+            //clsStud objStud2 = new clsStud();
+            //objStud2.sname = "Anand";
+            //objStud2.courseName = "Selenium";
+            
+            //objStud2.DisplaySname("Anvesh");
+
+            //clsDept objDept = new clsDept();
+            //objDept.DisplaySname();
+            //objStud2.DisplaySname();
+
+            //Parent parent = new Child(); //Assigning child object to parent ref. variable  
+            //Child child = (Child)parent; //Down cast parent ref. variable to child.  
+            //child.sleep(); //Calling child class sleep method and it will work fine.  
+
+            //clsStud objStud3 = new clsDept();
+            //clsDept objDept3 = (clsDept)objStud3;
+            //objDept3.DisplaySname();
+
+            clsDept objDept4 = new clsDept();
+            clsStud objStud4 = objDept4;
+            objStud4.DisplaySname();
+
         }
+        [Test]
+        public void InvokeAbstractMethod()
+        {
+            //clsAbstractDept objDept = new clsAbstractDept();
+            ClsDeptDetails objDeptdetails = new ClsDeptDetails();
+            objDeptdetails.DisplayDeptAddr();
+            objDeptdetails.DisplayDeptAddr("Anand"); //normal method
+        }
+
         [Test]
         public void Sampletestcase()
         {
@@ -378,20 +432,28 @@ namespace Selenium_Demo
             try
             {
                 int x = 10;
-                int y = 5;
-                Console.WriteLine("Z is:" + x / y);
-
+                int y = 0;
+                //Console.WriteLine("Z is:" + x / y);
+                int[] nums = new int[2] {10,20 };
+                Console.WriteLine(nums[5]);
             }
-           
-            catch(DivideByZeroException dbyzex)
+            catch (IndexOutOfRangeException dbyzex)
             {
+                Console.WriteLine(dbyzex.Message);
                 Console.WriteLine(dbyzex.StackTrace);
             }
+            catch (DivideByZeroException dbyzex)
+            {
+                Console.WriteLine(dbyzex.Message);
+                Console.WriteLine(dbyzex.StackTrace);
+            }
+
             catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
             }
 
+            
         }
         [Test]
 
