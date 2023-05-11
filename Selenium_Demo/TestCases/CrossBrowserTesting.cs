@@ -14,7 +14,7 @@ namespace Selenium_Demo
     public class CrossBrowserTesting: TestBase
     {
 
-        public IWebDriver dr;
+        //public IWebDriver dr;
         
         [SetUp]
         public void setup()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NUnit.Framework;
 
 namespace Selenium_Demo
 {
@@ -13,6 +14,12 @@ namespace Selenium_Demo
         public string GetCarModel()
         {
             return "Brezza";
+        }
+
+        public int AddNumbers(int x, int y)
+        {
+            int result = x + y;
+            return result;
         }
         public string GetCarModel(int year)
         {
@@ -37,6 +44,12 @@ namespace Selenium_Demo
         {
             return "VRSEC";
         }
+
+        [Test]
+        public void VerifyAddNumbers()
+        {
+            Console.WriteLine(AddNumbers(20,250));
+        }
     }
 
     public class clsBMW: clsCar
@@ -52,6 +65,6 @@ namespace Selenium_Demo
             return "Delhi";
         }
     }
-
+    
     
 }

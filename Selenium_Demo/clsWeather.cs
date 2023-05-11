@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Selenium_Demo
 {
-    public abstract class clsWeather
+    public abstract class clsWeather1
     {
         public abstract void displayWeatherByCity();
         public void DisplayCountry()
@@ -15,7 +15,7 @@ namespace Selenium_Demo
        
     }
 
-    public class clsNormalWeather: clsWeather
+    public class clsNormalWeather: clsWeather1
     {
         public override void displayWeatherByCity()
         {
