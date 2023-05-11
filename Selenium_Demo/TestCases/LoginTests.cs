@@ -97,7 +97,7 @@ namespace Selenium_Demo
         {
             try
             {
-                  objLogger.LogMessage("Started executing VerifyInvalidPANNumber");
+                objLogger.LogMessage("VerifyInvalidPANNumber Started executing");
 
                 dr.Navigate().GoToUrl("http://axismf.com");
                 dr.Manage().Window.Maximize();
@@ -121,7 +121,7 @@ namespace Selenium_Demo
                 IWebElement btnOTP = dr.FindElement(By.Id("btn-1"));
                 Assert.IsTrue(btnOTP.Enabled == false, "Generate OTP button is enabled"); //disabled
 
-                objLogger.LogMessage("test case passed successfully");
+                objLogger.LogMessage("VerifyInvalidPANNumber passed successfully");
             }
             catch(Exception ex)
             {
@@ -301,6 +301,9 @@ namespace Selenium_Demo
         [Test]
         public void VerifyStudname()
         {
+
+            clsStudNew objStud = new clsStudNew();
+            //objStud.DisplaySname();
             //clsStudNew objStud = new clsStudNew();
             //objStud.DisplaySname();
             //clsStud objStud = new clsStud();
@@ -330,7 +333,6 @@ namespace Selenium_Demo
             clsStud objStud4 = objDept4;
             objStud4.DisplaySname();
 
-           
         }
         [Test]
         public void InvokeAbstractMethod()
@@ -360,9 +362,48 @@ namespace Selenium_Demo
         }
 
         [Test]
+        public void VerifyImplicitWait()
+        {
+            //dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            String eTitle = "Demo Guru99 Page";
+            String aTitle = "";
+            // launch Chrome and redirect it to the Base URL
+            dr.Navigate().GoToUrl("http://demo.guru99.com/test/guru99home/");
+            //Maximizes the browser window
+            dr.Manage().Window.Maximize();
+            //get the actual value of the title
+            aTitle = dr.Title;
+            //compare the actual title with the expected title
+            if (aTitle.Contains(eTitle))
+            {
+                Console.WriteLine("Test Passed");
+                dr.Close();
+                Assert.Pass();
+            }
+            else
+            {
+                Console.WriteLine("Test Failed");
+                Assert.Fail();
+            }
+            //close browser
+           
+        }
+
+        [Test]
+        public void VerifyFileUplaod()
+        {
+            dr.Navigate().GoToUrl("https://www.naukri.com/registration/createAccount?othersrcp=11499&wExp=N");
+            string filePath = @"C:\Anand_Details\CSharp_Sessions.docx";
+            dr.FindElement(By.XPath("//input[@type='file']")).SendKeys(filePath);
+        }
+        [Test]
        
         public void VerifyPanNumberErrormsg()
         {
+          
+
+            //dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
             dr.Navigate().GoToUrl("https://www.axismf.com");
             dr.FindElement(By.XPath("(//ion-button[@id='origin'])[2]")).Click(); //click on Login button
             //Thread.Sleep(5000);
@@ -375,7 +416,7 @@ namespace Selenium_Demo
             elementPan.SendKeys("India"); //enter india in PAn number
             
             IWebElement panError = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             //Assert.IsTrue(panError.Displayed == true, "Error message is not displayed");
             Assert.IsTrue(panError.Size != Size.Empty,"validation error is not displayed for PAN"); //Error is displayed
 
@@ -477,47 +518,6 @@ namespace Selenium_Demo
             dr.SwitchTo().Window(windowhandleParent); //return to parent window
             Console.WriteLine(dr.Title); //get the parent window title and print
         }
-        [Test]
-        public void MovetoElementAndClick()
-        {
-            dr.Navigate().GoToUrl("https://www.browserstack.com/");
-            Actions action = new Actions(dr);
-            IWebElement element = dr.FindElement(By.XPath("//a[@id='signupModalButton']"));
-            action.MoveToElement(element).Click().Build().Perform();
-            string expectedURL = "https://www.browserstack.com/users/sign_up";
-            string actualURL = dr.Url;
-            Assert.AreEqual(expectedURL, actualURL,"User is not navigated to signup page");
-        }
-        [Test]
-        public void RightClickonElement()
-        {
-            dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
-            Actions action = new Actions(dr);
-            IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
-            action.ContextClick(element).Build().Perform();
-            
-        }
-        [Test]
-        public void DragnDropElement()
-        {
-            dr.Navigate().GoToUrl("http://demo.guru99.com/test/drag_drop.html");
-
-            //Element which needs to drag.    		
-            IWebElement From = dr.FindElement(By.XPath("//*[@id='credit2']/a"));
-
-            //Element on which need to drop.		
-            IWebElement To = dr.FindElement(By.XPath("//*[@id='bank']/li"));
-
-            //Using Action class for drag and drop.		
-            Actions act = new Actions(dr);
-
-            //Dragged and dropped.		
-            act.DragAndDrop(From, To).Build().Perform();
-            Thread.Sleep(2000);
-
-            IWebElement debtMovement = dr.FindElement(By.XPath("//td[normalize-space(text())='Debit Movement']"));
-            Assert.IsTrue(debtMovement.Size!=Size.Empty,"Debit movement is not displayed");
-        }
 
         [Test]
         public void HandleMultipleWindows()
@@ -608,71 +608,6 @@ namespace Selenium_Demo
 
             dr.FindElement(By.XPath("(//span[@jsname='V67aGc'])[2]")).Click();
 
-        }
-
-        [Test]
-        public void InteractWithCheckBoxAndRadio()
-        {
-            dr.Navigate().GoToUrl("https://www.ironspider.ca/forms/checkradio.htm");
-            IWebElement chkBlue = dr.FindElement(By.XPath("//input[@value='red']"));
-            //Console.WriteLine("blue color is selected:" + chkBlue.Selected);
-            if (chkBlue.Selected == false)
-            {
-                chkBlue.Click(); //select
-            }
-            IWebElement radioOpera = dr.FindElement(By.XPath("(//input[@type='radio'])[3]"));
-            Console.WriteLine("Opera is selected1:" + radioOpera.Selected);
-            if (radioOpera.Selected == false)
-            {
-                radioOpera.Click();
-            }
-            Console.WriteLine("Opera is selected2:" + radioOpera.Selected);
-
-
-        }
-        [Test]
-        public void HandlingSelectBox()
-        {
-            dr.Navigate().GoToUrl("https://demo.guru99.com/test/newtours/register.php");
-            IWebElement ddCountry = dr.FindElement(By.Name("country"));
-            //ddCountry.SendKeys("HYDERABAD");
-            //SelectElement objSelect = new SelectElement(dr.FindElement(By.Name("country")));
-            SelectElement objSelect = new SelectElement(ddCountry);
-
-            objSelect.SelectByIndex(2);
-            objSelect.SelectByText("INDIA");
-            objSelect.SelectByValue("CHINA");
-            Console.WriteLine("Multiple values allowed:" + objSelect.IsMultiple);
-
-            int optCount = objSelect.Options.Count;
-            Console.WriteLine("options count is:" + optCount);
-
-            //objSelect.DeselectByValue("CHINA");
-            
-        }
-        [Test]
-        public void InteractWithListbox()
-        {
-            dr.Navigate().GoToUrl("https://output.jsbin.com/osebed/2");
-            IWebElement fruitsLB = dr.FindElement(By.XPath("//select[@id='fruits']"));
-            SelectElement objSelect = new SelectElement(fruitsLB);
-            
-            Console.WriteLine("Multi select allowed:" + objSelect.IsMultiple);
-            objSelect.SelectByValue("apple");
-            objSelect.SelectByText("Grape");
-            Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
-            objSelect.DeselectByText("Apple");
-            Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
-
-        }
-        [Test]
-        public void test1()
-        {
-
-        }
-        [Test]
-        public void test3_anveshbranch()
-        {
         }
 
         public void DisplayName(string sname)

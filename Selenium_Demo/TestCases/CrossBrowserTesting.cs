@@ -7,6 +7,7 @@ using OpenQA.Selenium.Chrome;
 using System.Threading;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using System.Configuration;
 
 namespace Selenium_Demo
 {
@@ -23,8 +24,17 @@ namespace Selenium_Demo
         }
 
         [Test]
+        public void getBrowserType()
+        {
+
+               string BrowserType = ConfigurationManager.AppSettings.Get("BrowserType");
+            Console.WriteLine("Browser type is:" + BrowserType);
+            
+        }
+        [Test]
         public void VerifyCrossBrowserTesting()
         {
+
             TestBase objBase = new TestBase();
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
