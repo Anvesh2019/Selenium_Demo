@@ -223,7 +223,11 @@ namespace Selenium_Demo
             Console.WriteLine(clsCar.GetCollegename());
             
         }
-
+        [Test]
+        public void Sampletestcase3()
+        {
+            Console.WriteLine("Sample test case3");
+        }
 
         [Test]
         public void VerifySearch()
