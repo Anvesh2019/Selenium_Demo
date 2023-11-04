@@ -18,7 +18,7 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
+            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
             _objGooglePage = new GooglePage(dr);
             objCommon = new clsCommon(dr);
         }
