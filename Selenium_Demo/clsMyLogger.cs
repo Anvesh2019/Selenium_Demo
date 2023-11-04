@@ -10,7 +10,7 @@ namespace Selenium_Demo
         string path = @"C:\Logs\Mylogs.txt";
 
         public static bool logsEnabled = false;
-        public bool logsEnabled = false;
+       // public bool logsEnabled = false;
         public void LogMessage(string logMsg)
         {
             StreamWriter sw;
