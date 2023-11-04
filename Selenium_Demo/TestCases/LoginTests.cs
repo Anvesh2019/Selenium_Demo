@@ -29,7 +29,7 @@ namespace Selenium_Demo
         {
             Console.WriteLine("I am from setup method");
             dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
-            objLogger.logsEnabled = true;
+            clsMyLogger.logsEnabled = true;
             _axisPage = new AxisMfPage(dr);
         }
         [Test]
