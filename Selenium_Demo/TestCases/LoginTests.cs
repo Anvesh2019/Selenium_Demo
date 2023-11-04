@@ -13,6 +13,8 @@ using OpenQA.Selenium.Interactions;
 using log4net;
 using Selenium_Demo_Abstract;
 using Selenium_Demo.Pages;
+using Selenium_Demo.Common;
+using SeleniumExtras.WaitHelpers;
 
 namespace Selenium_Demo
 {
@@ -28,12 +30,12 @@ namespace Selenium_Demo
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
-            objLogger.logsEnabled = true;
+            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
+            //objLogger.logsEnabled = true;
             _axisPage = new AxisMfPage(dr);
         }
         [Test]
-        public void testCase1()
+        public void OpenGoogleSite()
         {
             Console.WriteLine("I am test case1");
         }
@@ -95,26 +97,32 @@ namespace Selenium_Demo
         [Test]
         public void VerifyInvalidPANNumber()
         {
-            try
-            {
-                objLogger.LogMessage("VerifyInvalidPANNumber Started executing");
+            //try
+            //{
+            //    objLogger.LogMessage("VerifyInvalidPANNumber Started executing");
 
-                dr.Navigate().GoToUrl("http://axismf.com");
+                dr.Navigate().GoToUrl("https://axismf.com");
                 dr.Manage().Window.Maximize();
                 log.Info("Home page loaded");
                 dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
-                Thread.Sleep(3000);
-                dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")).SendKeys("1234");
+                //Thread.Sleep(3000);
+                WebDriverWait _wait = new WebDriverWait(dr,TimeSpan.FromSeconds(10));
+                IWebElement txtPannumber= _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")));
+                txtPannumber.SendKeys("1234");
+                 //dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")).SendKeys("1234");
 
                 objLogger.LogMessage("Entered invalid PAN numbver");
 
                 Thread.Sleep(3000);
-                //dr.Close();
-                //IWebElement errMsg = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
-                //Assert.IsTrue(errMsg.Size!=Size.Empty);
+            //dr.Close();
+            //IWebElement errMsg = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
+            //Assert.IsTrue(errMsg.Size!=Size.Empty);
 
-                IReadOnlyCollection<IWebElement> listerrMsg = dr.FindElements(By.XPath("//div[text()='Please enter a correct PAN']"));
-                Assert.IsTrue(listerrMsg.Count == 1); // displayed
+            WebDriverWait _wait1 = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Please enter a correct PAN']")));
+
+            //IReadOnlyCollection<IWebElement> listerrMsg = dr.FindElements(By.XPath("//div[text()='Please enter a correct PAN']"));
+                Assert.IsTrue(labelError.Displayed == true); // displayed
 
                 objLogger.LogMessage("Verified PAN error message ");
 
@@ -122,11 +130,38 @@ namespace Selenium_Demo
                 Assert.IsTrue(btnOTP.Enabled == false, "Generate OTP button is enabled"); //disabled
 
                 objLogger.LogMessage("VerifyInvalidPANNumber passed successfully");
-            }
-            catch(Exception ex)
+            //}
+            //catch(Exception ex)
+            //{
+            //    objLogger.LogMessage(ex.Message);
+            //}
+        }
+        [Test]
+        public void SearchIndia()
+        {
+            dr.Navigate().GoToUrl("https://google.com");
+            Thread.Sleep(2000);
+            dr.FindElement(By.Name("q")).SendKeys("Beeramguda");
+            dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
+        }
+        [Test]
+        public void GetUsername()
+        {
+
+            //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            string userName = "v-anandag";
+            string path = "";
+            string[] arrUsername = userName.Split('\\');
+            if(arrUsername.Length>1)
             {
-                objLogger.LogMessage(ex.Message);
+                path = @"C:\\Users\\" + arrUsername[1] + "\\Downloads\\" + "data.json";
             }
+            else
+            {
+                path = @"C:\\Users\\" + userName + "\\Downloads\\" + "data.json";
+            }
+             
+            Console.WriteLine(path);
         }
         [Test]
         public void VerifyValidPANNumber()
@@ -451,6 +486,23 @@ namespace Selenium_Demo
             
         }
         [Test]
+        public void Devide2Numbers()
+        {
+            try
+            {
+                int x = 10;
+                int y = 0;
+                int z = x / y;
+                Console.WriteLine("z value is:" + z);
+
+            }
+
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        [Test]
 
         public void Getscreenshot()
         {
@@ -467,11 +519,19 @@ namespace Selenium_Demo
                 Assert.IsTrue(panError.Size != Size.Empty, "validation error is not displayed for PAN"); //Error is displayed
 
             }
-            catch(ElementClickInterceptedException clickex)
+            catch (ElementClickInterceptedException clickex)
             {
                 Console.WriteLine(clickex.Message);
+              
+                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                Screenshot screenshot = screenshotDriver.GetScreenshot();
+                // Creating UIScreenshot folder if not exists
+                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+
             }
-            catch(NoSuchElementException nosuchex)
+            catch (NoSuchElementException nosuchex)
             {
                 Console.WriteLine(nosuchex.Message);
                 ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
@@ -483,7 +543,7 @@ namespace Selenium_Demo
 
                 screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
             }
-            catch(NoSuchWindowException ex)
+            catch (NoSuchWindowException ex)
             {
                 ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
                 Screenshot screenshot = screenshotDriver.GetScreenshot();
@@ -494,7 +554,11 @@ namespace Selenium_Demo
 
                 screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
         [Test]

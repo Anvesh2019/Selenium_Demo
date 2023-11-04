@@ -24,15 +24,27 @@ namespace Selenium_Demo.TestCases
             dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
 
         }
+       
+        [Test]
+        public void InteractWithtextbox()
+        {
+            dr.Navigate().GoToUrl("http://google.com");
+            dr.FindElement(By.Name("q")).SendKeys("India");
+            dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
+            IWebElement txtSrch2 = dr.FindElement(By.Name("q"));
+            Console.WriteLine(txtSrch2.GetAttribute("value"));
+            Assert.IsTrue(txtSrch2.GetAttribute("value")=="India", "Search keyword not matching");
+            Assert.IsTrue(txtSrch2.GetAttribute("maxlength") == "2048", "maxlength not matching");
+        }
         [Test]
         public void InteractWithCheckBoxAndRadio()
         {
             dr.Navigate().GoToUrl("https://www.ironspider.ca/forms/checkradio.htm");
-            IWebElement chkBlue = dr.FindElement(By.XPath("//input[@value='red']"));
-            //Console.WriteLine("blue color is selected:" + chkBlue.Selected);
-            if (chkBlue.Selected == false)
+            IWebElement chkRed = dr.FindElement(By.XPath("//input[@value='red']"));
+            //Console.WriteLine("blue color is selected:" + chkRed.Selected);
+            if (chkRed.Selected == false)
             {
-                chkBlue.Click(); //select
+                chkRed.Click(); //select
             }
             IWebElement radioOpera = dr.FindElement(By.XPath("(//input[@type='radio'])[3]"));
             Console.WriteLine("Opera is selected1:" + radioOpera.Selected);

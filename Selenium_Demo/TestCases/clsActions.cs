@@ -48,20 +48,33 @@ namespace Selenium_Demo.TestCases
         public void RightClickonElement()
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
+            dr.Manage().Window.Maximize();
             Actions action = new Actions(dr);
             IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
             action.ContextClick(element).Build().Perform();
 
         }
         [Test]
+        public void DoubleClickonElement()
+        {
+            dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
+            dr.Manage().Window.Maximize();
+            Actions action = new Actions(dr);
+            IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
+            action.DoubleClick(element).Build().Perform();
+
+        }
+        [Test]
         public void KeyDownonElement()
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
+            dr.Manage().Window.Maximize();
             Actions action = new Actions(dr);
             IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
             action.KeyDown(element, Keys.Enter).Build().Perform();
-
-
+            string actualURL = dr.Url;
+            Assert.IsTrue(actualURL.Contains("tutorials-library"),"Not reached to Tutorial library page");
+            dr.Close();
         }
         [Test]
         public void VerifyPrivacyNote()
@@ -85,10 +98,10 @@ namespace Selenium_Demo.TestCases
             IWebElement To = dr.FindElement(By.XPath("//*[@id='bank']/li"));
 
             //Using Action class for drag and drop.		
-            Actions act = new Actions(dr);
+            Actions action = new Actions(dr);
 
             //Dragged and dropped.		
-            act.DragAndDrop(From, To).Build().Perform();
+            action.DragAndDrop(From, To).Build().Perform();
             Thread.Sleep(2000);
 
             IWebElement debtMovement = dr.FindElement(By.XPath("//td[normalize-space(text())='Debit Movement']"));
