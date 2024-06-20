@@ -14,5 +14,8 @@ namespace Selenium_Demo.Pages
         }
 
         public IWebElement txtSearch => dr.FindElement(By.Name("q"));
+        public IWebElement linkGmail => dr.FindElement(By.XPath("//a[text()='Gmail']"));
+        public IWebElement linkImages => dr.FindElement(By.XPath("//a[text()='Images']"));
+
     }
 }

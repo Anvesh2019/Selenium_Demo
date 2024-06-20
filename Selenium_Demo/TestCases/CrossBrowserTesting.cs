@@ -4,6 +4,7 @@ using System.Text;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.IE;
 using System.Threading;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
@@ -13,7 +14,7 @@ namespace Selenium_Demo
 {
     public class CrossBrowserTesting: TestBase
     {
-
+       
         //public IWebDriver dr;
         
         [SetUp]

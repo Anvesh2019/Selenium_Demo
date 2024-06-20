@@ -15,29 +15,116 @@ using Selenium_Demo_Abstract;
 using Selenium_Demo.Pages;
 using Selenium_Demo.Common;
 using SeleniumExtras.WaitHelpers;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
+using System.Runtime.Intrinsics.X86;
+
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using System.Reflection;
+using NUnit.Framework.Interfaces;
+using Selenium_Demo.TestCases;
+
+
+
 
 namespace Selenium_Demo
 {
     public class LoginTests
     {
-        
+        public static ExtentReports extent;
+        public static ExtentTest testlog;
+        public clsCommon _common;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         clsMyLogger objLogger = new clsMyLogger();
-
+        
         public IWebDriver dr;
         AxisMfPage _axisPage;
+        [OneTimeSetUp]
+        public void StartReport()
+        {
+            string path = Assembly.GetCallingAssembly().CodeBase;
+            string actualPath = path.Substring(0, path.LastIndexOf("bin"));
+            string projectPath = new Uri(actualPath).LocalPath;
+
+            string reportPath = projectPath + "Reports\\";
+
+            System.IO.Directory.CreateDirectory(reportPath);
+            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
+            extent = new ExtentReports();
+            extent.AttachReporter(htmlReporter);
+
+            extent.AddSystemInfo("Environment", "QA");
+            extent.AddSystemInfo("Tester", Environment.UserName);
+            extent.AddSystemInfo("MachineName", Environment.MachineName);
+
+        }
         [SetUp]
         public void Setup()
         {
+            StartExtentTest(TestContext.CurrentContext.Test.Name);
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
+            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            //dr = new ChromeDriver();
+
             //objLogger.logsEnabled = true;
-            _axisPage = new AxisMfPage(dr);
+            //_axisPage = new AxisMfPage(dr);
+            _common = new clsCommon(dr);
+        }
+       
+        public static void StartExtentTest(string testsToStart)
+        {
+            testlog = extent.CreateTest(testsToStart);
         }
         [Test]
         public void OpenGoogleSite()
         {
-            Console.WriteLine("I am test case1");
+            dr.Navigate().GoToUrl("https://google.com"); //opening google site
+            //dr.FindElement(By.Name("q")).SendKeys("India"); //entering india
+            //dr.FindElement(By.Name("q")).SendKeys(Keys.Enter); //pressing enter button
+
+            dr.FindElement(By.XPath("//textarea[@name='q']")).SendKeys("India"); //entering india
+            dr.FindElement(By.XPath("//textarea[@name='q']")).SendKeys(Keys.Enter);
+            Console.WriteLine(dr.Url);
+        }
+        [Test]
+        public void LearnLinkText()
+        {
+            dr.Navigate().GoToUrl("https://google.com"); //opening google site
+            //dr.FindElement(By.LinkText("Gmail")).Click();
+            dr.FindElement(By.XPath("//a[@aria-label='Gmail ']")).Click();
+            string currentURL = dr.Url;
+            Assert.IsTrue(currentURL.Contains("gmail")==true,"Not loaded gmail site");
+        
+        }
+        [Test]
+        public void LearnPartialLinkText()
+        {
+            dr.Navigate().GoToUrl("https://techtutorialz.com"); //opening google site
+            Thread.Sleep(3000);
+            dr.FindElement(By.PartialLinkText("DEMO")).Click();
+            string currentURL = dr.Url;
+            Assert.IsTrue(currentURL.Contains("https://techtutorialz.com/contact/") == true, "Not loaded contact page");
+        }
+        [Test]
+        public void OpenGoogleSite1()
+        {
+            _common.NavigateToApp("https://google.com");
+            IWebElement txtSrch = dr.FindElement(By.Name("q"));
+            //_common.EnterText("q", "India");
+            //_common.EnterText("q", Keys.Enter);
+            _common.EnterText(txtSrch, "India");
+            _common.EnterText(txtSrch, Keys.Enter);
+
+            Console.WriteLine(dr.Url);
+        }
+        [Test]
+        public void OpenAmazonCupons()
+        {
+            dr.Navigate().GoToUrl("https://www.amazon.in/");
+            //opening google site
+            dr.FindElement(By.LinkText("Mobiles")).Click(); //entering india
+            dr.FindElement(By.PartialLinkText("miniTV")).Click();
+            Console.WriteLine(dr.Url);
         }
         [Test]
         public void VerifyLoginOptions()
@@ -46,14 +133,28 @@ namespace Selenium_Demo
             _axisPage.NavigatetoAxisMF();
         }
         [Test]
-        public void Avilash_test()
+        public void CheckExtensionMethods()
         {
-
+            int x = 300;
+            bool check= x.IsGreaterThan(100);
+            Console.WriteLine(check);   
         }
-
+        [Test]
+        public void CheckStringExtensionMethod()
+        {
+            string city = "hyderabad";
+            string finalCity = city.ToUpperExtension();
+            Console.WriteLine(finalCity);
+        }
+        [Test]
+        public void testcase1()
+        {
+            //sample code
+        }
         [Test]
         public void OpenMySite()
         {
+          
             
             dr.Navigate().GoToUrl("http://google.com");
             dr.Manage().Window.Maximize();
@@ -72,14 +173,30 @@ namespace Selenium_Demo
             //dr.FindElement(By.XPath("//a[text()='Gmail']")).Click();
         }
         [Test]
+        public void LearnFluentWait()
+        {
+            DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(dr);
+            /* Setting the timeout in seconds */
+            fluentWait.Timeout = TimeSpan.FromSeconds(5);
+            fluentWait.PollingInterval = TimeSpan.FromMilliseconds(2);
+            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            fluentWait.Message = "Element to be searched not found";
+
+            dr.Url = "https://google.com";
+            dr.FindElement(By.Name("q")).SendKeys("LambdaTest" + Keys.Enter);
+
+        }
+
+        [Test]
         public void NavigateToAdbTutorial()
         {
+            
             dr.Navigate().GoToUrl("http://techtutorialz.com");
             dr.Manage().Window.Maximize();
             dr.FindElement(By.XPath("//a[@title='Tutorials']")).Click();
             Thread.Sleep(2000);
             dr.FindElement(By.XPath("//a[@title='ADB Tutorial']")).Click();
-            ////a[@title='ADB Tutorial']
+            
         }
 
         [Test]
@@ -95,6 +212,18 @@ namespace Selenium_Demo
             }
         }
         [Test]
+        public void LearnAutoIt()
+        {
+            AutoItX3Lib.AutoItX3 autoit = new AutoItX3Lib.AutoItX3();
+            autoit.Run("C:\\Anand_Details\\OpenFile.exe");
+            
+            //Autoit Code
+            //WinWaitActive("Open");
+            //ControlSend("Open", "", "Edit1", "C:\Anand_Details\Banners\Banner_15.png");
+            //ControlClick("Open", "&Open", "Button1");
+        }
+
+        [Test]
         public void VerifyInvalidPANNumber()
         {
             //try
@@ -105,13 +234,14 @@ namespace Selenium_Demo
                 dr.Manage().Window.Maximize();
                 log.Info("Home page loaded");
                 dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
-                //Thread.Sleep(3000);
-                WebDriverWait _wait = new WebDriverWait(dr,TimeSpan.FromSeconds(10));
-                IWebElement txtPannumber= _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")));
-                txtPannumber.SendKeys("1234");
-                 //dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")).SendKeys("1234");
-
-                objLogger.LogMessage("Entered invalid PAN numbver");
+                //Implicit wait
+                dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            //Explicit Wait
+               WebDriverWait _wait = new WebDriverWait(dr,TimeSpan.FromSeconds(10));
+               IWebElement txtPannumber= _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")));
+               //IWebElement txtPannumber = dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]"));
+               txtPannumber.SendKeys("1234");
+               objLogger.LogMessage("Entered invalid PAN numbver");
 
                 Thread.Sleep(3000);
             //dr.Close();
@@ -122,7 +252,7 @@ namespace Selenium_Demo
             IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Please enter a correct PAN']")));
 
             //IReadOnlyCollection<IWebElement> listerrMsg = dr.FindElements(By.XPath("//div[text()='Please enter a correct PAN']"));
-                Assert.IsTrue(labelError.Displayed == true); // displayed
+                Assert.IsTrue(labelError.Displayed == true, "Error is not displayed"); // displayed
 
                 objLogger.LogMessage("Verified PAN error message ");
 
@@ -137,6 +267,15 @@ namespace Selenium_Demo
             //}
         }
         [Test]
+        public void LearnJavascriptExecuter()
+        {
+            dr.Navigate().GoToUrl("https://www.google.com/");
+            IJavaScriptExecutor je = (IJavaScriptExecutor)dr;
+            //je.ExecuteScript("alert(document.title);");
+            je.ExecuteScript("document.getElementByName('q').setAttribute('value', 'India')");
+        }
+
+        [Test]
         public void SearchIndia()
         {
             dr.Navigate().GoToUrl("https://google.com");
@@ -149,7 +288,7 @@ namespace Selenium_Demo
         {
 
             //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            string userName = "v-anandag";
+            string userName = "Anand.Gummadilli";
             string path = "";
             string[] arrUsername = userName.Split('\\');
             if(arrUsername.Length>1)
@@ -250,7 +389,7 @@ namespace Selenium_Demo
         public void VerifyCardetails()
         {
             OpenMySite();
-             clsBMW objBmw = new clsBMW();
+             clsBMW1 objBmw = new clsBMW1();
             string carname = objBmw.GetCarName();
             Console.WriteLine("Car name is:" + carname);
             Console.WriteLine("Car model is:" + objBmw.GetCarModel(2022));
@@ -338,6 +477,7 @@ namespace Selenium_Demo
         {
 
             clsStudNew objStud = new clsStudNew();
+           
             //objStud.DisplaySname();
             //clsStudNew objStud = new clsStudNew();
             //objStud.DisplaySname();
@@ -349,7 +489,7 @@ namespace Selenium_Demo
             //clsStud objStud2 = new clsStud();
             //objStud2.sname = "Anand";
             //objStud2.courseName = "Selenium";
-            
+
             //objStud2.DisplaySname("Anvesh");
 
             //clsDept objDept = new clsDept();
@@ -502,6 +642,34 @@ namespace Selenium_Demo
                 Console.WriteLine(ex.Message);
             }
         }
+
+        [Test]
+        public void DevideByZeroError()
+        {
+            try
+            {
+                int x = 20;
+                int y = 0;
+                int z = x / y;
+                Console.WriteLine("z value is:" + z);
+            }
+            catch(NoSuchElementException nse)
+            {
+                Console.WriteLine(nse.Message);
+            }
+            catch(DivideByZeroException dbz)
+            {
+                Console.WriteLine(dbz.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("I am finally block");
+            }
+        }
         [Test]
 
         public void Getscreenshot()
@@ -565,11 +733,13 @@ namespace Selenium_Demo
         public void HandleMultipleTabs()
         {
             dr.Navigate().GoToUrl("https://demoqa.com/browser-windows");
-
+            dr.Manage().Window.Maximize();
             string windowhandleParent = dr.CurrentWindowHandle; //getting parentwindow handle
             IWebElement btnNewwindow = dr.FindElement(By.XPath("//button[@id='tabButton']"));
             btnNewwindow.Click();
             System.Collections.ObjectModel.ReadOnlyCollection<string> lstWindow = dr.WindowHandles;
+            Console.WriteLine("Tabs count:" + lstWindow.Count);
+
             foreach (var handle in lstWindow)
             {
                 Console.WriteLine(handle);
@@ -579,7 +749,7 @@ namespace Selenium_Demo
             IWebElement sampleText = dr.FindElement(By.XPath("//h1[@id='sampleHeading']"));
             Assert.IsTrue(sampleText.Displayed, "Sample text is not displayed");
             dr.Navigate().GoToUrl("http://google.com");
-            dr.SwitchTo().Window(windowhandleParent); //return to parent window
+            dr.SwitchTo().Window(lstWindow[0]); //return to parent window
             Console.WriteLine(dr.Title); //get the parent window title and print
         }
 
@@ -710,5 +880,131 @@ namespace Selenium_Demo
             Console.WriteLine("I am cleanup method");
             //dr.Close();
         }
+        [Test]
+        public void GetOutParam()
+        {
+            int sage = GetAge("Anand", out int age);
+            Console.WriteLine("Student age is:" + sage);
+        }
+        public static int GetAge(string name, out int age)
+        {
+            if (name == "Anand")
+            {
+                age = 40;
+            }
+            else
+            {
+                age = 25;
+            }
+            return age;
+        }
+
+        [Test]
+        public void LearnClass()
+        {
+            clsStates s1 = new clsStates();
+            Console.WriteLine(s1.DisplayTaxFreeStates());
+            Console.WriteLine(clsStates.cname);
+
+            string mystate= s1.DisplayTaxFreeStates("MD");
+            Console.WriteLine(mystate);
+            
+
+           // clsStates s2 = new clsStates();
+           // s2.scount = 50;
+
+           clsCapitals cap1=new clsCapitals();
+           bool isLarge= cap1.CheckLargeState("TX");
+            Console.WriteLine("Texas is large :" + isLarge);
+
+            }
+        [Test]
+        public void CopyPaste()
+        {
+
+            dr.Navigate().GoToUrl("https://www.w3schools.com/howto/howto_css_register_form.asp");
+            // Identify the first input box with xpath locator
+            IWebElement e = dr.FindElement(By.XPath("(//*[@class='w3-input w3-light-grey w3-margin-bottom x'])[1]"));
+
+            // enter some text
+            e.SendKeys("Anvesh");
+
+           
+            // Actions class methods to select text
+            Actions a = new Actions(dr);
+            a.KeyDown(Keys.Control);
+            a.SendKeys("a");
+            a.KeyUp(Keys.Control);
+            a.Build().Perform();
+
+            // Actions class methods to copy text
+            a.KeyDown(Keys.Control);
+            a.SendKeys("c");
+            a.KeyUp(Keys.Control);
+            a.Build().Perform();
+
+            // Action class methods to tab and reach to  the next input box
+            a.SendKeys(Keys.Tab);
+            a.Build().Perform();
+
+
+            // Actions class methods to paste text
+            a.KeyDown(Keys.Control);
+            a.SendKeys("v");
+            a.KeyUp(Keys.Control);
+            a.Build().Perform();
+        }
+        [Test]
+        public void InvokeMethod()
+        {
+            clsUniversity objUniv1 = new clsUniversity();
+            //string studname = objUniv1.GetStudNameBySid(200);
+            //Console.WriteLine("stud name is:" + studname);
+            //objUniv1.DisplayCollegename();
+
+            clsCollege objCol = new clsCollege();
+            //objCol.DisplayUnivName();
+            objCol.DisplayCollegename();
+
+        }
+        [OneTimeTearDown]
+        public void EndReport()
+        {
+            LoggingTestStatusExtentReport();
+            extent.Flush();
+        }
+        public static void LoggingTestStatusExtentReport()
+        {
+            try
+            {
+                var status = TestContext.CurrentContext.Result.Outcome.Status;
+                var stacktrace = string.Empty + TestContext.CurrentContext.Result.StackTrace + string.Empty;
+                var errorMessage = TestContext.CurrentContext.Result.Message;
+                Status logstatus;
+                switch (status)
+                {
+                    case TestStatus.Failed:
+                        logstatus = Status.Fail;
+                        testlog.Log(Status.Fail, "Test steps NOT Completed for Test case " + TestContext.CurrentContext.Test.Name + " ");
+                        testlog.Log(Status.Fail, "Test ended with " + Status.Fail + " – " + errorMessage);
+                        break;
+                    case TestStatus.Skipped:
+                        logstatus = Status.Skip;
+                        testlog.Log(Status.Skip, "Test ended with " + Status.Skip);
+                        break;
+                    default:
+                        logstatus = Status.Pass;
+                        testlog.Log(Status.Pass, "Test steps finished for test case " + TestContext.CurrentContext.Test.Name);
+                        testlog.Log(Status.Pass, "Test ended with " + Status.Pass);
+                        break;
+                }
+            }
+            catch (WebDriverException ex)
+            {
+                throw ex;
+            }
+
+        }
     }
+
 }

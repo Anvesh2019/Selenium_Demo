@@ -21,7 +21,7 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
+            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
 
         }
        
@@ -35,6 +35,7 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine(txtSrch2.GetAttribute("value"));
             Assert.IsTrue(txtSrch2.GetAttribute("value")=="India", "Search keyword not matching");
             Assert.IsTrue(txtSrch2.GetAttribute("maxlength") == "2048", "maxlength not matching");
+            Console.WriteLine(txtSrch2.GetAttribute("name"));
         }
         [Test]
         public void InteractWithCheckBoxAndRadio()
@@ -74,6 +75,10 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("options count is:" + optCount);
 
             //objSelect.DeselectByValue("CHINA");
+            for (int i = 0; i < optCount; i++)
+            {
+                objSelect.SelectByIndex(i);
+            }
 
         }
         [Test]
@@ -88,6 +93,7 @@ namespace Selenium_Demo.TestCases
             objSelect.SelectByText("Grape");
             Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
             objSelect.DeselectByText("Apple");
+            //objSelect.DeselectAll();
             Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
 
         }
