@@ -52,7 +52,7 @@ namespace Selenium_Demo
         }
     }
 
-    public class clsBMW: clsCar
+    public class clsBMW1: clsCar
     {
         public int rank = 2;
         public string GetCarName()

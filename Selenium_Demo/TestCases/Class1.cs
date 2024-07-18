@@ -15,13 +15,9 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("Univercity founder is:" + objUni.founder);
             objUni.DisplayUnivName();
             Console.WriteLine("Univercity is good:" + objUni.isGood);
-
             Console.WriteLine(DateTime.Now.Year);
-
             objUni.DisplayStudName("Anvesh");
         }
-
-
 
     }
 }

@@ -18,7 +18,7 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
+            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             _objGooglePage = new GooglePage(dr);
             objCommon = new clsCommon(dr);
         }
@@ -43,15 +43,24 @@ namespace Selenium_Demo.TestCases
         public void GoogleSearch()
         {
             dr.Navigate().GoToUrl("http://google.com");
-            //_objGooglePage.txtSearch.SendKeys("India");
-            //_objGooglePage.txtSearch.SendKeys(Keys.Enter);
+            _objGooglePage.txtSearch.SendKeys("India");
+            _objGooglePage.txtSearch.SendKeys(Keys.Enter);
 
             //objCommon.EnterText(_objGooglePage.txtSearch, "India");
-            objCommon.EnterText("q", "India");
-            objCommon.EnterText(_objGooglePage.txtSearch, Keys.Enter);
+            ////objCommon.EnterText("q", "India");
+            //objCommon.EnterText(_objGooglePage.txtSearch, Keys.Enter);
 
 
             //dr.FindElement(By.Name("q")).SendKeys("India");
+        }
+
+        [Test]
+        public void VerifyGmail()
+        {
+          objCommon.NavigateToApp("http://google.com");
+          _objGooglePage.linkGmail.Click();
+          Assert.IsTrue(dr.Url.Contains("gmail"),"Gmail page not displayed");
+       
         }
     }
 }

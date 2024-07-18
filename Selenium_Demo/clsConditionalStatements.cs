@@ -27,7 +27,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifySwitchstatement()
         {
-            int x = 20;
+            int x = 30;
            switch(x)
             {
                 case 20:
@@ -49,9 +49,12 @@ namespace Selenium_Demo
         public void VerifyForLoop()
         {
             int i = 0;
-            for(i=0; i<5;i++)
+            for ( i = 0; i < 10; i=i+2)
             {
-                Console.WriteLine("i value is:" + i);
+               
+                    Console.WriteLine("i value is:" + i);
+                
+                
             }
             Console.WriteLine("i value after loop is:" + i);
         }
@@ -71,7 +74,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyDoWhileLoop()
         {
-            int i = 0;
+            int i = 10;
             do
             {
                 Console.WriteLine("i value is:" + i);

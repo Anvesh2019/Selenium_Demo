@@ -14,12 +14,21 @@ namespace Selenium_Demo
     {
         HotelsHomePage _homepage;
         public IWebDriver dr;
+        
         [SetUp]
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
+            dr = new ChromeDriver();
+            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
+            //dr = new ChromeDriver(@"C:\\Users\\Anand.Gummadilli\\OneDrive-Neudesic\\Desktop");
             _homepage = new HotelsHomePage(dr);
+
+        }
+        [Test]
+        public void VerifyGoingToFieldIsRequiredField()
+        {
+            dr.Navigate().GoToUrl("http://hotels.com");
 
         }
         public void NavigateToSite(string strUrl)

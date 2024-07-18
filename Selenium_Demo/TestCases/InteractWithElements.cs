@@ -21,18 +21,31 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\v-anandag\Desktop");
+            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
 
+        }
+       
+        [Test]
+        public void InteractWithtextbox()
+        {
+            dr.Navigate().GoToUrl("http://google.com");
+            dr.FindElement(By.Name("q")).SendKeys("India");
+            dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
+            IWebElement txtSrch2 = dr.FindElement(By.Name("q"));
+            Console.WriteLine(txtSrch2.GetAttribute("value"));
+            Assert.IsTrue(txtSrch2.GetAttribute("value")=="India", "Search keyword not matching");
+            Assert.IsTrue(txtSrch2.GetAttribute("maxlength") == "2048", "maxlength not matching");
+            Console.WriteLine(txtSrch2.GetAttribute("name"));
         }
         [Test]
         public void InteractWithCheckBoxAndRadio()
         {
             dr.Navigate().GoToUrl("https://www.ironspider.ca/forms/checkradio.htm");
-            IWebElement chkBlue = dr.FindElement(By.XPath("//input[@value='red']"));
-            //Console.WriteLine("blue color is selected:" + chkBlue.Selected);
-            if (chkBlue.Selected == false)
+            IWebElement chkRed = dr.FindElement(By.XPath("//input[@value='red']"));
+            //Console.WriteLine("blue color is selected:" + chkRed.Selected);
+            if (chkRed.Selected == false)
             {
-                chkBlue.Click(); //select
+                chkRed.Click(); //select
             }
             IWebElement radioOpera = dr.FindElement(By.XPath("(//input[@type='radio'])[3]"));
             Console.WriteLine("Opera is selected1:" + radioOpera.Selected);
@@ -41,9 +54,8 @@ namespace Selenium_Demo.TestCases
                 radioOpera.Click();
             }
             Console.WriteLine("Opera is selected2:" + radioOpera.Selected);
-
-
         }
+
         [Test]
         public void HandlingSelectBox()
         {
@@ -62,7 +74,10 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("options count is:" + optCount);
 
             //objSelect.DeselectByValue("CHINA");
-
+            for (int i = 0; i < optCount; i++)
+            {
+                objSelect.SelectByIndex(i);
+            }
         }
         [Test]
         public void InteractWithListbox()
@@ -70,12 +85,12 @@ namespace Selenium_Demo.TestCases
             dr.Navigate().GoToUrl("https://output.jsbin.com/osebed/2");
             IWebElement fruitsLB = dr.FindElement(By.XPath("//select[@id='fruits']"));
             SelectElement objSelect = new SelectElement(fruitsLB);
-
             Console.WriteLine("Multi select allowed:" + objSelect.IsMultiple);
             objSelect.SelectByValue("apple");
             objSelect.SelectByText("Grape");
             Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
             objSelect.DeselectByText("Apple");
+            //objSelect.DeselectAll();
             Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
 
         }
