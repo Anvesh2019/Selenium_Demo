@@ -39,7 +39,7 @@ namespace Selenium_Demo
         }
 
         [Test]
-        public void HandlingAlerts()
+        public void HandlingAlerts1()
         {
             // Alert Message handling
             dr.Navigate().GoToUrl("http://demo.guru99.com/test/delete_customer.php");
