@@ -54,9 +54,8 @@ namespace Selenium_Demo.TestCases
                 radioOpera.Click();
             }
             Console.WriteLine("Opera is selected2:" + radioOpera.Selected);
-
-
         }
+
         [Test]
         public void HandlingSelectBox()
         {
@@ -79,7 +78,6 @@ namespace Selenium_Demo.TestCases
             {
                 objSelect.SelectByIndex(i);
             }
-
         }
         [Test]
         public void InteractWithListbox()
@@ -87,7 +85,6 @@ namespace Selenium_Demo.TestCases
             dr.Navigate().GoToUrl("https://output.jsbin.com/osebed/2");
             IWebElement fruitsLB = dr.FindElement(By.XPath("//select[@id='fruits']"));
             SelectElement objSelect = new SelectElement(fruitsLB);
-
             Console.WriteLine("Multi select allowed:" + objSelect.IsMultiple);
             objSelect.SelectByValue("apple");
             objSelect.SelectByText("Grape");
