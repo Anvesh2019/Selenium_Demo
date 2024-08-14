@@ -9,7 +9,7 @@ namespace Selenium_Demo.Common
     public class clsCommon
     {
 
-        IWebDriver dr;
+        public IWebDriver dr;
         public clsCommon(IWebDriver driver)
         {
             dr = driver;
@@ -46,6 +46,18 @@ namespace Selenium_Demo.Common
         public void ClickonElement(IWebElement ele)
         {
             ele.Click();
+        }
+        public void ClickonElement(string strId)
+        {
+            dr.FindElement(By.Id(strId)).Click();
+        }
+        public void ClickonElementByXpath(string strXpath)
+        {
+            dr.FindElement(By.XPath(strXpath)).Click();
+        }
+        public void ClickonElementByName(string strName)
+        {
+            dr.FindElement(By.Name(strName)).Click();
         }
     }
 }
