@@ -265,11 +265,14 @@ namespace Selenium_Demo
             name.Add(2, "sudheer");
             name.Add(3, "sahith");
             name.Add(4, "shashi");
+            name.Add(5, "shashi");
+            name.Add(6, "shashi");
             name.Add(5, "sai krishna");
             foreach(KeyValuePair<int,string> pair in name)
             {
                 Console.WriteLine("Key: {0},Value :{1}", pair.Key,pair.Value );
             }
+            Console.WriteLine("add the line ");
 
         }
        
