@@ -25,7 +25,7 @@ namespace Selenium_Demo.TestCases
             options.AddArgument("disable-extensions"); //disables existing extentions
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             options.AddArgument("disable-infobars");//disables info bars
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads",options);
+            dr = new ChromeDriver(@"C:\Users\DSC\Desktop\chromedriver.exe",options);
         }
 
         [Test]

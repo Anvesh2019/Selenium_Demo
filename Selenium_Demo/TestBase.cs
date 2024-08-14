@@ -25,17 +25,17 @@ namespace Selenium_Demo
             }
             else if(browser=="edge")
             {
-                dr = new EdgeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
+                dr = new EdgeDriver();
             }
             //Check if parameter passed as 'chrome'
             else if (browser == "chrome")
             {
 
-                dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
+                dr = new ChromeDriver(@"C:\Users\DSC\Documents\chromedriver.exe");
             }
             else if (browser == "IE")
             {
-                dr = new InternetExplorerDriver(@"C:\Users\Anand.Gummadilli\Desktop");
+                dr = new InternetExplorerDriver(@"C:\Users\DSC\Desktop\chromedriver.exe");
             }
         }
 
