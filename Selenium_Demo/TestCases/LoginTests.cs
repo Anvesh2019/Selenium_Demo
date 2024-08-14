@@ -214,8 +214,8 @@ namespace Selenium_Demo
         [Test]
         public void LearnAutoIt()
         {
-            AutoItX3Lib.AutoItX3 autoit = new AutoItX3Lib.AutoItX3();
-            autoit.Run("C:\\Anand_Details\\OpenFile.exe");
+           // AutoItX3Lib.AutoItX3 autoit = new AutoItX3Lib.AutoItX3();
+            //autoit.Run("C:\\Anand_Details\\OpenFile.exe");
             
             //Autoit Code
             //WinWaitActive("Open");
