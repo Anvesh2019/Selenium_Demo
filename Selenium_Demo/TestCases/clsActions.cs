@@ -22,6 +22,7 @@ namespace Selenium_Demo.TestCases
             options.AddArgument("start-maximized"); //Maximize the window when it starts
             //options.AddArgument("incognito");
             //options.AddArgument("headless");
+            options.AddArgument("useAutomationExtension");
             options.AddArgument("disable-extensions"); //disables existing extentions
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             options.AddArgument("disable-infobars");//disables info bars
@@ -32,6 +33,7 @@ namespace Selenium_Demo.TestCases
         public void VerifyOptions()
         {
             dr.Navigate().GoToUrl("http://google.com");
+            dr.FindElement(By.Name("q")).SendKeys("India");
         }
         [Test]
         public void OpenRedBus()
