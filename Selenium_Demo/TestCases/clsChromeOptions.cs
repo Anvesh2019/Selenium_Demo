@@ -7,6 +7,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System.Drawing;
 using System.Threading;
+using System.Security.Cryptography;
 
 namespace Selenium_Demo.TestCases
 {
@@ -18,7 +19,7 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new ChromeDriver(@"C:\Users\DSC\Documents");
 
         }
 
