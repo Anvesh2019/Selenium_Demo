@@ -397,7 +397,11 @@ namespace Selenium_Demo
             Console.WriteLine(clsCar.GetCollegename());
             
         }
-
+        [Test]
+        public void Sampletestcase2()
+        {
+            Console.WriteLine("Sample test case2");
+        }
 
         [Test]
         public void VerifySearch()
@@ -518,6 +522,11 @@ namespace Selenium_Demo
             objDeptdetails.DisplayDeptAddr("Anand"); //normal method
         }
 
+        [Test]
+        public void Sampletestcase()
+        {
+            Console.WriteLine("Sample test case");
+        }
         [Test]
         [TestCase("India")]
         [TestCase("Daton")]
