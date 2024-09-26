@@ -43,8 +43,9 @@ namespace Selenium_Demo.TestCases
         public void GoogleSearch()
         {
             dr.Navigate().GoToUrl("http://google.com");
-            _objGooglePage.txtSearch.SendKeys("India");
-            _objGooglePage.txtSearch.SendKeys(Keys.Enter);
+            //_objGooglePage.txtSearch.SendKeys("India");
+            //_objGooglePage.txtSearch.SendKeys(Keys.Enter);
+            _objGooglePage.SearchForKeyword("India");
 
             //objCommon.EnterText(_objGooglePage.txtSearch, "India");
             ////objCommon.EnterText("q", "India");
@@ -53,7 +54,14 @@ namespace Selenium_Demo.TestCases
 
             //dr.FindElement(By.Name("q")).SendKeys("India");
         }
+        [Test]
+        public void GoogleFeelingLuckySearch()
+        {
+            dr.Navigate().GoToUrl("http://google.com");
+            _objGooglePage.SearchByFeelingLucky("India");
 
+           
+        }
         [Test]
         public void VerifyGmail()
         {

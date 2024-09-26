@@ -23,11 +23,13 @@ namespace Selenium_Demo
         public void VerifyHandlingMultipleWindows()
         {
             dr.Navigate().GoToUrl("https://demo.guru99.com/test/guru99home/");
+            string parentHandle = dr.CurrentWindowHandle;
+
             IWebElement elementFrame = dr.FindElement(By.XPath("//iframe[@name='a077aa5e']"));
             dr.SwitchTo().Frame(elementFrame);
             IWebElement imgJmeter = dr.FindElement(By.XPath("//a[@href='http://www.guru99.com/live-selenium-project.html']"));
             imgJmeter.Click();
-
+            
             System.Collections.ObjectModel.ReadOnlyCollection<string> listHandles = dr.WindowHandles;
             
             dr.SwitchTo().Window(listHandles[1]); //switch to 2nd tab
@@ -46,10 +48,13 @@ namespace Selenium_Demo
 
             //dr.SwitchTo().Window(listHandles[0]); //back to 1st window
 
-            //Console.WriteLine(dr.Url);
+            Console.WriteLine(dr.Url);
             ////Assert.IsTrue(dr.Url.Contains("live-selenium-project.html"),"Live project page is not loaded");
 
             //Assert.IsTrue(dr.Url== "https://demo.guru99.com/test/guru99home/");
+            dr.SwitchTo().Window(parentHandle);
+            Console.WriteLine("Last step:" + dr.Url);
+
         }
     }
 }
