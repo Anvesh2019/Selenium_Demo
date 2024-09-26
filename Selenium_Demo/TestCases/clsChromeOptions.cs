@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 
 namespace Selenium_Demo.TestCases
 {
-    public class clsActions
+    public class clsChromeOptions
     {
 
         public IWebDriver dr;

@@ -63,7 +63,18 @@ namespace Selenium_Demo
         {
             StartExtentTest(TestContext.CurrentContext.Test.Name);
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+
+            ChromeOptions options = new ChromeOptions();
+            //options.AddArgument("start-maximized"); //Maximize the window when it starts
+            options.AddArgument("incognito");
+            //options.AddArgument("headless");
+            //options.AddArgument("useAutomationExtension");
+            //options.AddArgument("disable-extensions"); //disables existing extentions
+            options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
+            //options.AddArgument("disable-infobars");//disables info bars
+            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\",options);
+
+            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             //dr = new ChromeDriver();
 
             //objLogger.logsEnabled = true;
@@ -235,10 +246,10 @@ namespace Selenium_Demo
                 log.Info("Home page loaded");
                 dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
                 //Implicit wait
-                dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            //Explicit Wait
+                //dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+               //Explicit Wait
                WebDriverWait _wait = new WebDriverWait(dr,TimeSpan.FromSeconds(10));
-               IWebElement txtPannumber= _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]")));
+               IWebElement txtPannumber= _wait.Until(ExpectedConditions.ElementExists(By.XPath("(//input[@class='native-input sc-ion-input-md'])[2]")));
                //IWebElement txtPannumber = dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]"));
                txtPannumber.SendKeys("1234");
                objLogger.LogMessage("Entered invalid PAN numbver");
@@ -980,7 +991,7 @@ namespace Selenium_Demo
         public void EndReport()
         {
             LoggingTestStatusExtentReport();
-            extent.Flush();
+           // extent.Flush();
         }
         public static void LoggingTestStatusExtentReport()
         {

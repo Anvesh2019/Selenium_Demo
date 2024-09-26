@@ -89,10 +89,11 @@ namespace Selenium_Demo.TestCases
             objSelect.SelectByValue("apple");
             objSelect.SelectByText("Grape");
             Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
-            objSelect.DeselectByText("Apple");
-            //objSelect.DeselectAll();
+            //objSelect.DeselectByText("Apple");
+            objSelect.DeselectAll();
+            //objSelect.DeselectByText("Grape");
             Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
-
+        
         }
     }
 }
