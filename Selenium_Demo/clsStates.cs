@@ -10,7 +10,7 @@ namespace Selenium_Demo
     {
         public static string cname = "USA";
         public int scount = 52;
-        private string gname = "junior bush";
+        //private string gname = "junior bush";
 
         public string DisplayTaxFreeStates()
         {

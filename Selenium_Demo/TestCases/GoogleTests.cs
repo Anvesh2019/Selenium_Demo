@@ -6,6 +6,7 @@ using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using Selenium_Demo.Pages;
 using Selenium_Demo.Common;
+using OpenQA.Selenium.Edge;
 
 namespace Selenium_Demo.TestCases
 {
@@ -18,7 +19,9 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+
             _objGooglePage = new GooglePage(dr);
             objCommon = new clsCommon(dr);
         }
@@ -37,6 +40,15 @@ namespace Selenium_Demo.TestCases
                 Console.WriteLine("x is less than y");
             }
             
+        }
+        [Test]
+        public void SearchInGoogle()
+        {
+            objCommon.NavigateToApp("https://google.com");
+            //dr.Navigate().GoToUrl("https://google.com");
+            //_objGooglePage.txtSearch.SendKeys("India");
+            //_objGooglePage.txtSearch.SendKeys(Keys.Enter);
+            _objGooglePage.SearchForKeyword("India");
         }
 
         [Test]

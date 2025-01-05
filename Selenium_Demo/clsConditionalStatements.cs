@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
@@ -7,6 +8,28 @@ namespace Selenium_Demo
 {
     public class clsConditionalStatements
     {
+        [Test]
+        public void VerifyCondition()
+        {
+            string sname = "AP";
+            if(sname=="MH")
+            {
+                Console.WriteLine("Capital city is mumbai");
+            }
+            else if(sname=="TS")
+            {
+                Console.WriteLine("Capital city is hyderabad");
+            }
+            else if (sname == "GOA")
+            {
+                Console.WriteLine("Capital city is panaji");
+            }
+            else
+            {
+                Console.WriteLine("unknown capital");
+            }
+        }
+
          [Test]
         public void VerifyIfstatement()
         {
@@ -49,7 +72,7 @@ namespace Selenium_Demo
         public void VerifyForLoop()
         {
             int i = 0;
-            for ( i = 0; i < 10; i=i+2)
+            for ( i = 0; i < 10; i++)
             {
                
                     Console.WriteLine("i value is:" + i);
@@ -57,6 +80,17 @@ namespace Selenium_Demo
                 
             }
             Console.WriteLine("i value after loop is:" + i);
+        }
+        [Test]
+        public void PrintEvenNumbers()
+        {
+            int i = 0;
+            for(i=0;i<=10;i=i+2) // 0 2 4 6 8 
+            {
+                Console.WriteLine("i value is:" + i);
+
+            }
+            
         }
 
         [Test]
@@ -74,7 +108,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyDoWhileLoop()
         {
-            int i = 10;
+            int i = 0;
             do
             {
                 Console.WriteLine("i value is:" + i);
@@ -83,5 +117,45 @@ namespace Selenium_Demo
             while (i < 5);
             Console.WriteLine("i value after while loop is:" + i);
         }
+        [Test]
+        public void WeatherTest()
+        {
+            clsWeatherInfo objWeather = new clsWeatherInfo();
+            int currentTemp = objWeather.GetWeatherByZipcode("12345");
+            Console.WriteLine("temp is:" + currentTemp);
+        }
+        [Test]
+        public void VerifyRanks()
+        {
+            clsStudentNew objStud = new clsStudentNew();
+            Hashtable hsRanks = objStud.GetRanks();
+            //Console.WriteLine(hsRanks.Count);
+            foreach(DictionaryEntry de in hsRanks) 
+            {
+                Console.WriteLine(de.Key + "=" + de.Value);
+            }
+        }
+        [Test]
+        public void LearnInheritance()
+        {
+            clsSelenium objChild = new clsSelenium();
+            objChild.DisplayName();
+            objChild.DisplayStudName();
+            Console.WriteLine(objChild.city);
+            objChild.DisplayStudName("Anand");
+
+            objChild.DisplayName();
+
+            DecBatch objDec = new DecBatch();
+            objDec= new clsSelenium();
+            objDec.DisplayName();
+
+           Console.WriteLine(DecBatch.cname);
+           Console.WriteLine(DecBatch.GetCity());
+
+          
+
+        }
+
     }
 }

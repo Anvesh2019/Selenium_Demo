@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Interactions;
 using System.Collections;
 using log4net;
+using OpenQA.Selenium.Edge;
+
 namespace Selenium_Demo.TestCases
 {
     public class InteractWithElements
@@ -21,10 +23,11 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
 
         }
-       
+
         [Test]
         public void InteractWithtextbox()
         {
@@ -89,8 +92,9 @@ namespace Selenium_Demo.TestCases
             objSelect.SelectByValue("apple");
             objSelect.SelectByText("Grape");
             Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
-            //objSelect.DeselectByText("Apple");
-            objSelect.DeselectAll();
+            objSelect.DeselectByText("Apple");
+            
+            //objSelect.DeselectAll();
             //objSelect.DeselectByText("Grape");
             Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
         

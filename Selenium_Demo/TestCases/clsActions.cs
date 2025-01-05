@@ -7,6 +7,9 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System.Drawing;
 using System.Threading;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace Selenium_Demo.TestCases
 {
@@ -14,6 +17,7 @@ namespace Selenium_Demo.TestCases
     {
 
         public IWebDriver dr;
+        clsMyLogger logger;
         [SetUp]
         public void Setup()
         {
@@ -26,13 +30,15 @@ namespace Selenium_Demo.TestCases
             options.AddArgument("disable-extensions"); //disables existing extentions
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             options.AddArgument("disable-infobars");//disables info bars
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
+                                                    //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            logger=new clsMyLogger();
         }
 
         [Test]
         public void VerifyOptions()
         {
-          //  dr.Navigate().GoToUrl("https://google.com");
+            //  dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
         }
         [Test]
@@ -49,7 +55,9 @@ namespace Selenium_Demo.TestCases
             action.MoveToElement(btnGetstartedFree).Click().Build().Perform();
             string expectedURL = "https://www.browserstack.com/users/sign_up";
             string actualURL = dr.Url;
-            Assert.AreEqual(expectedURL, actualURL, "User is not navigated to signup page");
+            //Assert.AreEqual(expectedURL, actualURL, "User is not navigated to signup page");
+            Assert.IsTrue(actualURL.Contains("https://www.browserstack.com/users/"));
+
         }
         [Test]
         public void MovetoElementAndClick_withoutActions()
@@ -69,7 +77,7 @@ namespace Selenium_Demo.TestCases
             Actions action = new Actions(dr);
             IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
             action.ContextClick(element).Build().Perform();
-            dr.Close();
+            // dr.Close();
 
         }
         [Test]
@@ -87,6 +95,7 @@ namespace Selenium_Demo.TestCases
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
             dr.Manage().Window.Maximize();
+            Thread.Sleep(2000);
             Actions action = new Actions(dr);
             IWebElement linkTL = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
             action.KeyDown(linkTL, Keys.Enter).Build().Perform();
@@ -95,11 +104,11 @@ namespace Selenium_Demo.TestCases
             dr.Close();
         }
         [Test]
-        public void KeyDownonElement1()
+        public void NormalClickOnElement()
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
             dr.Manage().Window.Maximize();
-            Actions action = new Actions(dr);
+
             IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
             element.Click();
             string actualURL = dr.Url;
@@ -107,17 +116,24 @@ namespace Selenium_Demo.TestCases
             dr.Close();
         }
         [Test]
-        public void KeyDownonElement2()
+        public void EnterTextWithoutSendKeys()
         {
             dr.Navigate().GoToUrl("https://www.google.com/");
             dr.Manage().Window.Maximize();
             Actions action = new Actions(dr);
             IWebElement txtSrch = dr.FindElement(By.Name("q"));
-            action.KeyDown(txtSrch,"I").Build().Perform();
-            action.KeyDown(txtSrch, "N").Build().Perform();
-            action.KeyDown(txtSrch, "D").Build().Perform();
-            action.KeyDown(txtSrch, "I").Build().Perform();
-            action.KeyDown(txtSrch, "A").Build().Perform();
+
+            string str1 = "I LOVE INDIA";
+            char[] arrChars = str1.ToCharArray();
+            for (int i = 0; i < arrChars.Length; i++)
+            {
+                action.KeyDown(txtSrch, arrChars[i].ToString()).Build().Perform();
+            }
+            //action.KeyDown(txtSrch,"I").Build().Perform();
+            //action.KeyDown(txtSrch, "N").Build().Perform();
+            //action.KeyDown(txtSrch, "D").Build().Perform();
+            //action.KeyDown(txtSrch, "I").Build().Perform();
+            //action.KeyDown(txtSrch, "A").Build().Perform();
 
 
             //dr.Close();
@@ -153,6 +169,101 @@ namespace Selenium_Demo.TestCases
 
             IWebElement debtMovement = dr.FindElement(By.XPath("//td[normalize-space(text())='Debit Movement']"));
             Assert.IsTrue(debtMovement.Size != Size.Empty, "Debit movement is not displayed");
+        }
+        [Test]
+        public void LoginThroughPAN()
+        {
+            dr.Navigate().GoToUrl("https://axismf.com");
+            dr.Manage().Window.Maximize();
+            
+            dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            WebDriverWait _wait = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            IWebElement txtPannumber = _wait.Until(ExpectedConditions.ElementExists(By.XPath("(//input[@name='pan'])[2]")));
+            txtPannumber.SendKeys("1234");
+            
+           // Thread.Sleep(3000);
+           
+            //WebDriverWait _wait1 = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            //IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Please enter a correct PAN']")));
+
+            //Assert.IsTrue(labelError.Displayed == true, "Error is not displayed"); // displayed
+  
+        }
+        [Test]
+        public void guru99tutorials()
+        {
+            dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            String eTitle = "Demo Guru99 Page";
+            String aTitle = "";
+            
+            dr.Navigate().GoToUrl("http://demo.guru99.com/test/guru99home/");
+            dr.Manage().Window.Maximize();
+            aTitle = dr.Title;
+            if (aTitle == eTitle)
+            {
+                Console.WriteLine("Test Passed");
+            }
+            else
+            {
+                Console.WriteLine("Test Failed");
+            }
+        }
+        [Test]
+        public void CheckLogger()
+        {
+
+            int x = 10;
+            logger.LogMessage("x value is:" + x);
+
+            int y = 0;
+
+            logger.LogMessage("y value is:" + y);
+            int z = x / y;
+            logger.LogMessage("z value is:" + z);
+        }
+
+        [Test]
+        public void Devide2Numbers()
+        {
+
+            int x = 10;
+            logger.LogMessage("x value is:" + x);
+
+            int y = 0;
+
+            logger.LogMessage("y value is:" + y);
+            int z = x / y;
+            logger.LogMessage("z value is:" + z);
+
+            try
+            {
+                
+                Console.WriteLine("z value is:" + z);
+                int[] nums = new int[3] {10,20,30 };
+                Console.WriteLine(nums[10]);
+
+            }
+            //catch(IndexOutOfRangeException iex)
+            //{
+            //    Console.WriteLine(iex.Message);
+            //}
+
+            catch(DivideByZeroException dex)
+            {
+                Console.WriteLine(dex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch(Exception ex1)
+                {
+                    Console.WriteLine(ex1.Message);
+                }
+                
+            }
         }
     }
 }

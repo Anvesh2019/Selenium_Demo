@@ -23,9 +23,7 @@ using AventStack.ExtentReports.Reporter;
 using System.Reflection;
 using NUnit.Framework.Interfaces;
 using Selenium_Demo.TestCases;
-
-
-
+using OpenQA.Selenium.Edge;
 
 namespace Selenium_Demo
 {
@@ -58,6 +56,7 @@ namespace Selenium_Demo
             extent.AddSystemInfo("MachineName", Environment.MachineName);
 
         }
+        
         [SetUp]
         public void Setup()
         {
@@ -72,7 +71,8 @@ namespace Selenium_Demo
             //options.AddArgument("disable-extensions"); //disables existing extentions
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             //options.AddArgument("disable-infobars");//disables info bars
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\",options);
+            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\",options);
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
 
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             //dr = new ChromeDriver();
@@ -86,8 +86,19 @@ namespace Selenium_Demo
         {
             testlog = extent.CreateTest(testsToStart);
         }
+
         [Test]
-        public void OpenGoogleSite()
+        public void LearnWebdriver()
+        {
+            IWebDriver dr;
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+
+            dr.Navigate().GoToUrl("https://google.com");
+            Console.WriteLine(dr.Title);
+        }
+    
+        [Test]
+        public void VerifyOpenGoogleSite()
         {
             dr.Navigate().GoToUrl("https://google.com"); //opening google site
             //dr.FindElement(By.Name("q")).SendKeys("India"); //entering india
@@ -233,6 +244,7 @@ namespace Selenium_Demo
             //ControlSend("Open", "", "Edit1", "C:\Anand_Details\Banners\Banner_15.png");
             //ControlClick("Open", "&Open", "Button1");
         }
+        
 
         [Test]
         public void VerifyInvalidPANNumber()
@@ -491,7 +503,7 @@ namespace Selenium_Demo
         public void VerifyStudname()
         {
 
-            clsStudNew objStud = new clsStudNew();
+            //clsStudNew objStud = new clsStudNew();
            
             //objStud.DisplaySname();
             //clsStudNew objStud = new clsStudNew();
@@ -648,19 +660,23 @@ namespace Selenium_Demo
         [Test]
         public void Devide2Numbers()
         {
-            try
-            {
-                int x = 10;
-                int y = 0;
-                int z = x / y;
-                Console.WriteLine("z value is:" + z);
+            int x = 20;
+            int y = 0;
+            int z = x / y;
+            Console.WriteLine("Z value is:" + z);
+            //try
+            //{
+            //    int x = 10;
+            //    int y = 0;
+            //    int z = x / y;
+            //    Console.WriteLine("z value is:" + z);
 
-            }
+            //}
 
-            catch (DivideByZeroException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //catch (DivideByZeroException ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
         }
 
         [Test]
@@ -715,9 +731,9 @@ namespace Selenium_Demo
                 Screenshot screenshot = screenshotDriver.GetScreenshot();
                 // Creating UIScreenshot folder if not exists
                 System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
                 //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
-
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
             }
             catch (NoSuchElementException nosuchex)
             {
@@ -729,19 +745,19 @@ namespace Selenium_Demo
                 string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
                 //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
 
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
             }
-            catch (NoSuchWindowException ex)
-            {
-                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
-                Screenshot screenshot = screenshotDriver.GetScreenshot();
-                // Creating UIScreenshot folder if not exists
-                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+            //catch (NoSuchWindowException ex)
+            //{
+            //    ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+            //    Screenshot screenshot = screenshotDriver.GetScreenshot();
+            //    // Creating UIScreenshot folder if not exists
+            //    System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+            //    //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+            //    string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
 
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
-            }
+            //    screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
+            //}
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -769,17 +785,36 @@ namespace Selenium_Demo
             IWebElement sampleText = dr.FindElement(By.XPath("//h1[@id='sampleHeading']"));
             Assert.IsTrue(sampleText.Displayed, "Sample text is not displayed");
             dr.Navigate().GoToUrl("http://google.com");
-            dr.SwitchTo().Window(lstWindow[0]); //return to parent window
+
+            dr.FindElement(By.Name("q")).SendKeys("india");
+            dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
+            dr.SwitchTo().Window(windowhandleParent);
+            //dr.SwitchTo().Window(lstWindow[0]); //return to parent window
             Console.WriteLine(dr.Title); //get the parent window title and print
+        }
+        [Test]
+        public void VerifyScrollInAmazon()
+        {
+            dr.Navigate().GoToUrl("https://amazon.in");
+            dr.Manage().Window.Maximize();
+            //_common.ScrollDownVertical(5000);
+            //_common.ScrollHorizantal(200);
+            _common.ScrollToLocation(200, 300);
+            //IWebElement privacyLink = dr.FindElement(By.XPath("//a[text()='Privacy Notice']"));
+            //privacyLink.Click();
         }
 
         [Test]
         public void HandleMultipleWindows()
         {
             dr.Navigate().GoToUrl("https://demoqa.com/browser-windows");
-
+            dr.Manage().Window.Maximize();
             string windowhandleParent = dr.CurrentWindowHandle;
             IWebElement btnNewwindow = dr.FindElement(By.XPath("//button[@id='windowButton']"));
+            Thread.Sleep(2000);
+            // Actions action = new Actions(dr);
+            // action.MoveToElement(btnNewwindow).Build().Perform();
+            _common.ScrollDownVertical(200);
             btnNewwindow.Click();
             System.Collections.ObjectModel.ReadOnlyCollection<string> lstWindow = dr.WindowHandles;
             foreach (var handle in lstWindow)
@@ -790,8 +825,10 @@ namespace Selenium_Demo
             dr.SwitchTo().Window(lstWindow[1]);
             IWebElement sampleText = dr.FindElement(By.XPath("//h1[@id='sampleHeading']"));
             Assert.IsTrue(sampleText.Displayed,"Sample text is not displayed");
+            
             dr.SwitchTo().Window(windowhandleParent); //return to parent window
             Console.WriteLine(dr.Title);
+            dr.Close();
         }
         [Test]
         public void Devidebyzero()
