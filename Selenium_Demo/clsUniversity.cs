@@ -12,7 +12,7 @@ namespace Selenium_Demo
         public string founder = "Ali khan";
         public int staff = 445;
         public int studentsCount = 11000;
-        private string addr = "Tarnaka";
+        //private string addr = "Tarnaka";
         public bool isGood = true;
 
         public void DisplayUnivName()
