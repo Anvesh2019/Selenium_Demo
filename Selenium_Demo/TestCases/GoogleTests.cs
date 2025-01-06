@@ -20,8 +20,8 @@ namespace Selenium_Demo.TestCases
         {
             Console.WriteLine("I am from setup method");
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-
+            //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            dr = new EdgeDriver(Environment.CurrentDirectory);
             _objGooglePage = new GooglePage(dr);
             objCommon = new clsCommon(dr);
         }

@@ -16,7 +16,7 @@ namespace Selenium_Demo
         {
             IWebDriver dr;
             //= new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
-            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            dr = new EdgeDriver(Environment.CurrentDirectory);
 
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.LinkText("Gmail")).Click();

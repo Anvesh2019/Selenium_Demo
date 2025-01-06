@@ -52,8 +52,8 @@ namespace Selenium_Demo.TestCases
         public void OpenGmail()
         {
             IWebDriver dr;
-            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-
+            //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            dr = new EdgeDriver(Environment.CurrentDirectory);
             //= new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.LinkText("Gmail")).Click();
