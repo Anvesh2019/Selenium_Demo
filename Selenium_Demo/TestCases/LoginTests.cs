@@ -72,8 +72,8 @@ namespace Selenium_Demo
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             //options.AddArgument("disable-infobars");//disables info bars
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\",options);
-            //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             //dr = new ChromeDriver();
