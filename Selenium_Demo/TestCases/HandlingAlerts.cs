@@ -23,6 +23,7 @@ namespace Selenium_Demo
 
         }
         [Test]
+        [Category("Alerts")]
         public void HandlingAlerts_new()
         {
             // Alert Message handling
@@ -44,6 +45,7 @@ namespace Selenium_Demo
         }
 
         [Test]
+        [Category("Alerts")]
         public void HandlingAlerts1()
         {
             // Alert Message handling

@@ -50,6 +50,7 @@ namespace Selenium_Demo.TestCases
             dr.Navigate().GoToUrl("https://www.google.com/search?gs_ssp=eJzj4tLP1TcwM403SUpXYDRgdGDwYitKTUkqLQYASIEGPg&q=redbus&rlz=1C1CHBD_enIN1082IN1082&oq=red&gs_lcrp=EgZjaHJvbWUqGAgCEC4YQxiDARjHARixAxjRAxiABBiKBTIOCAAQRRg5GEMYgAQYigUyEggBEAAYQxiDARixAxiABBiKBTIYCAIQLhhDGIMBGMcBGLEDGNEDGIAEGIoFMhIIAxAAGEMYgwEYsQMYgAQYigUyDAgEEAAYQxiABBiKBTISCAUQABhDGIMBGLEDGIAEGIoFMhIIBhAAGEMYgwEYsQMYgAQYigUyGAgHEC4YQxiDARjHARixAxjRAxiABBiKBTISCAgQLhhDGLEDGIAEGOUEGIoFMhMICRAuGIMBGMcBGLEDGNEDGIAE0gEJMzM2N2owajE1qAIIsAIB&sourceid=chrome&ie=UTF-8");
         }
         [Test]
+        [Category("Actions")]
         public void MovetoElementAndClick()
         {
             dr.Navigate().GoToUrl("https://www.browserstack.com/");
@@ -63,6 +64,8 @@ namespace Selenium_Demo.TestCases
 
         }
         [Test]
+        [Category("Actions")]
+
         public void MovetoElementAndClick_withoutActions()
         {
             dr.Navigate().GoToUrl("https://www.browserstack.com/");
@@ -73,6 +76,8 @@ namespace Selenium_Demo.TestCases
             Assert.AreEqual(expectedURL, actualURL, "User is not navigated to signup page");
         }
         [Test]
+        [Category("Actions")]
+
         public void RightClickonElement()
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
@@ -84,6 +89,8 @@ namespace Selenium_Demo.TestCases
 
         }
         [Test]
+        [Category("Actions")]
+
         public void DoubleClickonElement()
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
@@ -94,6 +101,8 @@ namespace Selenium_Demo.TestCases
 
         }
         [Test]
+        [Category("Actions")]
+
         public void KeyDownonElement()
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
@@ -107,6 +116,8 @@ namespace Selenium_Demo.TestCases
             dr.Close();
         }
         [Test]
+        [Category("Actions")]
+
         public void NormalClickOnElement()
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
@@ -119,6 +130,8 @@ namespace Selenium_Demo.TestCases
             dr.Close();
         }
         [Test]
+        [Category("Actions")]
+
         public void EnterTextWithoutSendKeys()
         {
             dr.Navigate().GoToUrl("https://www.google.com/");
@@ -142,6 +155,8 @@ namespace Selenium_Demo.TestCases
             //dr.Close();
         }
         [Test]
+        [Category("Actions")]
+
         public void VerifyPrivacyNote()
         {
             dr.Navigate().GoToUrl("http://amazon.in");
@@ -153,6 +168,8 @@ namespace Selenium_Demo.TestCases
         }
 
         [Test]
+        [Category("Actions")]
+
         public void DragAndDropElement()
         {
             dr.Navigate().GoToUrl("http://demo.guru99.com/test/drag_drop.html");

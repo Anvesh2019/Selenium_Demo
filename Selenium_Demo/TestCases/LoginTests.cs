@@ -99,6 +99,7 @@ namespace Selenium_Demo
         }
     
         [Test]
+        [Category("Locators")]
         public void VerifyOpenGoogleSite()
         {
             dr.Navigate().GoToUrl("https://google.com"); //opening google site
@@ -110,6 +111,7 @@ namespace Selenium_Demo
             Console.WriteLine(dr.Url);
         }
         [Test]
+        [Category("Locators")]
         public void LearnLinkText()
         {
             dr.Navigate().GoToUrl("https://google.com"); //opening google site
@@ -120,6 +122,7 @@ namespace Selenium_Demo
         
         }
         [Test]
+        [Category("Locators")]
         public void LearnPartialLinkText()
         {
             dr.Navigate().GoToUrl("https://techtutorialz.com"); //opening google site
@@ -129,6 +132,7 @@ namespace Selenium_Demo
             Assert.IsTrue(currentURL.Contains("https://techtutorialz.com/contact/") == true, "Not loaded contact page");
         }
         [Test]
+        [Category("Locators")]
         public void OpenGoogleSite1()
         {
             _common.NavigateToApp("https://google.com");
@@ -150,6 +154,7 @@ namespace Selenium_Demo
             Console.WriteLine(dr.Url);
         }
         [Test]
+        [Category("POM")]
         public void VerifyLoginOptions()
         {
             
@@ -170,11 +175,7 @@ namespace Selenium_Demo
             Console.WriteLine(finalCity);
         }
         [Test]
-        public void testcase1()
-        {
-            //sample code
-        }
-        [Test]
+        [Category("Locators")]
         public void OpenMySite()
         {
           
