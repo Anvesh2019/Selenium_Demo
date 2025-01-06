@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using OpenQA.Selenium.Edge;
+using System.IO;
 
 namespace Selenium_Demo
 {
@@ -16,7 +17,7 @@ namespace Selenium_Demo
         {
             IWebDriver dr;
             //= new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
-            dr = new EdgeDriver(Environment.CurrentDirectory);
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.LinkText("Gmail")).Click();

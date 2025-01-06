@@ -10,6 +10,7 @@ using System.Threading;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using System.IO;
 
 namespace Selenium_Demo.TestCases
 {
@@ -31,8 +32,10 @@ namespace Selenium_Demo.TestCases
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             options.AddArgument("disable-infobars");//disables info bars
                                                     //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
-            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            logger=new clsMyLogger();
+            //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+
+            logger = new clsMyLogger();
         }
 
         [Test]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,8 @@ namespace Selenium_Demo.TestCases
         [SetUp]
         public void setup()
         {
-            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
             _apage = new AmazonPage(dr);
             objCommon = new clsCommon(dr);

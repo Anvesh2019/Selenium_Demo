@@ -5,6 +5,9 @@ using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using Selenium_Demo.Common;
+using OpenQA.Selenium.Edge;
+using System.IO;
+
 namespace Selenium_Demo.TestCases
 {
     public class Class1
@@ -14,8 +17,10 @@ namespace Selenium_Demo.TestCases
         [SetUp]
         public void Setup()
         {
-            dr = new ChromeDriver(@"C:\Users\HP\Downloads\chromedriver-win64");
-             _common = new clsCommon(dr);
+            //dr = new ChromeDriver(@"C:\Users\HP\Downloads\chromedriver-win64");
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+
+            _common = new clsCommon(dr);
         }
 
         [Test]

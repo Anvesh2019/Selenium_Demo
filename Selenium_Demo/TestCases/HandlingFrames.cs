@@ -7,6 +7,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System.Threading;
 using OpenQA.Selenium.Edge;
+using System.IO;
 
 namespace Selenium_Demo
 {
@@ -18,7 +19,8 @@ namespace Selenium_Demo
         {
             Console.WriteLine("I am from setup method");
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            // dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
 
 
