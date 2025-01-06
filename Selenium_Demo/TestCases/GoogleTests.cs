@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Selenium_Demo.Pages;
 using Selenium_Demo.Common;
 using OpenQA.Selenium.Edge;
+using System.IO;
 
 namespace Selenium_Demo.TestCases
 {
@@ -21,7 +22,7 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("I am from setup method");
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver(Environment.CurrentDirectory);
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
             _objGooglePage = new GooglePage(dr);
             objCommon = new clsCommon(dr);
         }
