@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -58,6 +59,37 @@ namespace Selenium_Demo.Common
         public void ClickonElementByName(string strName)
         {
             dr.FindElement(By.Name(strName)).Click();
+        }
+        public void ScrollDownVertical(int pixels)
+        {
+            IJavaScriptExecutor je = (IJavaScriptExecutor)dr;
+            int pixelsToScroll = pixels / 5;
+            for(int i=0;i<5;i++)
+            {
+                je.ExecuteScript("window.scrollBy(0," + pixelsToScroll + ")", "");
+                Thread.Sleep(2000);
+            }
+            
+        }
+        public void ScrollHorizantal(int pixels)
+        {
+            IJavaScriptExecutor je = (IJavaScriptExecutor)dr;
+            int pixelsToScroll = pixels / 5;
+            for (int i = 0; i < 5; i++)
+            {
+                je.ExecuteScript("window.scrollBy("+ pixelsToScroll + ",0)", "");
+                Thread.Sleep(2000);
+            }
+
+        }
+        public void ScrollToLocation(int xpixels,int ypixels)
+        {
+            IJavaScriptExecutor je = (IJavaScriptExecutor)dr;
+           
+                je.ExecuteScript("window.scrollBy(" + xpixels + "," + ypixels+")", "");
+                Thread.Sleep(2000);
+           
+
         }
     }
 }

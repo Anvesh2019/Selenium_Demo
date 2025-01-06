@@ -9,7 +9,7 @@ namespace Selenium_Demo
     {
         string path = @"C:\Logs\Mylogs.txt";
 
-        public static bool logsEnabled = false;
+        public static bool logsEnabled = true;
         //public bool logsEnabled = false;
         public void LogMessage(string logMsg)
         {

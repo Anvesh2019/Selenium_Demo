@@ -6,6 +6,7 @@ using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 
 namespace Selenium_Demo.TestCases
 {
@@ -16,19 +17,22 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
 
         }
 
         [Test]
-        public void VerifyRows()
+        public void VerifyTopCompanyName()
         {
             dr.Navigate().GoToUrl("https://www.moneycontrol.com/stocks/marketinfo/marketcap/bse/index.html");
-            Thread.Sleep(10000);
+            Thread.Sleep(20000);
             IList<IWebElement> listCompanies=  dr.FindElements(By.XPath("//table[@class='Topfilter_web_tbl_indices__Wa1Sj undefined']/tbody/tr"));
             Console.WriteLine(listCompanies.Count);
             IWebElement topComp = dr.FindElement(By.XPath("//table[@class='Topfilter_web_tbl_indices__Wa1Sj undefined']/tbody/tr[1]/td[1]"));
             Console.WriteLine("Top company name:" + topComp.Text);
+            Assert.IsTrue(topComp.Text == "Reliance", "Top company name is not reliance");
+
 
         }
         [Test]
@@ -63,8 +67,9 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void GetRankByCompanyName()
         {
-            int rank = GetRankByCompany("SBI");
-            Console.WriteLine("SBI Rank is:" + rank);
+            string compName = "TCS";
+            int rank = GetRankByCompany(compName);
+            Console.WriteLine(compName + " Rank is:" + rank);
 
         }
         public int GetRankByCompany(String company)
@@ -74,7 +79,7 @@ namespace Selenium_Demo.TestCases
             int index = 0;
             dr.Navigate().GoToUrl("https://www.moneycontrol.com/stocks/marketinfo/marketcap/bse/index.html");
             dr.Manage().Window.Maximize();
-            Thread.Sleep(30000);
+            Thread.Sleep(20000);
             ReadOnlyCollection<IWebElement> rowList = dr.FindElements(By.XPath("//table/tbody/tr"));
 
             for (int i = 1; i <= rowList.Count; i++)

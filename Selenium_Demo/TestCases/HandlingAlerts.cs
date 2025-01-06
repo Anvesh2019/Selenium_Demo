@@ -5,6 +5,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Threading;
+using OpenQA.Selenium.Edge;
 
 namespace Selenium_Demo
 {
@@ -15,7 +16,8 @@ namespace Selenium_Demo
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
+            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
 
 
         }
@@ -29,7 +31,7 @@ namespace Selenium_Demo
             // Switching to Alert        
             IAlert alert = dr.SwitchTo().Alert(); //switch to 1st popup
             Console.WriteLine("1st alert text:" + alert.Text);
-            alert.Accept(); //click on OK button
+            //alert.Accept(); //click on OK button
             Thread.Sleep(2000);
             //alert.SendKeys(Keys.Enter); //Click on Enter button
             //alert.Dismiss(); //Clikc on cancel button

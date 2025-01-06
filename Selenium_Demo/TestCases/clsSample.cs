@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 
 
 namespace Selenium_Demo.TestCases
@@ -34,7 +35,10 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void OpenGoogleSite()
         {
-            IWebDriver dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            IWebDriver dr;
+            //= new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
             dr.FindElement(By.XPath("//textarea[@name='q']")).SendKeys(Keys.Enter);
@@ -47,7 +51,10 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void OpenGmail()
         {
-            IWebDriver dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            IWebDriver dr;
+            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+
+            //= new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.LinkText("Gmail")).Click();
 
