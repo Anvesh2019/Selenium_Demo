@@ -8,6 +8,8 @@ using OpenQA.Selenium.Interactions;
 using System.Drawing;
 using System.Threading;
 using System.Security.Cryptography;
+using OpenQA.Selenium.Edge;
+using System.IO;
 
 namespace Selenium_Demo.TestCases
 {
@@ -19,7 +21,8 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver(@"C:\Users\DSC\Documents");
+            //    dr = new ChromeDriver(@"C:\Users\DSC\Documents");
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
         }
 

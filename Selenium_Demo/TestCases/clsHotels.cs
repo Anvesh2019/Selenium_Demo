@@ -7,6 +7,8 @@ using System.Threading;
 using System.Collections;
 using System.Collections.ObjectModel;
 using Selenium_Demo.Pages;
+using OpenQA.Selenium.Edge;
+using System.IO;
 
 namespace Selenium_Demo
 {
@@ -19,9 +21,11 @@ namespace Selenium_Demo
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            dr = new ChromeDriver();
+            //dr = new ChromeDriver();
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Desktop");
             //dr = new ChromeDriver(@"C:\\Users\\Anand.Gummadilli\\OneDrive-Neudesic\\Desktop");
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+
             _homepage = new HotelsHomePage(dr);
 
         }

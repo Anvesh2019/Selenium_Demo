@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Threading;
 using NUnit.Framework;
@@ -18,7 +19,7 @@ namespace Selenium_Demo.TestCases
         {
             Console.WriteLine("I am from setup method");
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
         }
 

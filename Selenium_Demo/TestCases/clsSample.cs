@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace Selenium_Demo.TestCases
         {
             IWebDriver dr;
             //= new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
@@ -53,7 +54,8 @@ namespace Selenium_Demo.TestCases
         {
             IWebDriver dr;
             //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver(Environment.CurrentDirectory);
+            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+
             //= new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.LinkText("Gmail")).Click();
