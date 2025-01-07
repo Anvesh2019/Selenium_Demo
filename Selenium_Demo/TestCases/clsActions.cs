@@ -191,6 +191,15 @@ namespace Selenium_Demo.TestCases
             Assert.IsTrue(debtMovement.Size != Size.Empty, "Debit movement is not displayed");
         }
         [Test]
+        [Category("Actions")]
+        public void VerifyRerunTests()
+        {
+            int x = 10;
+            int y = 0;
+            int z = x / y;
+        }
+        [Test]
+        [Category("Regression")]
         public void LoginThroughPAN()
         {
             dr.Navigate().GoToUrl("https://axismf.com");
