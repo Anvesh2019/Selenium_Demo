@@ -768,6 +768,7 @@ namespace Selenium_Demo
         }
 
         [Test]
+        [Category("Handling Multiple Windows")]
         public void HandleMultipleTabs()
         {
             dr.Navigate().GoToUrl("https://demoqa.com/browser-windows");
@@ -795,6 +796,7 @@ namespace Selenium_Demo
             Console.WriteLine(dr.Title); //get the parent window title and print
         }
         [Test]
+        [Category("Scroll")]
         public void VerifyScrollInAmazon()
         {
             dr.Navigate().GoToUrl("https://amazon.in");
@@ -807,6 +809,7 @@ namespace Selenium_Demo
         }
 
         [Test]
+        [Category("Handling Multiple Windows")]
         public void HandleMultipleWindows()
         {
             dr.Navigate().GoToUrl("https://demoqa.com/browser-windows");
