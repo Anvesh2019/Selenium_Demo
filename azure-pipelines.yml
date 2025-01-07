@@ -33,5 +33,5 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testAssemblyVer2: '**\$(BuildConfiguration)\**\Selenium_Demo.dll'
-    testFiltercriteria: 'TestCategory=Handling Multiple Windows & Actions'
+    testFiltercriteria: 'TestCategory=Handling Multiple Windows | Actions'
   
