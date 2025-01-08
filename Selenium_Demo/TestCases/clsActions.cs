@@ -39,6 +39,7 @@ namespace Selenium_Demo.TestCases
         }
 
         [Test]
+        [Category("Regression")]
         public void VerifyOptions()
         {
             //  dr.Navigate().GoToUrl("https://google.com");
