@@ -150,6 +150,7 @@ namespace Selenium_Demo.TestCases
         }
 
         [Test]
+        [Category("Actions")]
         public void DragAndDropElement()
         {
             dr.Navigate().GoToUrl("http://demo.guru99.com/test/drag_drop.html");
