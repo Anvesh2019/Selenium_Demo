@@ -40,12 +40,15 @@ namespace Selenium_Demo.TestCases
 
         [Test]
         [Category("Regression")]
+        [Category("Smoke")]
+
         public void VerifyOptions()
         {
             dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
         }
         [Test]
+        [Category("Smoke")]
         public void OpenRedBus()
         {
             dr.Navigate().GoToUrl("https://www.google.com/search?gs_ssp=eJzj4tLP1TcwM403SUpXYDRgdGDwYitKTUkqLQYASIEGPg&q=redbus&rlz=1C1CHBD_enIN1082IN1082&oq=red&gs_lcrp=EgZjaHJvbWUqGAgCEC4YQxiDARjHARixAxjRAxiABBiKBTIOCAAQRRg5GEMYgAQYigUyEggBEAAYQxiDARixAxiABBiKBTIYCAIQLhhDGIMBGMcBGLEDGNEDGIAEGIoFMhIIAxAAGEMYgwEYsQMYgAQYigUyDAgEEAAYQxiABBiKBTISCAUQABhDGIMBGLEDGIAEGIoFMhIIBhAAGEMYgwEYsQMYgAQYigUyGAgHEC4YQxiDARjHARixAxjRAxiABBiKBTISCAgQLhhDGLEDGIAEGOUEGIoFMhMICRAuGIMBGMcBGLEDGNEDGIAE0gEJMzM2N2owajE1qAIIsAIB&sourceid=chrome&ie=UTF-8");
