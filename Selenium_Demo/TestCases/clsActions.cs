@@ -42,7 +42,7 @@ namespace Selenium_Demo.TestCases
         [Category("Regression")]
         public void VerifyOptions()
         {
-            //  dr.Navigate().GoToUrl("https://google.com");
+            dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
         }
         [Test]
