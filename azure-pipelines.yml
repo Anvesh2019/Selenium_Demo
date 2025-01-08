@@ -8,9 +8,11 @@ trigger:
 
 schedules:
 - cron: '0 6 * * Mon-Fri'
+
   branches:
     include:
     - master
+    
 pool:
   vmImage: 'windows-latest'
 
