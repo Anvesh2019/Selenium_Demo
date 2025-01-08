@@ -41,7 +41,7 @@ steps:
     configuration: '$(buildConfiguration)'
     testAssemblyVer2: '**\$(BuildConfiguration)\**\Selenium_Demo.dll'
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows | TestCategory=Actions'
-    testFiltercriteria: 'TestCategory=Regression'
+    testFiltercriteria: 'TestCategory=Regression | TestCategory=Smoke '
     #rerunFailedTests: true
     #rerunMaxAttempts: 2
   
