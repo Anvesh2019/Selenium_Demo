@@ -50,6 +50,16 @@ namespace Selenium_Demo
         {
             Console.WriteLine(AddNumbers(20,250));
         }
+        [Test]
+        public void LearnOverriding()
+        {
+            clsCar objParent=new clsCar();
+            Console.WriteLine(objParent.GetCarCity());
+
+            clsCar objP2=new clsBMW1();
+            Console.WriteLine(objP2.GetCarCity());
+
+        }
     }
 
     public class clsBMW1: clsCar
