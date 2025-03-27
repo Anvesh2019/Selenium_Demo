@@ -11,7 +11,7 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void GetWeaterByZip()
         {
-
+            Console.WriteLine("Weather is 20 degrees");
         }
     }
 }
