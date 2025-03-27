@@ -13,5 +13,11 @@ namespace Selenium_Demo.TestCases
         {
             Console.WriteLine("Weather is 20 degrees");
         }
+        [Test]
+        public void GetWeaterByCityname(string City)
+        {
+            Console.WriteLine("Weather is 30 degrees for Hyderabad");
+        }
+
     }
 }
