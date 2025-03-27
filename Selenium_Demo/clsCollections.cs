@@ -19,7 +19,7 @@ namespace Selenium_Demo
             //arrNumbers[2] = 30;
             //arrNumbers[3] = 40;
             //arrNumbers[4] = 50;
-            for(int i=0;i<arrNumbers.Length;i++)
+            for(int i=0;i<arrNumbers.Length;i++) //0 1 2 3 
             {
                 Console.WriteLine(arrNumbers[i]);
             }
@@ -30,7 +30,7 @@ namespace Selenium_Demo
         public void LearnStringArray()
         {
             string[] states = new string[4] { "Texas", "Florida", "Maryland", "Michigon" };
-            for (int i = 1; i < states.Length; i=i+2)
+            for (int i = 1; i < states.Length; i=i+2) // 1 3 
             {
                 Console.WriteLine(states[i]);
             }
@@ -42,10 +42,10 @@ namespace Selenium_Demo
         {
             //int[] arrNumbers = new int[4] {10,20,30,40};
             int[,] arrNumbers = new int[2, 3]
-{
-{10,20,30},
-{40,60,70}
-};
+                {
+                {10,20,30},
+                {40,60,70}
+                };
 
             //int[,] arrNumbers = new int[2,3];
             //arrNumbers[0,0] = 10;
@@ -56,6 +56,19 @@ namespace Selenium_Demo
             //arrNumbers[1,2] = 70;
             Console.WriteLine(arrNumbers[1,1]);
             
+        }
+        [Test]
+        public void Learn2DStringArray()
+        {
+            string[,] capitals = new string[5, 2]
+            {
+             {"TG", "Hyd"},
+             {"AP", "Viz"},
+             {"MH", "Mumbai"},
+             {"KL", "Triv"},
+             {"KA", "Blore"},
+            };
+            Console.WriteLine(capitals[1,0]); //AP
         }
         [Test]
         public void LearnArrayList()
