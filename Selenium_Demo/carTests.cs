@@ -53,5 +53,24 @@ namespace Selenium_Demo
         {
           Console.WriteLine("student is Minor: " + objCar.isMinor(25));
         }
+
+        [Test]
+        public void LearnExceptionHandling()
+        {
+            try
+            {
+                int x = 10;
+                int y = 0;
+                int z = x / y;
+            }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+
+            }
+        }
     }
 }
