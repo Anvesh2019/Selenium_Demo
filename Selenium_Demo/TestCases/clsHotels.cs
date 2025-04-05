@@ -55,7 +55,7 @@ namespace Selenium_Demo
         public void SearchHotel()
         {
             NavigateToSite("http://hotels.com");
-            enterSearchCity("Goa");
+            enterSearchCity("Goa in india");
             ClickonSearchButton();
         }
         [Test]
