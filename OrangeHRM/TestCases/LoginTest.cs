@@ -14,7 +14,9 @@ namespace OrangeHRM.TestCases
         [Test]
         public void login()
         {
+
             loginPage.ClickOnLogin("Admin", "admin123");
+
         }
     }
 }
