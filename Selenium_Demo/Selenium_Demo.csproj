@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <None Update="DriverHelper\msedgedriver.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Testdata\Anvesh.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
