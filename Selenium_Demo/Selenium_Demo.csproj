@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -16,10 +16,14 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Selenium.Support" Version="4.4.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.4.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="136.0.7103.9400" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DriverHelper\chromedriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="DriverHelper\msedgedriver.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

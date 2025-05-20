@@ -22,4 +22,12 @@ namespace Selenium_Demo
         }
         
     }
+
+    public class clsChildabs:absStud
+    {
+        public override string getStudName(int sno)
+        {
+            return "venky";
+        }
+    }
 }

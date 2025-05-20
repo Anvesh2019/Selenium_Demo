@@ -8,12 +8,34 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using Selenium_Demo_Abstract;
 
 
 namespace Selenium_Demo.TestCases
 {
     public class clsSample
     {
+        [Test]
+        public void GetCityDetails()
+        {
+            //clsSangareddy objS=new clsSangareddy();
+            //Console.WriteLine(objS.cname);
+            //int myZip=objS.getDetails();
+            //Console.WriteLine(myZip);
+            //Console.WriteLine(clsSangareddy.population);
+
+            //clsChild objChild=new clsChild();
+            //Console.WriteLine(objChild.getDetails("Hyderabad"));
+            //objChild.DisplayCountry();
+            //objS.DisplayCountry();
+
+            clsSangareddy objS = new clsChild();
+            objS.DisplayCountry(20);
+
+            ClsDeptDetails objDept=new ClsDeptDetails();
+            objDept.DisplayDeptAddr();
+
+        }
         [Test]
         public void AddNumbers()
         {

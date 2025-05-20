@@ -22,9 +22,14 @@ namespace Selenium_Demo
             dr =  new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
 
         }
+        public void OpenAmazon1()
+        {
+            Console.WriteLine("open amazon test case");
+        }
         [Test]
         public void OpenAmazon()
         {
+            OpenAmazon1();
             //IWebDriver dr = new ChromeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\chrome-win64\\chrome-win64");
             IWebDriver dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
             dr.Navigate().GoToUrl("https://Amazon.com");

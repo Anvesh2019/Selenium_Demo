@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+//using AventStack.ExtentReports.Model;
 using NUnit.Framework;
 
 namespace Selenium_Demo
@@ -11,7 +12,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyCondition()
         {
-            string sname = "AP";
+            string sname = "MH";
             if(sname=="MH")
             {
                 Console.WriteLine("Capital city is mumbai");
@@ -85,7 +86,7 @@ namespace Selenium_Demo
         public void PrintEvenNumbers()
         {
             int i = 0;
-            for(i=0;i<=10;i=i+2) // 0 2 4 6 8 
+            for(i=0;i<=10;i=i+2) // 0 2 4 6 8 10
             {
                 Console.WriteLine("i value is:" + i);
 
@@ -108,7 +109,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyDoWhileLoop()
         {
-            int i = 0;
+            int i = 10;
             do
             {
                 Console.WriteLine("i value is:" + i);
@@ -118,6 +119,7 @@ namespace Selenium_Demo
             Console.WriteLine("i value after while loop is:" + i);
         }
         [Test]
+        [Category("Actions")]
         public void WeatherTest()
         {
             clsWeatherInfo objWeather = new clsWeatherInfo();

@@ -93,7 +93,7 @@ namespace Selenium_Demo
         {
             IWebDriver dr;
             dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-
+           
             dr.Navigate().GoToUrl("https://google.com");
             Console.WriteLine(dr.Title);
         }

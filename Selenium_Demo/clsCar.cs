@@ -48,7 +48,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyAddNumbers()
         {
-            Console.WriteLine(AddNumbers(20,250));
+            Console.WriteLine(AddNumbers(200,250));
         }
         [Test]
         public void LearnOverriding()

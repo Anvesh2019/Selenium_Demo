@@ -14,11 +14,14 @@ namespace Selenium_Demo
         {
             int[] arrNumbers = new int[4] {10,20,30,40};
             //int[] arrNumbers = new int[4];
-            //arrNumbers[0] = 10;
+            //arrNumbers[0] = 100;
             //arrNumbers[1] = 20;
             //arrNumbers[2] = 30;
             //arrNumbers[3] = 40;
             //arrNumbers[4] = 50;
+
+            //Console.WriteLine(arrNumbers[5]);
+
             for(int i=0;i<arrNumbers.Length;i++) //0 1 2 3 
             {
                 Console.WriteLine(arrNumbers[i]);
@@ -30,7 +33,7 @@ namespace Selenium_Demo
         public void LearnStringArray()
         {
             string[] states = new string[4] { "Texas", "Florida", "Maryland", "Michigon" };
-            for (int i = 1; i < states.Length; i=i+2) // 1 3 
+            for (int i = 0; i < states.Length; i=i+1)  
             {
                 Console.WriteLine(states[i]);
             }
