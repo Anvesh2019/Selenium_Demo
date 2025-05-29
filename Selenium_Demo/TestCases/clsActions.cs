@@ -32,9 +32,9 @@ namespace Selenium_Demo.TestCases
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             options.AddArgument("disable-infobars");//disables info bars
                                                     //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
-            //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
-
+                                                    //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+                                                    //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            dr = new ChromeDriver();
             logger = new clsMyLogger();
         }
 
@@ -83,8 +83,8 @@ namespace Selenium_Demo.TestCases
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
             dr.Manage().Window.Maximize();
             Actions action = new Actions(dr);
-            IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
-            action.ContextClick(element).Build().Perform();
+            IWebElement linkLibrary = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
+            action.ContextClick(linkLibrary).Build().Perform();
             // dr.Close();
 
         }
@@ -113,7 +113,7 @@ namespace Selenium_Demo.TestCases
             action.KeyDown(linkTL, Keys.Enter).Build().Perform();
             string actualURL = dr.Url;
             Assert.IsTrue(actualURL.Contains("tutorials-library"), "Not reached to Tutorial library page");
-            dr.Close();
+            //dr.Close();
         }
         [Test]
         [Category("Actions")]
@@ -145,7 +145,7 @@ namespace Selenium_Demo.TestCases
             {
                 action.KeyDown(txtSrch, arrChars[i].ToString()).Build().Perform();
             }
-            //action.KeyDown(txtSrch,"I").Build().Perform();
+            //action.KeyDown(txtSrch, "I").Build().Perform();
             //action.KeyDown(txtSrch, "N").Build().Perform();
             //action.KeyDown(txtSrch, "D").Build().Perform();
             //action.KeyDown(txtSrch, "I").Build().Perform();

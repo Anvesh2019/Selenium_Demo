@@ -23,8 +23,8 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            dr = new ChromeDriver();
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
         }
 
@@ -43,6 +43,7 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void InteractWithCheckBoxAndRadio()
         {
+            IWebDriver dr = new ChromeDriver();
             dr.Navigate().GoToUrl("https://www.ironspider.ca/forms/checkradio.htm");
             IWebElement chkRed = dr.FindElement(By.XPath("//input[@value='red']"));
             //Console.WriteLine("blue color is selected:" + chkRed.Selected);
@@ -62,10 +63,9 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void HandlingSelectBox()
         {
+            IWebDriver dr = new ChromeDriver();
             dr.Navigate().GoToUrl("https://demo.guru99.com/test/newtours/register.php");
             IWebElement ddCountry = dr.FindElement(By.Name("country"));
-            //ddCountry.SendKeys("HYDERABAD");
-            //SelectElement objSelect = new SelectElement(dr.FindElement(By.Name("country")));
             SelectElement objSelect = new SelectElement(ddCountry);
 
             objSelect.SelectByIndex(2);
@@ -85,6 +85,7 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void InteractWithListbox()
         {
+            IWebDriver dr = new ChromeDriver();
             dr.Navigate().GoToUrl("https://output.jsbin.com/osebed/2");
             IWebElement fruitsLB = dr.FindElement(By.XPath("//select[@id='fruits']"));
             SelectElement objSelect = new SelectElement(fruitsLB);
@@ -94,10 +95,19 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
             objSelect.DeselectByText("Apple");
             
-            //objSelect.DeselectAll();
-            //objSelect.DeselectByText("Grape");
+            //objSelect.DeselectAll(); //Deselect all selected options
+            //objSelect.DeselectByText("Grape"); //Deselect Grape option
             Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
         
+        }
+
+        [Test]
+        public void HandleDropdown()
+        {
+            dr.Navigate().GoToUrl("https://formstone.it/components/dropdown/demo/");
+            IWebElement ddLabel = dr.FindElement(By.Id("demo_basic-dropdown-selected"));
+            ddLabel.Click();
+            dr.FindElement(By.XPath("(//button[@data-value='2'])[1]")).Click();
         }
     }
 }

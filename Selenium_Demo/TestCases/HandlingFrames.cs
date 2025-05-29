@@ -18,11 +18,9 @@ namespace Selenium_Demo
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new ChromeDriver();
             // dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
-
-
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
         }
         [Test]
@@ -32,9 +30,10 @@ namespace Selenium_Demo
             string parentHandle = dr.CurrentWindowHandle;
 
             IWebElement elementFrame = dr.FindElement(By.XPath("//iframe[@name='a077aa5e']"));
-            dr.SwitchTo().Frame(elementFrame);
-            IWebElement imgJmeter = dr.FindElement(By.XPath("//a[@href='http://www.guru99.com/live-selenium-project.html']"));
-            imgJmeter.Click();
+            elementFrame.Click();
+            //dr.SwitchTo().Frame(elementFrame);
+            //IWebElement imgJmeter = dr.FindElement(By.XPath("//a[@href='http://www.guru99.com/live-selenium-project.html']"));
+            //imgJmeter.Click();
             
             System.Collections.ObjectModel.ReadOnlyCollection<string> listHandles = dr.WindowHandles;
             

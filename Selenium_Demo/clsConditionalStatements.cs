@@ -31,11 +31,11 @@ namespace Selenium_Demo
             }
         }
 
-         [Test]
+        [Test]
         public void VerifyIfstatement()
         {
-            int x = 45;
-            if(x>10 && x <30)
+            int x = 35;
+            if (x > 10 || x <30)
             {
                 Console.WriteLine("x is > 10 and < 30");
             }

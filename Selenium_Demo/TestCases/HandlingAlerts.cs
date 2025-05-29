@@ -17,8 +17,8 @@ namespace Selenium_Demo
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            dr = new ChromeDriver();
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
 
         }

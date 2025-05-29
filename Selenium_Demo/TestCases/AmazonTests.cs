@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Chrome;
 using Selenium_Demo.Common;
 using Selenium_Demo.Pages;
 
@@ -21,8 +22,8 @@ namespace Selenium_Demo.TestCases
         public void setup()
         {
             //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
-
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            dr = new ChromeDriver();
             _apage = new AmazonPage(dr);
             objCommon = new clsCommon(dr);
             
@@ -44,6 +45,25 @@ namespace Selenium_Demo.TestCases
             Assert.IsTrue(_apage.headingCartEmpty.Displayed == true, "Not navigated to cart page");
             //_apage.btnSignupNow.Click();
             _apage.clickonSignup();
+        }
+
+        [Test]
+        public void SearchGoldmedal()
+        {
+            objCommon.NavigateToApp("https://amazon.in");
+            dr.Manage().Window.Maximize();
+            dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys("Goldmedal");
+            dr.FindElement(By.Id("nav-search-submit-button")).Click();
+            string srchItem=  dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("value");
+            Console.WriteLine("product name is:" + srchItem);
+        }
+
+        [Test]
+        public void Apnaohio()
+        {
+            dr.Navigate().GoToUrl("https://apnaohio.com/new_ad.jsp");
+            string source = dr.PageSource;
+            Console.WriteLine(source);
         }
     }
 }

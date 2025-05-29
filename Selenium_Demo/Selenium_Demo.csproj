@@ -24,9 +24,6 @@
     <None Update="DriverHelper\chromedriver.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="DriverHelper\msedgedriver.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Testdata\Anvesh.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

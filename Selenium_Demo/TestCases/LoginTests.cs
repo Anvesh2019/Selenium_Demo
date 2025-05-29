@@ -73,10 +73,10 @@ namespace Selenium_Demo
             //options.AddArgument("disable-infobars");//disables info bars
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\",options);
             //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            //dr = new ChromeDriver();
+            dr = new ChromeDriver();
 
             //objLogger.logsEnabled = true;
             //_axisPage = new AxisMfPage(dr);
@@ -684,6 +684,7 @@ namespace Selenium_Demo
         [Test]
         public void DevideByZeroError()
         {
+
             try
             {
                 int x = 20;
@@ -691,11 +692,11 @@ namespace Selenium_Demo
                 int z = x / y;
                 Console.WriteLine("z value is:" + z);
             }
-            catch(NoSuchElementException nse)
+            catch (NoSuchElementException nse)
             {
                 Console.WriteLine(nse.Message);
             }
-            catch(DivideByZeroException dbz)
+            catch (DivideByZeroException dbz)
             {
                 Console.WriteLine(dbz.Message);
             }
@@ -735,7 +736,7 @@ namespace Selenium_Demo
                 System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
                 string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
                 //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
             }
             catch (NoSuchElementException nosuchex)
             {
