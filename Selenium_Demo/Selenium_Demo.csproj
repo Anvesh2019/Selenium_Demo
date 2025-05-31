@@ -57,4 +57,12 @@
     </COMReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Anand.Gummadilli\Source\Repos\Selenium_Demo\Selenium_Demo\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Anand.Gummadilli\Source\Repos\Selenium_Demo\Selenium_Demo\.editorconfig" />
+  </ItemGroup>
+
 </Project>

@@ -31,7 +31,7 @@ namespace Selenium_Demo
             else if (browser == "chrome")
             {
 
-                dr = new ChromeDriver(@"C:\Users\DSC\Documents\chromedriver.exe");
+                dr = new ChromeDriver();
             }
             else if (browser == "IE")
             {

@@ -27,21 +27,53 @@ namespace Selenium_Demo.TestCases
             options.AddArgument("start-maximized"); //Maximize the window when it starts
             //options.AddArgument("incognito");
             //options.AddArgument("headless");
-            options.AddArgument("useAutomationExtension");
-            options.AddArgument("disable-extensions"); //disables existing extentions
+            //options.AddArgument("useAutomationExtension");
+            //options.AddArgument("disable-extensions"); //disables existing extentions
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             options.AddArgument("disable-infobars");//disables info bars
                                                     //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
                                                     //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
                                                     //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
-            dr = new ChromeDriver();
-            logger = new clsMyLogger();
+            options.AddArguments("--disable-notifications");
+            dr = new ChromeDriver(options);
+            //logger = new clsMyLogger();
+        }
+        [Test]
+        public void GetallCookies()
+        {
+            dr.Navigate().GoToUrl("https://google.com");
+          ICookieJar cookies=  dr.Manage().Cookies;
+          Console.WriteLine("before adding:" + cookies.AllCookies.Count);
+            //cookies.DeleteAllCookies();
+             cookies.AddCookie(new Cookie("country","india"));
+            Console.WriteLine("after adding:" + cookies.AllCookies.Count);
+
+        }
+        [Test]
+        [Category("Regression")]
+        public void LoginAxisMFViaPAN()
+        {
+            dr.Navigate().GoToUrl("https://axismf.com");
+            //dr.Manage().Window.Maximize();
+
+            dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            WebDriverWait _wait = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            IWebElement txtPannumber = _wait.Until(ExpectedConditions.ElementExists(By.XPath("(//input[@name='pan'])[2]")));
+            txtPannumber.SendKeys("1234");
+
+            // Thread.Sleep(3000);
+
+            WebDriverWait _wait1 = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Please enter a correct PAN']")));
+
+            Assert.IsTrue(labelError.Displayed == true, "Error is not displayed"); // displayed
+
         }
 
         [Test]
         public void VerifyOptions()
         {
-            //  dr.Navigate().GoToUrl("https://google.com");
+            dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
         }
         [Test]

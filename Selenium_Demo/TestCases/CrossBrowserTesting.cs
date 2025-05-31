@@ -28,7 +28,7 @@ namespace Selenium_Demo
         public void getBrowserType()
         {
 
-               string BrowserType = ConfigurationManager.AppSettings.Get("chrome");
+             string BrowserType = ConfigurationManager.AppSettings["BrowserType"];
             Console.WriteLine("Browser type is:" + BrowserType);
             
         }
