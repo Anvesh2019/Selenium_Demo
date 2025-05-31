@@ -729,7 +729,7 @@ namespace Selenium_Demo
             catch (ElementClickInterceptedException clickex)
             {
                 Console.WriteLine(clickex.Message);
-              
+                Console.WriteLine("test1");
                 ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
                 Screenshot screenshot = screenshotDriver.GetScreenshot();
                 // Creating UIScreenshot folder if not exists
