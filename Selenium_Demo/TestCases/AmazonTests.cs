@@ -10,6 +10,7 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Chrome;
 using Selenium_Demo.Common;
 using Selenium_Demo.Pages;
+using System.Threading;
 
 namespace Selenium_Demo.TestCases
 {
@@ -64,6 +65,16 @@ namespace Selenium_Demo.TestCases
             dr.Navigate().GoToUrl("https://apnaohio.com/new_ad.jsp");
             string source = dr.PageSource;
             Console.WriteLine(source);
+        }
+        [Test]
+        public void Verify3MonthsReturns()
+        {
+            dr.Navigate().GoToUrl("https://amazon.in");
+            Thread.Sleep(3000);
+            //_apage.clickOnReturns();
+            objCommon.ClickonElement(_apage.linkRetruns);
+            Assert.IsTrue(_apage.smoothWalk.Displayed == true, "smooth walk is not found");
+            
         }
     }
 }
