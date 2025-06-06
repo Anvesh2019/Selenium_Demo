@@ -776,6 +776,7 @@ namespace Selenium_Demo
             dr.Manage().Window.Maximize();
             string windowhandleParent = dr.CurrentWindowHandle; //getting parentwindow handle
             IWebElement btnNewwindow = dr.FindElement(By.XPath("//button[@id='tabButton']"));
+            Thread.Sleep(2000);
             btnNewwindow.Click();
             System.Collections.ObjectModel.ReadOnlyCollection<string> lstWindow = dr.WindowHandles;
             Console.WriteLine("Tabs count:" + lstWindow.Count);
