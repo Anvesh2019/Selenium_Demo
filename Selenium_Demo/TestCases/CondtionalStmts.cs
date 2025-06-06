@@ -32,5 +32,42 @@ namespace Selenium_Demo.TestCases
             }
             Console.WriteLine("out side of switch case");
         }
+        [Test]
+        public void LearnIfStatement()
+        {
+            
+            int age = 15;
+            if (age > 18)
+            {
+                Console.WriteLine("Stud is Major");
+            }
+            else
+            {
+                Console.WriteLine("Stud is minor");
+            }
+        }
+
+        [Test]
+        public void LearnIfelseIfStatement()
+        {
+
+            int age = 15;
+            if (age < 1)
+            {
+                Console.WriteLine("Stud is a kid");
+            }
+            else if(age <18)
+            {
+                Console.WriteLine("Stud is minor");
+            }
+            else
+            {
+                Console.WriteLine("Stud is major");
+            }
+        }
+        public void DisplayMyAge(int age)
+        {
+            Console.WriteLine("My age is:" + age);
+        }
     }
 }
