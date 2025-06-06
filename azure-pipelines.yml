@@ -42,6 +42,6 @@ steps:
     testAssemblyVer2: '**\$(BuildConfiguration)\**\Selenium_Demo.dll'
     testFiltercriteria: 'TestCategory=Handling Multiple Windows | TestCategory=Amazon'
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
-    #rerunFailedTests: true
+    rerunFailedTests: true
     #rerunMaxAttempts: 2
   
