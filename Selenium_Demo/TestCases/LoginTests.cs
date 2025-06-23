@@ -2,6 +2,8 @@ using NUnit.Framework;
 using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.IE;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
 using System.Drawing;
@@ -23,7 +25,7 @@ using AventStack.ExtentReports.Reporter;
 using System.Reflection;
 using NUnit.Framework.Interfaces;
 using Selenium_Demo.TestCases;
-using OpenQA.Selenium.Edge;
+
 
 namespace Selenium_Demo
 {
@@ -82,7 +84,24 @@ namespace Selenium_Demo
             //_axisPage = new AxisMfPage(dr);
             _common = new clsCommon(dr);
         }
-       
+        [Test]
+        public void VerifySearchProd()
+        {
+           
+            dr.Navigate().GoToUrl("https://amazon.in"); //open the amazon.in
+
+            //IWebElement btnContinue = dr.FindElement(By.XPath("//button[@alt='Continue shopping']"));
+            //if (btnContinue.Displayed)
+            //{
+            //    btnContinue.Click();    
+            //}
+            dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys("SonyTV 55");
+            dr.FindElement(By.Id("nav-search-submit-button")).Click();
+            string prodName= dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("value");
+            Console.WriteLine(prodName);
+            Console.WriteLine(dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("placeholder"));
+        }
+
         public static void StartExtentTest(string testsToStart)
         {
             testlog = extent.CreateTest(testsToStart);
@@ -536,6 +555,19 @@ namespace Selenium_Demo
             clsDept objDept4 = new clsDept();
             clsStud objStud4 = objDept4;
             objStud4.DisplaySname();
+
+            //absStud abs1=new absStud(); //cant create instance for abstract class
+            clsChildabs c1=new clsChildabs();
+            Console.WriteLine(c1.getStudName(30));
+
+        }
+
+        [Test]
+        public void LearnStatic()
+        {
+            clsJun2025 objStat = new clsJun2025();
+            clsJun2025.DisplayName();
+           
 
         }
         [Test]
@@ -1030,6 +1062,17 @@ namespace Selenium_Demo
             //objCol.DisplayUnivName();
             objCol.DisplayCollegename();
 
+        }
+        [Test]
+        public void VerifySname()
+        {
+            clsStud objStud = new clsStud();
+            string sname= objStud.GetStudName(50);
+            Console.WriteLine(sname);
+            bool flgMajor = objStud.CheckMajor(25);
+            Console.WriteLine("student is major:" + flgMajor);
+
+            clsStud s2 = new clsStud(45);
         }
         [OneTimeTearDown]
         public void EndReport()
