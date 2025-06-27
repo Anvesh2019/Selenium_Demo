@@ -80,6 +80,10 @@ namespace Selenium_Demo.TestCases
             for (int i = 0; i < optCount; i++)
             {
                 objSelect.SelectByIndex(i);
+                if(i==10)
+                {
+                    break;
+                }
             }
         }
         [Test]

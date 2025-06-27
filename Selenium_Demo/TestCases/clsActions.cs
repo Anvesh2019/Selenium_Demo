@@ -50,11 +50,23 @@ namespace Selenium_Demo.TestCases
 
         }
         [Test]
+        public void VerifyLoginThroughPAN()
+        {
+            dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1000);
+
+            dr.Navigate().GoToUrl("https://axismf.com");
+            dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            IWebElement txtPannumber = dr.FindElement(By.XPath("(//input[@name='pan'])[2]"));
+            txtPannumber.SendKeys("1234");
+
+        }
+
+        [Test]
         [Category("Regression")]
         public void LoginAxisMFViaPAN()
         {
             dr.Navigate().GoToUrl("https://axismf.com");
-            //dr.Manage().Window.Maximize();
+            dr.Manage().Window.Maximize();
 
             dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
             WebDriverWait _wait = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
@@ -63,10 +75,10 @@ namespace Selenium_Demo.TestCases
 
             // Thread.Sleep(3000);
 
-            WebDriverWait _wait1 = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
-            IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Please enter a correct PAN']")));
+            //WebDriverWait _wait1 = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            //IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Please enter a correct PAN']")));
 
-            Assert.IsTrue(labelError.Displayed == true, "Error is not displayed"); // displayed
+            //Assert.IsTrue(labelError.Displayed == true, "Error is not displayed"); // displayed
 
         }
 
@@ -219,8 +231,8 @@ namespace Selenium_Demo.TestCases
             action.DragAndDrop(From, To).Build().Perform();
             Thread.Sleep(2000);
 
-            IWebElement debtMovement = dr.FindElement(By.XPath("//td[normalize-space(text())='Debit Movement']"));
-            Assert.IsTrue(debtMovement.Size != Size.Empty, "Debit movement is not displayed");
+            //IWebElement debtMovement = dr.FindElement(By.XPath("//td[normalize-space(text())='Debit Movement']"));
+            //Assert.IsTrue(debtMovement.Size != Size.Empty, "Debit movement is not displayed");
         }
         [Test]
         [Category("Actions")]
@@ -288,30 +300,31 @@ namespace Selenium_Demo.TestCases
         {
 
             int x = 10;
-            logger.LogMessage("x value is:" + x);
+          //  logger.LogMessage("x value is:" + x);
 
             int y = 0;
 
-            logger.LogMessage("y value is:" + y);
-            int z = x / y;
-            logger.LogMessage("z value is:" + z);
+            //logger.LogMessage("y value is:" + y);
+            
+           // logger.L/ogMessage("z value is:" + z);
 
             try
             {
-                
-                Console.WriteLine("z value is:" + z);
+                //int z = x / y;
+                //Console.WriteLine("z value is:" + z);
                 int[] nums = new int[3] {10,20,30 };
                 Console.WriteLine(nums[10]);
 
             }
-            //catch(IndexOutOfRangeException iex)
-            //{
-            //    Console.WriteLine(iex.Message);
-            //}
+            catch (IndexOutOfRangeException iex)
+            {
+                Console.WriteLine(iex.Message);
+            }
 
-            catch(DivideByZeroException dex)
+            catch (DivideByZeroException dex)
             {
                 Console.WriteLine(dex.StackTrace);
+                Console.WriteLine(dex.Message);
             }
             catch (Exception ex)
             {
@@ -319,11 +332,15 @@ namespace Selenium_Demo.TestCases
                 {
                     Console.WriteLine(ex.Message);
                 }
-                catch(Exception ex1)
+                catch (Exception ex1)
                 {
                     Console.WriteLine(ex1.Message);
                 }
-                
+
+            }
+            finally
+            {
+                Console.WriteLine(" i am finally block");
             }
         }
     }

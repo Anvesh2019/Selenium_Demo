@@ -40,7 +40,7 @@ namespace Selenium_Demo
             dr.SwitchTo().Window(listHandles[1]); //switch to 2nd tab
             Console.WriteLine("current url:" + dr.Url);
             Thread.Sleep(3000);
-
+           
             dr.FindElement(By.XPath("(//a[text()='Home'])[1]")).Click();
 
 
