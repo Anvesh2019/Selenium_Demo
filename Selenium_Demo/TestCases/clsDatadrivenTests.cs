@@ -34,11 +34,11 @@ namespace Selenium_Demo.TestCases
         {
           
             DataTable dtAnvesh= _utilities.ReadExcel("C:\\Users\\Anand.Gummadilli\\Documents\\Anand_Details\\Students.xlsx", null);
-            Console.WriteLine("Rows count is:" + dtAnvesh.Rows);
+            Console.WriteLine("Rows count is:" + dtAnvesh.Rows.Count);
             for(int i=0; i<dtAnvesh.Rows.Count;i++)
             {
                 dr.Navigate().GoToUrl("http://google.com");
-                dr.FindElement(By.Name("q")).SendKeys(dtAnvesh.Rows[i][1].ToString());
+                dr.FindElement(By.Name("q")).SendKeys(dtAnvesh.Rows[i][0].ToString());
                 dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
                 Thread.Sleep(2000);
             }
