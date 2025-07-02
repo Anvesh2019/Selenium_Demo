@@ -68,5 +68,10 @@ namespace Selenium_Demo.TestCases
             string source = dr.PageSource;
             Console.WriteLine(source);
         }
+        [Test]
+        public void SaisTestcase()
+        {
+            Console.Write("Sais test cases");
+        }
     }
 }
