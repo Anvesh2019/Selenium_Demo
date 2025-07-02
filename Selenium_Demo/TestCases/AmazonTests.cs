@@ -73,5 +73,10 @@ namespace Selenium_Demo.TestCases
         {
             Console.Write("Sais test cases");
         }
+        [Test]
+        public void SaiTestCase2()
+        {
+            Console.WriteLine("Ram");
+        }
     }
 }
