@@ -11,13 +11,15 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System.IO;
+using Selenium_Demo.Common;
 
 namespace Selenium_Demo.TestCases
 {
     public class clsActions
     {
-
+        clsCommon objCommon;
         public IWebDriver dr;
+        
         clsMyLogger logger;
         [SetUp]
         public void Setup()
@@ -29,24 +31,37 @@ namespace Selenium_Demo.TestCases
             //options.AddArgument("headless");
             //options.AddArgument("useAutomationExtension");
             //options.AddArgument("disable-extensions"); //disables existing extentions
-            options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
-            options.AddArgument("disable-infobars");//disables info bars
+            //options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
+            //options.AddArgument("disable-infobars");//disables info bars
                                                     //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
                                                     //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
                                                     //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
-            options.AddArguments("--disable-notifications");
+            //options.AddArguments("--disable-notifications");
             dr = new ChromeDriver(options);
             //logger = new clsMyLogger();
+            objCommon = new clsCommon(dr);
+        }
+        [Test]
+        public void OpenGoogle()
+        {
+            dr.Navigate().GoToUrl("https://google.com");
+            //dr.Manage().Window.Maximize();
         }
         [Test]
         public void GetallCookies()
         {
-            dr.Navigate().GoToUrl("https://google.com");
+          dr.Navigate().GoToUrl("https://google.com");
           ICookieJar cookies=  dr.Manage().Cookies;
           Console.WriteLine("before adding:" + cookies.AllCookies.Count);
-            //cookies.DeleteAllCookies();
-             cookies.AddCookie(new Cookie("country","india"));
+          cookies.DeleteAllCookies();
+          Console.WriteLine("After deleting:" + cookies.AllCookies.Count);
+
+            cookies.AddCookie(new Cookie("country","india"));
+            cookies.AddCookie(new Cookie("State", "TG"));
+            cookies.AddCookie(new Cookie("Capital", "Hyderabad"));
+
             Console.WriteLine("after adding:" + cookies.AllCookies.Count);
+            cookies.DeleteCookieNamed("Capital");
 
         }
         [Test]
@@ -343,5 +358,25 @@ namespace Selenium_Demo.TestCases
                 Console.WriteLine(" i am finally block");
             }
         }
+        [Test]
+        public void VerifyScrollVertical()
+        {
+           
+            dr.Navigate().GoToUrl("https://amazon.in");
+            objCommon.ScrollDownVertical(1000);
+            Console.WriteLine(dr.Manage().Window.Size);
+        }
+
+        [Test]
+        public void VerifyScrollHorizantal()
+        {
+
+            dr.Navigate().GoToUrl("https://amazon.in");
+
+            objCommon.ScrollHorizantal(1000);
+            
+        }
+
     }
-}
+    }
+

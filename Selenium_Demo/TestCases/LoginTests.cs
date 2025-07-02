@@ -39,6 +39,7 @@ namespace Selenium_Demo
         
         public IWebDriver dr;
         AxisMfPage _axisPage;
+        clsCommon objCommon;
         [OneTimeSetUp]
         public void StartReport()
         {
@@ -64,7 +65,7 @@ namespace Selenium_Demo
         {
             StartExtentTest(TestContext.CurrentContext.Test.Name);
             Console.WriteLine("I am from setup method");
-
+          
             ChromeOptions options = new ChromeOptions();
             //options.AddArgument("start-maximized"); //Maximize the window when it starts
             options.AddArgument("incognito");
@@ -79,7 +80,7 @@ namespace Selenium_Demo
 
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             dr = new ChromeDriver();
-
+            objCommon = new clsCommon(dr);
             //objLogger.logsEnabled = true;
             //_axisPage = new AxisMfPage(dr);
             _common = new clsCommon(dr);
@@ -743,7 +744,7 @@ namespace Selenium_Demo
         }
         [Test]
 
-        public void Getscreenshot()
+        public void LoginAxisMFViaPAN()
         {
             try
             {
@@ -760,27 +761,29 @@ namespace Selenium_Demo
             }
             catch (ElementClickInterceptedException clickex)
             {
-                Console.WriteLine(clickex.Message);
-                Console.WriteLine("test1");
-                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
-                Screenshot screenshot = screenshotDriver.GetScreenshot();
-                // Creating UIScreenshot folder if not exists
-                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
-                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
+                objCommon.GetScreenshot();
+                //Console.WriteLine(clickex.Message);
+                //Console.WriteLine("test1");
+                //ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                //Screenshot screenshot = screenshotDriver.GetScreenshot();
+                //// Creating UIScreenshot folder if not exists
+                //System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
+                ////string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+                //screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
             }
             catch (NoSuchElementException nosuchex)
             {
-                Console.WriteLine(nosuchex.Message);
-                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
-                Screenshot screenshot = screenshotDriver.GetScreenshot();
-                // Creating UIScreenshot folder if not exists
-                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
-                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+                objCommon.GetScreenshot();
+                //Console.WriteLine(nosuchex.Message);
+                //ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                //Screenshot screenshot = screenshotDriver.GetScreenshot();
+                //// Creating UIScreenshot folder if not exists
+                //System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                ////string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
 
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
+                //screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
             }
             //catch (NoSuchWindowException ex)
             //{
