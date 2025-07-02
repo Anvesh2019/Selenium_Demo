@@ -2,6 +2,8 @@ using NUnit.Framework;
 using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.IE;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
 using System.Drawing;
@@ -23,7 +25,7 @@ using AventStack.ExtentReports.Reporter;
 using System.Reflection;
 using NUnit.Framework.Interfaces;
 using Selenium_Demo.TestCases;
-using OpenQA.Selenium.Edge;
+
 
 namespace Selenium_Demo
 {
@@ -37,6 +39,7 @@ namespace Selenium_Demo
         
         public IWebDriver dr;
         AxisMfPage _axisPage;
+        clsCommon objCommon;
         [OneTimeSetUp]
         public void StartReport()
         {
@@ -62,7 +65,7 @@ namespace Selenium_Demo
         {
             StartExtentTest(TestContext.CurrentContext.Test.Name);
             Console.WriteLine("I am from setup method");
-
+          
             ChromeOptions options = new ChromeOptions();
             //options.AddArgument("start-maximized"); //Maximize the window when it starts
             options.AddArgument("incognito");
@@ -77,12 +80,29 @@ namespace Selenium_Demo
 
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             dr = new ChromeDriver();
-
+            objCommon = new clsCommon(dr);
             //objLogger.logsEnabled = true;
             //_axisPage = new AxisMfPage(dr);
             _common = new clsCommon(dr);
         }
-       
+        [Test]
+        public void VerifySearchProd()
+        {
+           
+            dr.Navigate().GoToUrl("https://amazon.in"); //open the amazon.in
+
+            //IWebElement btnContinue = dr.FindElement(By.XPath("//button[@alt='Continue shopping']"));
+            //if (btnContinue.Displayed)
+            //{
+            //    btnContinue.Click();    
+            //}
+            dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys("SonyTV 55");
+            dr.FindElement(By.Id("nav-search-submit-button")).Click();
+            string prodName= dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("value");
+            Console.WriteLine(prodName);
+            Console.WriteLine(dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("placeholder"));
+        }
+
         public static void StartExtentTest(string testsToStart)
         {
             testlog = extent.CreateTest(testsToStart);
@@ -537,6 +557,19 @@ namespace Selenium_Demo
             clsStud objStud4 = objDept4;
             objStud4.DisplaySname();
 
+            //absStud abs1=new absStud(); //cant create instance for abstract class
+            clsChildabs c1=new clsChildabs();
+            Console.WriteLine(c1.getStudName(30));
+
+        }
+
+        [Test]
+        public void LearnStatic()
+        {
+            clsJun2025 objStat = new clsJun2025();
+            clsJun2025.DisplayName();
+           
+
         }
         [Test]
         public void InvokeAbstractMethod()
@@ -711,7 +744,7 @@ namespace Selenium_Demo
         }
         [Test]
 
-        public void Getscreenshot()
+        public void LoginAxisMFViaPAN()
         {
             try
             {
@@ -728,27 +761,29 @@ namespace Selenium_Demo
             }
             catch (ElementClickInterceptedException clickex)
             {
-                Console.WriteLine(clickex.Message);
-                Console.WriteLine("test1");
-                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
-                Screenshot screenshot = screenshotDriver.GetScreenshot();
-                // Creating UIScreenshot folder if not exists
-                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
-                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
+                objCommon.GetScreenshot();
+                //Console.WriteLine(clickex.Message);
+                //Console.WriteLine("test1");
+                //ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                //Screenshot screenshot = screenshotDriver.GetScreenshot();
+                //// Creating UIScreenshot folder if not exists
+                //System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
+                ////string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+                //screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
             }
             catch (NoSuchElementException nosuchex)
             {
-                Console.WriteLine(nosuchex.Message);
-                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
-                Screenshot screenshot = screenshotDriver.GetScreenshot();
-                // Creating UIScreenshot folder if not exists
-                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
-                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+                objCommon.GetScreenshot();
+                //Console.WriteLine(nosuchex.Message);
+                //ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                //Screenshot screenshot = screenshotDriver.GetScreenshot();
+                //// Creating UIScreenshot folder if not exists
+                //System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                ////string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
 
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
+                //screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
             }
             //catch (NoSuchWindowException ex)
             //{
@@ -776,6 +811,7 @@ namespace Selenium_Demo
             dr.Manage().Window.Maximize();
             string windowhandleParent = dr.CurrentWindowHandle; //getting parentwindow handle
             IWebElement btnNewwindow = dr.FindElement(By.XPath("//button[@id='tabButton']"));
+            Thread.Sleep(2000);
             btnNewwindow.Click();
             System.Collections.ObjectModel.ReadOnlyCollection<string> lstWindow = dr.WindowHandles;
             Console.WriteLine("Tabs count:" + lstWindow.Count);
@@ -1029,6 +1065,17 @@ namespace Selenium_Demo
             //objCol.DisplayUnivName();
             objCol.DisplayCollegename();
 
+        }
+        [Test]
+        public void VerifySname()
+        {
+            clsStud objStud = new clsStud();
+            string sname= objStud.GetStudName(50);
+            Console.WriteLine(sname);
+            bool flgMajor = objStud.CheckMajor(25);
+            Console.WriteLine("student is major:" + flgMajor);
+
+            clsStud s2 = new clsStud(45);
         }
         [OneTimeTearDown]
         public void EndReport()

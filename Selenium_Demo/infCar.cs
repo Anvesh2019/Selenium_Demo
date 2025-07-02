@@ -8,17 +8,26 @@ namespace Selenium_Demo
 {
     public interface infCar
     {
-       public void Accelerate();
+        void Accelerate();
+        //public string DisplayMyAddress();
      // public string GetCarname();
        
     }
+    public interface infPlane
+    {
+        void GetPlaneInfo();
 
-    public class childInf: infCar
+    }
+
+    public class childInf: infCar,infPlane
     {
         public void Accelerate()
         {
             Console.WriteLine(" I am accelerate method");
         }
-       
+        public void GetPlaneInfo()
+        {
+
+        }
     }
 }

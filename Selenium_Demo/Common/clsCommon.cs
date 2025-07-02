@@ -91,5 +91,22 @@ namespace Selenium_Demo.Common
            
 
         }
+
+        public void ClickElementUsingJSE(IWebElement ele)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)dr;
+            js.ExecuteScript("arguments[0].click(); return true", ele);
+          
+        }
+        public void GetScreenshot()
+        {
+            ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+            Screenshot screenshot = screenshotDriver.GetScreenshot();
+            // Creating UIScreenshot folder if not exists
+            System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+            string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
+            screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
+
+        }
     }
 }

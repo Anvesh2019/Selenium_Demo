@@ -122,6 +122,7 @@ namespace Selenium_Demo
             primeNumbers.Add(3);
             primeNumbers.Add(5);
             primeNumbers.Add(7);
+            
 
             
             Console.WriteLine("No of elelemts: " + primeNumbers.Count);
@@ -136,12 +137,15 @@ namespace Selenium_Demo
             Console.WriteLine("No of elelemts: " + cities.Count);
 
             // adding elements using collection initializer syntax
-            var bigCities = new List<string>() 
-            {
-                "New York", "London", "Mumbai", "Chicago"
-            };
+            var bigCities = new List<string>(){"New York", "London", "Mumbai", "Chicago"};
             bigCities.Add("Dallas");
+            //bigCities.Clear();
+            bigCities.RemoveAt(1);
             Console.WriteLine("No of big cities: " + bigCities.Count);
+            for(int i = 0;i < bigCities.Count;i++)
+            {
+                Console.WriteLine(bigCities[i]);
+            }
 
         }
         [Test]
@@ -149,11 +153,12 @@ namespace Selenium_Demo
         {
             IDictionary<int, string> States = new Dictionary<int, string>();
 
-            States.Add(1, "NY");
-            States.Add(2, "NJ");
-            States.Add(3, "MD");
+            States.Add(1, "NY"); //1
+            States.Add(2, "NJ"); //2
+            States.Add(3, "MD"); //3
             States.Add(4, "NY");
             States.Add(5, "WA");
+            States.Remove(2);
 
             foreach (KeyValuePair<int, string> kvp in States)
                 Console.WriteLine("Key: {0}, Value: {1}", kvp.Key, kvp.Value);
@@ -162,9 +167,13 @@ namespace Selenium_Demo
         [Test]
         public void sortarray()
         {
-            string[] friend = { "sathish", "rajesh", "sharath" };
-            Array.Sort(friend);
-            foreach(string s in friend)
+            int[] nums = new int[5] { 100,200,150,250,500};
+            Array.Sort(nums);
+            Console.WriteLine("3RD highest is:" + nums[2]); //3rd element
+
+            string[] friends = { "sathish", "rajesh", "sharath" };
+            Array.Sort(friends);
+            foreach(string s in friends)
             {
                 Console.WriteLine(s);
             }
@@ -258,11 +267,22 @@ namespace Selenium_Demo
         [Test]
         public void hashtable()
         {
-            Hashtable age = new Hashtable();
-            age.Add("sahith", 26);
-            age.Add("rio", 26);
+            Dictionary<int, string> dict = new Dictionary<int, string>();
+            dict.Add(1, "one");
+            dict.Add(2, "two");
+            dict.Add(3, "three");
 
-            Console.WriteLine("My age is: "+age["sahith"]);
+            Hashtable hs = new Hashtable(dict);
+            hs.Add("sahith", 26);
+            hs.Add("rio", 26);
+
+            foreach (DictionaryEntry de in hs)
+            {
+                Console.WriteLine("Key: {0}, Value: {1}", de.Key, de.Value);
+            }
+                
+
+            //Console.WriteLine("My age is: "+age["sahith"]);
         }
         [Test]
         public void dictionary()

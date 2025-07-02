@@ -30,6 +30,7 @@ namespace Selenium_Demo.TestCases
             
         }
         [Test]
+        [Category("Amazon")]
         public void VerifyCart() 
         {
             dr.Navigate().GoToUrl("https://amazon.in");
@@ -37,6 +38,7 @@ namespace Selenium_Demo.TestCases
             Assert.IsTrue(_apage.headingCartEmpty.Displayed==true,"Not navigated to cart page");
         }
         [Test]
+        [Category("Amazon")]
         public void VerifySignupNow()
         {
             objCommon.NavigateToApp("https://amazon.in");
@@ -49,6 +51,7 @@ namespace Selenium_Demo.TestCases
         }
 
         [Test]
+        [Category("Amazon")]
         public void SearchGoldmedal()
         {
             objCommon.NavigateToApp("https://amazon.in");

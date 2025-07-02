@@ -36,7 +36,6 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("Top company name:" + topComp.Text);
             Assert.IsTrue(topComp.Text == "Reliance", "Top company name is not reliance");
 
-
         }
         [Test]
         public void Get2ndCompanyDetails()
@@ -53,7 +52,7 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void GetHighestCompany()
         {
-            string cname = GetCompanyNameByRank(3);
+            string cname = GetCompanyNameByRank(1);
             Console.WriteLine(cname);
             dr.Close();
 
@@ -62,6 +61,7 @@ namespace Selenium_Demo.TestCases
         public string GetCompanyNameByRank(int rankNum)
         {
             dr.Navigate().GoToUrl("https://www.moneycontrol.com/stocks/marketinfo/marketcap/bse/index.html");
+            Thread.Sleep(15000);
             IWebElement elemTopComp = dr.FindElement(By.XPath("//table/tbody/tr[" + rankNum + "]/td[1]/a"));
             string cname = elemTopComp.Text;
             // Console.WriteLine("Top company name is:" + cname);
@@ -110,6 +110,25 @@ namespace Selenium_Demo.TestCases
             IWebElement relianceLink = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//a[text()='Reliance']")));
             relianceLink.Click();
             // Assert.IsTrue(relianceLink.Displayed == true,"Reliance is NOT displayed");
+
+        }
+
+        [Test]
+        public void CheckInfosys()
+        {
+            dr.Navigate().GoToUrl("https://www.moneycontrol.com/stocks/marketinfo/marketcap/bse/sbi.html");
+            Thread.Sleep(15000);
+            ReadOnlyCollection<IWebElement> rowsList = dr.FindElements(By.XPath("//table/tbody/tr"));
+            for(int i=1;i<rowsList.Count;i++)
+            {
+                IWebElement cname = dr.FindElement(By.XPath("//table/tbody/tr["+i+"]/td[1]"));
+                if (cname.Text == "ABC")
+                {
+                    Console.WriteLine("ABC is there in top 100 list");
+                    break;
+                }
+               
+            }
 
         }
     }
