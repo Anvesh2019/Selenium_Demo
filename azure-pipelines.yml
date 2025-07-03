@@ -4,14 +4,14 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- master
+- sai_local
 
 schedules:
 - cron: '0 6 * * Mon-Fri'
 
   branches:
     include:
-    - master
+    - sai_local
     
 pool:
   vmImage: 'windows-latest'
@@ -40,7 +40,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testAssemblyVer2: '**\$(BuildConfiguration)\**\Selenium_Demo.dll'
-    testFiltercriteria: 'TestCategory=Handling Multiple Windows | TestCategory=Amazon'
+    testFiltercriteria: 'TestCategory=Regression'
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
     #rerunMaxAttempts: 2
