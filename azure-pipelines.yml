@@ -44,4 +44,13 @@ steps:
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
     #rerunMaxAttempts: 2
+- task: PublishTestResults@2
+  #displayName: Printing Test Result File
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: 'palladium-output.trx'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    testRunTitle: 'Selenium Demo TRX'
+    publishRunAttachments: true
+    failTaskOnFailedTests: true
   
