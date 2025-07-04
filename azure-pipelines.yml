@@ -48,7 +48,7 @@ steps:
   #displayName: Printing Test Result File
   inputs:
     testResultsFormat: 'VSTest'
-    testResultsFiles: 'palladium-output.trx'
+    testResultsFiles: 'seleniumdemo-output.trx'
     searchFolder: '$(System.DefaultWorkingDirectory)'
     testRunTitle: 'Selenium Demo TRX'
     publishRunAttachments: true
