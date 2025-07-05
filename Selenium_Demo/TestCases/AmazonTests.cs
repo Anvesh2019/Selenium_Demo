@@ -49,12 +49,7 @@ namespace Selenium_Demo.TestCases
             _apage.clickonSignup();
         }
         
-        [Test]
-        [Category("Amazon1")]
-        public void LoadAmazon()
-        {
-            Console.WriteLine("Load Amazon Test case");
-        }
+        
         [Test]
         [Category("Amazon")]
         public void SearchGoldmedal()
