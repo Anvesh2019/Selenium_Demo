@@ -44,13 +44,9 @@ steps:
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
     #rerunMaxAttempts: 2
-- task: PublishTestResults@2
-  #displayName: Printing Test Result File
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: 'seleniumdemo-output.trx'
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    testRunTitle: 'Selenium Demo TRX'
-    publishRunAttachments: true
-    failTaskOnFailedTests: true
-  
+ 
+- task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: '$(Build.ArtifactStagingDirectory)\drop/allure-results'
+                ArtifactName: 'WebResults'
+                publishLocation: 'Container'
