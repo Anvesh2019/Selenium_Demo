@@ -40,17 +40,16 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testAssemblyVer2: '**\$(BuildConfiguration)\**\Selenium_Demo.dll'
-    testFiltercriteria: 'TestCategory=Handling Multiple Windows | TestCategory=Amazon'
+    testFiltercriteria: 'TestCategory=Amazon1'
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
+    condition: succeededOrFailed()
+    continueOnError: true
     #rerunMaxAttempts: 2
-- task: PublishTestResults@2
-  #displayName: Printing Test Result File
+ 
+- task: PublishBuildArtifacts@1
   inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: 'seleniumdemo-output.trx'
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    testRunTitle: 'Selenium Demo TRX'
-    publishRunAttachments: true
-    failTaskOnFailedTests: true
-  
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\drop/allure-results'
+    ArtifactName: 'WebResults'
+    publishLocation: 'Container'
+
