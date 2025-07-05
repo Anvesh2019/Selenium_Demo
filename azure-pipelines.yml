@@ -46,7 +46,8 @@ steps:
     #rerunMaxAttempts: 2
  
 - task: PublishBuildArtifacts@1
-              inputs:
-                PathtoPublish: '$(Build.ArtifactStagingDirectory)\drop/allure-results'
-                ArtifactName: 'WebResults'
-                publishLocation: 'Container'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\drop/allure-results'
+    ArtifactName: 'WebResults'
+    publishLocation: 'Container'
+
