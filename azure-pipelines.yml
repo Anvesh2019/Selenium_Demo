@@ -40,8 +40,8 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testAssemblyVer2: '|**\*Selenium_Demo.dll'
-    testFiltercriteria: 'TestCategory=Amazon1'
-    #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
+    #testFiltercriteria: 'TestCategory=Amazon1 or TestCategory=Actions'
+    testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
     condition: succeededOrFailed()
     continueOnError: true
