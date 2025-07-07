@@ -15,8 +15,8 @@ namespace Selenium_Demo
     {
         public static IWebDriver dr;
         public clsCommon objCommon;
-       // public string browser = "chrome";
-       piu
+       public string browser = "chrome";
+       
         public clsMyLogger logger;
         [SetUp]
         public void Setup()
