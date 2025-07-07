@@ -29,7 +29,7 @@ using Selenium_Demo.TestCases;
 
 namespace Selenium_Demo
 {
-    public class LoginTests
+    public class LoginTests: TestBase
     {
         public static ExtentReports extent;
         public static ExtentTest testlog;
@@ -43,6 +43,7 @@ namespace Selenium_Demo
         [OneTimeSetUp]
         public void StartReport()
         {
+            //logger.LogMessage("StartReport from Logintests.cs");
             string path = Assembly.GetCallingAssembly().CodeBase;
             string actualPath = path.Substring(0, path.LastIndexOf("bin"));
             string projectPath = new Uri(actualPath).LocalPath;
@@ -63,6 +64,7 @@ namespace Selenium_Demo
         [SetUp]
         public void Setup()
         {
+            logger.LogMessage("Setup method from Logintests");
             StartExtentTest(TestContext.CurrentContext.Test.Name);
             Console.WriteLine("I am from setup method");
           
@@ -88,7 +90,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifySearchProd()
         {
-           
+            logger.LogMessage("Started executing VerifySearchProd test case ");
             dr.Navigate().GoToUrl("https://amazon.in"); //open the amazon.in
 
             //IWebElement btnContinue = dr.FindElement(By.XPath("//button[@alt='Continue shopping']"));
@@ -101,6 +103,7 @@ namespace Selenium_Demo
             string prodName= dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("value");
             Console.WriteLine(prodName);
             Console.WriteLine(dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("placeholder"));
+            logger.LogMessage("Executed successfull VerifySearchProd test case ");
         }
 
         public static void StartExtentTest(string testsToStart)
@@ -807,6 +810,7 @@ namespace Selenium_Demo
         [Category("Handling Multiple Windows")]
         public void HandleMultipleTabs()
         {
+            
             dr.Navigate().GoToUrl("https://demoqa.com/browser-windows");
             dr.Manage().Window.Maximize();
             string windowhandleParent = dr.CurrentWindowHandle; //getting parentwindow handle

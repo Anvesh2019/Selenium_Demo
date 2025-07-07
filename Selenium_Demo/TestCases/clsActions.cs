@@ -296,20 +296,7 @@ namespace Selenium_Demo.TestCases
                 Console.WriteLine("Test Failed");
             }
         }
-        [Test]
-        public void CheckLogger()
-        {
-
-            int x = 10;
-            logger.LogMessage("x value is:" + x);
-
-            int y = 0;
-
-            logger.LogMessage("y value is:" + y);
-            int z = x / y;
-            logger.LogMessage("z value is:" + z);
-        }
-
+        
         [Test]
         public void Devide2Numbers()
         {

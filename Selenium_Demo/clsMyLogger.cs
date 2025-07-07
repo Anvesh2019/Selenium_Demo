@@ -10,35 +10,35 @@ namespace Selenium_Demo
         string path = @"C:\Logs\Mylogs.txt";
 
         public static bool logsEnabled = true;
-        //public bool logsEnabled = false;
         public void LogMessage(string logMsg)
         {
             StreamWriter sw;
-            if (!File.Exists(path))
-            { 
-                sw = File.CreateText(path); 
-            }
-            else
-            { 
-                sw = File.AppendText(path); 
-            }
-
-            if(logsEnabled)
+            if (logsEnabled)
             {
-                LogWrite(logMsg, sw);
+                if (!File.Exists(path))
+                 { 
+                   sw = File.CreateText(path); 
+                 }
+                else
+                 { 
+                   sw = File.AppendText(path); 
+                 }
 
+            
+                LogWrite(logMsg, sw);
+                sw.Flush();
+                sw.Close();
             }
 
-            sw.Flush();
-            sw.Close();
+          
         }
         private static void LogWrite(string logMessage, StreamWriter w)
         {
 
             if (logsEnabled==true)
             {
-            w.WriteLine("{0}", DateTime.Now + ":" + logMessage);
-            w.WriteLine("----------------------------------------");
+               w.WriteLine("{0}", DateTime.Now + ":" + logMessage);
+               w.WriteLine("----------------------------------------");
             }
             
         }
