@@ -39,7 +39,7 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    testAssemblyVer2: '|**\*Selenium_Demo.dll'
+    testAssemblyVer2: '**\$(BuildConfiguration)\**\Selenium_Demo.dll'
     testFiltercriteria: 'TestCategory=Amazon1'
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
@@ -49,7 +49,7 @@ steps:
  
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'WebResults'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)\TestResults'
+    ArtifactName: 'TestResults'
     publishLocation: 'Container'
 
