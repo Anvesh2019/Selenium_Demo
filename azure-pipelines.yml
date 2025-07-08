@@ -49,6 +49,7 @@ steps:
     
 - task: CopyFiles@2
   inputs:
+    condition: always
     SourceFolder: '$(System.DefaultWorkingDirectory)/TestResults'
     Contents: '**/*.trx'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
