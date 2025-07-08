@@ -46,3 +46,14 @@ steps:
     condition: succeededOrFailed()
     continueOnError: true
     #rerunMaxAttempts: 2
+    
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/TestResults'
+    Contents: '**/.trx'
+    OverWrite: true
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: TestResults
