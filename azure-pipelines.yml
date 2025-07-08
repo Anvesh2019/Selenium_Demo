@@ -43,13 +43,13 @@ steps:
     #testFiltercriteria: 'TestCategory=Amazon1 or TestCategory=Actions'
     testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
-    #condition: succeededOrFailed()
-    #continueOnError: true
+    condition: succeededOrFailed()
+    continueOnError: true
     #rerunMaxAttempts: 2
  
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'WebResults'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/TestResults''
+    ArtifactName: 'TestResults'
     publishLocation: 'Container'
 
