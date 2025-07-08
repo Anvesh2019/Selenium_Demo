@@ -46,8 +46,8 @@ steps:
     condition: succeededOrFailed()
     continueOnError: true
     #rerunMaxAttempts: 2
-    
-  - task: CopyFiles@2
+
+- task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
     Contents: '**/*.trx'
