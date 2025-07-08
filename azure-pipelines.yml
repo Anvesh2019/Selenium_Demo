@@ -49,9 +49,9 @@ steps:
     
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    TargetFolder: '$(System.DefaultWorkingDirectory)/TestResults'
-    Contents: '**/.trx'
+    SourceFolder: '$(System.DefaultWorkingDirectory)/TestResults'
+    Contents: '**/*.trx'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
     OverWrite: true
 - task: PublishBuildArtifacts@1
   inputs:
