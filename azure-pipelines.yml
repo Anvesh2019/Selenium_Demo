@@ -56,4 +56,4 @@ steps:
   condition: always()
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: TestResults
+    artifactName: AmazonTestResults
