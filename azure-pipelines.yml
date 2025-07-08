@@ -43,13 +43,11 @@ steps:
     testFiltercriteria: 'TestCategory=Amazon1'
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
-    condition: succeededOrFailed()
-    continueOnError: true
     #rerunMaxAttempts: 2
     
 - task: CopyFiles@2
+  condition: always()
   inputs:
-    condition: always
     SourceFolder: '$(System.DefaultWorkingDirectory)/TestResults'
     Contents: '**/*.trx'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
