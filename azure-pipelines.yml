@@ -53,6 +53,7 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
     OverWrite: true
 - task: PublishBuildArtifacts@1
+  condition: always()
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: TestResults
