@@ -48,7 +48,7 @@ steps:
 - task: CopyFiles@2
   condition: always()
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)/TestResults'
+    SourceFolder: '$(Agent.TempDirectory)/TestResults'
     Contents: '**/*.trx'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
     OverWrite: true
