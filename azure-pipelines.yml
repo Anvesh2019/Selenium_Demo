@@ -68,6 +68,13 @@ steps:
     mergeTestResults: true
     #publishResults: true
 
+- task: PublishTestResults@2
+  condition: always()
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/TEST-*.xml'
+   
+
 - task: CopyFiles@2
   displayName: 'Copy HTML Report'
   condition: always()
