@@ -74,15 +74,21 @@ steps:
     testResultsFormat: 'VSTest'
     testResultsFiles: '**/TEST-*.xml'
    
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    searchFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: CopyFiles@2
   displayName: 'Copy HTML Report'
   condition: always()
   inputs:
     SourceFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
-    Contents: '**/*.html'
+    Contents: '**/*.xml'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
     OverWrite: true
+
 
 - task: PublishBuildArtifacts@1
   condition: always()
