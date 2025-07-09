@@ -52,8 +52,18 @@ steps:
     Contents: '**/*.trx'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
     OverWrite: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'Generate HTML Report from TRX file'
+  condition: always()
+  inputs:
+        command: 'custom'
+        custom: 'reportgenerator'
+        arguments: '-reports:"$(Agent.TempDirectory)/TestResults/**/*.trx" -targetdir:"$(Build.ArtifactStagingDirectory)/TestResults/html-report" -reporttypes:HtmlSummary'
 - task: PublishBuildArtifacts@1
   condition: always()
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: AmazonTestResults
+
+    
