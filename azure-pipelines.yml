@@ -61,31 +61,13 @@ steps:
     workingDirectory: '$(Agent.TempDirectory)'
 
 - task: PublishTestResults@2
-  condition: always()
-  inputs:
-    testResultsFormat: 'Nunit'
-    testResultsFiles: 'TestResults/TestReport.html'
-    mergeTestResults: true
-    #publishResults: true
-
-- task: PublishTestResults@2
+  displayName: 'Publish Xml File'
   condition: always()
   inputs:
     testResultsFormat: 'VSTest'
     testResultsFiles: '**/TEST-*.xml'
-   
-- task: PublishTestResults@2
-  condition: always()
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
-    searchFolder: '$(Agent.TempDirectory)'
+    searchFolder: '$(Agent.TempDirectory)/TestResults'
 
-- task: PublishTestResults@2
-  condition: always()
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '**/TEST-*.xml'
 - task: CopyFiles@2
   displayName: 'Copy HTML Report'
   condition: always()
