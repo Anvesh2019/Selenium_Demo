@@ -79,13 +79,13 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/TEST-*.xml'
-    searchFolder: '$(Build.ArtifactStagingDirectory)'
+    searchFolder: '$(Agent.TempDirectory)'
 
 - task: CopyFiles@2
   displayName: 'Copy HTML Report'
   condition: always()
   inputs:
-    SourceFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
+    SourceFolder: '$(Agent.TempDirectory)/TestResults'
     Contents: '**/*.xml'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
     OverWrite: true
