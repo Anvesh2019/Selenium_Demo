@@ -53,13 +53,21 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
     OverWrite: true
 
-- task: DotNetCoreCLI@2
-  displayName: 'Generate HTML Report from TRX file'
+- task: CmdLine@2
+  condition: always()
+  displayName: 'Convert TRX to HTML'
+  inputs:
+    script: 'trx-to-html -i $(Agent.TempDirectory)/TestResults/**/*.trx -o $(Build.ArtifactStagingDirectory)/TestResults/TestReport.html'
+    workingDirectory: '$(Agent.TempDirectory)'
+
+- task: PublishTestResults@2
   condition: always()
   inputs:
-        command: 'custom'
-        custom: 'reportgenerator'
-        arguments: '-reports:"$(Agent.TempDirectory)/TestResults/**/*.trx" -targetdir:"$(Build.ArtifactStagingDirectory)/TestResults/html-report" -reporttypes:HtmlSummary'
+    testResultsFormat: 'Nunit'
+    testResultsFiles: 'TestResults/TestReport.html'
+    mergeTestResults: true
+    #publishResults: true
+
 - task: CopyFiles@2
   displayName: 'Copy HTML Report'
   condition: always()
