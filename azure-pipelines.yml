@@ -49,7 +49,7 @@ steps:
   condition: always()
   inputs:
     SourceFolder: '$(Agent.TempDirectory)/TestResults'
-    Contents: '**/*.trx'
+    Contents: '**/*.*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
     OverWrite: true
 
@@ -59,24 +59,6 @@ steps:
   inputs:
     script: 'trx-to-html -i $(Agent.TempDirectory)/TestResults/**/*.trx -o $(Build.ArtifactStagingDirectory)/TestResults/TestReport.html'
     workingDirectory: '$(Agent.TempDirectory)'
-
-- task: PublishTestResults@2
-  displayName: 'Publish Xml File'
-  condition: always()
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '**/TEST-*.xml'
-    searchFolder: '$(Agent.TempDirectory)/TestResults'
-
-- task: CopyFiles@2
-  displayName: 'Copy HTML Report'
-  condition: always()
-  inputs:
-    SourceFolder: '$(Agent.TempDirectory)/TestResults'
-    Contents: '**/*.xml'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
-    OverWrite: true
-
 
 - task: PublishBuildArtifacts@1
   condition: always()
