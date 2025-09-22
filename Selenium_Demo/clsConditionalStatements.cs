@@ -97,7 +97,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyWhileLoop()
         {
-            int i = 0;
+            int i = 10;
             while (i < 5)
             {
                 Console.WriteLine("i value is:" + i);

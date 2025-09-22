@@ -7,6 +7,7 @@ using OpenQA.Selenium.Chrome;
 using System.Threading;
 using OpenQA.Selenium.Edge;
 using System.IO;
+using OpenQA.Selenium.Interactions;
 
 namespace Selenium_Demo
 {
@@ -28,12 +29,23 @@ namespace Selenium_Demo
         {
             // Alert Message handling
             dr.Navigate().GoToUrl("http://demo.guru99.com/test/delete_customer.php");
-            dr.FindElement(By.Name("cusid")).SendKeys("53920");
+            //dr.FindElement(By.Name("cusid")).SendKeys("53920");
+            Actions action = new Actions(dr);
+            IWebElement custID = dr.FindElement(By.Name("cusid"));
+            string zip = "523190";
+            char[] arrChars = zip.ToCharArray();
+
+            for(int i=0;i<arrChars.Length;i++)
+            {
+                action.KeyDown(custID, arrChars[i].ToString()).Build().Perform();
+            }
+           
             dr.FindElement(By.Name("submit")).Click();
             // Switching to Alert        
             IAlert alert = dr.SwitchTo().Alert(); //switch to 1st popup
             Console.WriteLine("1st alert text:" + alert.Text);
             alert.Accept(); //click on OK button
+            //alert.Dismiss();
             Thread.Sleep(2000);
             //alert.SendKeys(Keys.Enter); //Click on Enter button
             //alert.Dismiss(); //Clikc on cancel button

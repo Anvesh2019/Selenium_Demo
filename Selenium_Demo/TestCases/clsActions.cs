@@ -28,11 +28,11 @@ namespace Selenium_Demo.TestCases
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("start-maximized"); //Maximize the window when it starts
             //options.AddArgument("incognito");
-            //options.AddArgument("headless");
+            //options.AddArgument("headless"); //true
             //options.AddArgument("useAutomationExtension");
-            //options.AddArgument("disable-extensions"); //disables existing extentions
+            options.AddArgument("disable-extensions"); //disables existing extentions
             //options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
-            //options.AddArgument("disable-infobars");//disables info bars
+            options.AddArgument("disable-infobars");//disables info bars
                                                     //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
                                                     //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
                                                     //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
@@ -83,9 +83,11 @@ namespace Selenium_Demo.TestCases
             dr.Navigate().GoToUrl("https://axismf.com");
             dr.Manage().Window.Maximize();
 
-            dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            // dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            dr.FindElement(By.XPath("//span[text()='Login']")).Click();
             WebDriverWait _wait = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
-            IWebElement txtPannumber = _wait.Until(ExpectedConditions.ElementExists(By.XPath("(//input[@name='pan'])[2]")));
+            IWebElement txtPannumber = _wait.Until(ExpectedConditions.ElementExists(By.Id("pan_number")));
+            //IWebElement txtPannumber = dr.FindElement(By.Id("pan_number"));
             txtPannumber.SendKeys("1234");
 
             // Thread.Sleep(3000);
@@ -215,6 +217,17 @@ namespace Selenium_Demo.TestCases
         }
         [Test]
         [Category("Actions")]
+        public void VerifyDoubleClick()
+        {
+            dr.Navigate().GoToUrl("https://www.google.com/");
+            dr.Manage().Window.Maximize();
+            Actions action = new Actions(dr);
+            IWebElement linkGmail = dr.FindElement(By.XPath("//a[text()='Gmail']"));
+            action.DoubleClick(linkGmail).Build().Perform();
+            //action.ClickAndHold(linkGmail);
+        }
+            [Test]
+        [Category("Actions")]
 
         public void VerifyPrivacyNote()
         {
@@ -224,6 +237,7 @@ namespace Selenium_Demo.TestCases
             action.ScrollToElement(linkPrivacy).Build().Perform();
             //action.SendKeys(Keys.PageDown).Build().Perform();
             linkPrivacy.Click();
+            //action.KeyDown(linkPrivacy,Keys.Enter).Build().Perform();
         }
 
         [Test]

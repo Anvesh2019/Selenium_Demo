@@ -563,7 +563,7 @@ namespace Selenium_Demo
             //absStud abs1=new absStud(); //cant create instance for abstract class
             clsChildabs c1=new clsChildabs();
             Console.WriteLine(c1.getStudName(30));
-
+           
         }
 
         [Test]

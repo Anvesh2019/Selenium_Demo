@@ -10,6 +10,7 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Chrome;
 using Selenium_Demo.Common;
 using Selenium_Demo.Pages;
+using System.Threading;
 
 namespace Selenium_Demo.TestCases
 {
@@ -48,18 +49,33 @@ namespace Selenium_Demo.TestCases
             //_apage.btnSignupNow.Click();
             _apage.clickonSignup();
         }
-        
+        [Test]
+        public void VerifyLinks()
+        {
+            dr.Navigate().GoToUrl("https://amazon.in");
+            IWebElement linkFashion = dr.FindElement(By.XPath("//a[text()='Fashion']"));
+            Assert.IsTrue(linkFashion.Displayed == true);
+
+
+            IWebElement linkElec = dr.FindElement(By.XPath("//a[normalize-space(text())='Electronics']"));
+            Assert.IsTrue(linkElec.Displayed == true,"Electronics not displayed");
+        }
         
         [Test]
         [Category("Amazon")]
         public void SearchGoldmedal()
         {
+            string actValue = "Goldmedal";
             objCommon.NavigateToApp("https://amazon.in");
             dr.Manage().Window.Maximize();
-            dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys("Goldmedal");
-            dr.FindElement(By.Id("nav-search-submit-button")).Click();
-            string srchItem=  dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("value");
+            dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys(actValue);
+            //dr.FindElement(By.Id("nav-search-submit-button")).Click();
+            Thread.Sleep(2000);
+            dr.FindElement(By.XPath("(//input[@class='nav-input nav-progressive-attribute'])[2]")).Click();
+            string srchItem = dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("value");
             Console.WriteLine("product name is:" + srchItem);
+            Assert.IsTrue(srchItem==actValue,"prod name not matching");
+
         }
 
         [Test]
@@ -78,6 +94,23 @@ namespace Selenium_Demo.TestCases
         public void SaiTestCase2()
         {
             Console.WriteLine("Ram");
+        }
+        [Test]
+        public void SearchItem()
+        {
+
+            try
+            {
+                objCommon.NavigateToApp("https://amazon.in");
+                //_apage.NavigatetoAmazon();
+                Thread.Sleep(5000);
+                _apage.txtSearch.SendKeys("SonyTV");
+                _apage.btnSrch.Click();
+            }
+            catch (Exception ex)
+            {
+                objCommon.GetScreenshot();
+            }
         }
     }
 }
