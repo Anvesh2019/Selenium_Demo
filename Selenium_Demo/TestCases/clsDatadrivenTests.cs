@@ -33,7 +33,7 @@ namespace Selenium_Demo.TestCases
         public void SearchStudentFromExcel()
         {
           
-            DataTable dtAnvesh= _utilities.ReadExcel("C:\\Users\\Anand.Gummadilli\\Documents\\Anand_Details\\Students.xlsx", null);
+            DataTable dtAnvesh= _utilities.ReadExcel("C:\\Users\\anand\\OneDrive\\Documents\\Anand_Details\\Training\\Students.xlsx",null);
             Console.WriteLine("Rows count is:" + dtAnvesh.Rows.Count);
             for(int i=0; i<dtAnvesh.Rows.Count;i++)
             {
@@ -88,5 +88,14 @@ namespace Selenium_Demo.TestCases
             dr.Close();
 
         }
+        [TestCase(10, 2, 7)]
+        [TestCase(12, 3, 4)]
+        [TestCase(100, 10, 10)]
+        public void DivideTest(int n, int d, int expectedQuotient)
+        {
+            Assert.That(n / d, Is.EqualTo(expectedQuotient));
+        }
+
+        
     }
 }

@@ -68,19 +68,19 @@ namespace Selenium_Demo.TestCases
             IWebElement ddCountry = dr.FindElement(By.Name("country"));
             SelectElement objSelect = new SelectElement(ddCountry);
 
-            objSelect.SelectByIndex(2);
-            objSelect.SelectByText("INDIA");
+            //objSelect.SelectByIndex(8);
+            //objSelect.SelectByText("INDIA");
             objSelect.SelectByValue("CHINA");
             Console.WriteLine("Multiple values allowed:" + objSelect.IsMultiple);
 
             int optCount = objSelect.Options.Count;
             Console.WriteLine("options count is:" + optCount);
 
-            //objSelect.DeselectByValue("CHINA");
+            ////objSelect.DeselectByValue("CHINA");
             for (int i = 0; i < optCount; i++)
             {
                 objSelect.SelectByIndex(i);
-                if(i==10)
+                if (i == 10)
                 {
                     break;
                 }
