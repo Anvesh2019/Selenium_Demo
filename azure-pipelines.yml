@@ -4,14 +4,14 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- master
+- Mamatha_Local
 
 schedules:
 - cron: '0 6 * * Mon-Fri'
 
   branches:
     include:
-    - master
+    - Mamatha_Local
     
 pool:
   vmImage: 'windows-latest'

@@ -112,5 +112,12 @@ namespace Selenium_Demo.TestCases
                 objCommon.GetScreenshot();
             }
         }
+        [Test]
+        public void test1()
+        {
+            Console.WriteLine("testcase1");
+        }
+
+
     }
 }
