@@ -34,11 +34,11 @@ namespace Selenium_Demo
             //dr.SwitchTo().Frame(elementFrame);
             //IWebElement imgJmeter = dr.FindElement(By.XPath("//a[@href='http://www.guru99.com/live-selenium-project.html']"));
             //imgJmeter.Click();
-            
+
             System.Collections.ObjectModel.ReadOnlyCollection<string> listHandles = dr.WindowHandles;
             
             dr.SwitchTo().Window(listHandles[1]); //switch to 2nd tab
-            Console.WriteLine("current url:" + dr.Url);
+            Console.WriteLine("2nd tab url:" + dr.Url);
             Thread.Sleep(3000);
            
             dr.FindElement(By.XPath("(//a[text()='Home'])[1]")).Click();
@@ -58,7 +58,7 @@ namespace Selenium_Demo
 
             //Assert.IsTrue(dr.Url== "https://demo.guru99.com/test/guru99home/");
             dr.SwitchTo().Window(parentHandle);
-            Console.WriteLine("Last step:" + dr.Url);
+            Console.WriteLine("Last step after moving to parent window:" + dr.Url);
 
         }
     }

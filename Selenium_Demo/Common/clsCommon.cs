@@ -11,6 +11,7 @@ namespace Selenium_Demo.Common
     {
 
         public IWebDriver dr;
+        public bool enableScreenshots = true;
         public clsCommon(IWebDriver driver)
         {
             dr = driver;
@@ -100,13 +101,16 @@ namespace Selenium_Demo.Common
         }
         public void GetScreenshot()
         {
-            ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
-            Screenshot screenshot = screenshotDriver.GetScreenshot();
-            // Creating UIScreenshot folder if not exists
-            System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-            string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
-            screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
+            if (enableScreenshots == true)
+            {
 
+                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                Screenshot screenshot = screenshotDriver.GetScreenshot();
+                // Creating UIScreenshot folder if not exists
+                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
+            }
         }
     }
 }
