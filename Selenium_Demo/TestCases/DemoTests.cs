@@ -27,5 +27,11 @@ namespace Selenium_Demo.TestCases
         {
             Console.WriteLine("Load Amazon Test case3");
         }
+        [Test]
+        [Category("Amazon1")]
+        public void AmazonTest4()
+        {
+            Console.WriteLine("test4");
+        }
     }
 }
