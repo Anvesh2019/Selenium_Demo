@@ -91,5 +91,17 @@ namespace Selenium_Demo.Common
            
 
         }
+
+        public void GetScreenshot(IWebDriver dr)
+        {
+            ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+            Screenshot screenshot = screenshotDriver.GetScreenshot();
+            // Creating UIScreenshot folder if not exists
+            System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+            string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
+            //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+            screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
+
+        }
     }
 }

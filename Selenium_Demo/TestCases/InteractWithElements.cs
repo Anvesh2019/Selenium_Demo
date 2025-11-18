@@ -23,8 +23,9 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            dr = new ChromeDriver(@"C:\Users\Anand\Downloads");
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            //dr = new EdgeDriver(@"C:\Users\Anand\Downloads");
 
         }
 
@@ -39,7 +40,19 @@ namespace Selenium_Demo.TestCases
             Assert.IsTrue(txtSrch2.GetAttribute("value")=="India", "Search keyword not matching");
             Assert.IsTrue(txtSrch2.GetAttribute("maxlength") == "2048", "maxlength not matching");
             Console.WriteLine(txtSrch2.GetAttribute("name"));
+            
         }
+        [Test]
+        public void InteractWithtextbox1()
+        {
+            dr.Navigate().GoToUrl("http://Amazon.in");
+            dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys("Sony Tv");
+            dr.FindElement(By.Id("nav-search-submit-button")).Click();
+            IWebElement txtSrch2 = dr.FindElement(By.Id("twotabsearchtextbox"));
+            Console.WriteLine(txtSrch2.GetAttribute("value"));
+            Assert.IsTrue(txtSrch2.GetAttribute("value") == "Sony Tv", "Search keyword not matching");
+        }
+
         [Test]
         public void InteractWithCheckBoxAndRadio()
         {
@@ -48,8 +61,11 @@ namespace Selenium_Demo.TestCases
             //Console.WriteLine("blue color is selected:" + chkRed.Selected);
             if (chkRed.Selected == false)
             {
-                chkRed.Click(); //select
+                 chkRed.Click(); //select
+                //chkRed.SendKeys("india");
             }
+            Console.WriteLine("Red check box is Selected:" + chkRed.Selected);
+
             IWebElement radioOpera = dr.FindElement(By.XPath("(//input[@type='radio'])[3]"));
             Console.WriteLine("Opera is selected1:" + radioOpera.Selected);
             if (radioOpera.Selected == false)
@@ -67,9 +83,11 @@ namespace Selenium_Demo.TestCases
             //ddCountry.SendKeys("HYDERABAD");
             //SelectElement objSelect = new SelectElement(dr.FindElement(By.Name("country")));
             SelectElement objSelect = new SelectElement(ddCountry);
-
-            objSelect.SelectByIndex(2);
+           
+            objSelect.SelectByIndex(8);
+            Thread.Sleep(3000);
             objSelect.SelectByText("INDIA");
+            Thread.Sleep(3000);
             objSelect.SelectByValue("CHINA");
             Console.WriteLine("Multiple values allowed:" + objSelect.IsMultiple);
 
@@ -77,10 +95,10 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("options count is:" + optCount);
 
             //objSelect.DeselectByValue("CHINA");
-            for (int i = 0; i < optCount; i++)
-            {
-                objSelect.SelectByIndex(i);
-            }
+            //for (int i = 0; i < optCount; i++)
+            //{
+            //    objSelect.SelectByIndex(i);
+            //}
         }
         [Test]
         public void InteractWithListbox()
@@ -89,15 +107,22 @@ namespace Selenium_Demo.TestCases
             IWebElement fruitsLB = dr.FindElement(By.XPath("//select[@id='fruits']"));
             SelectElement objSelect = new SelectElement(fruitsLB);
             Console.WriteLine("Multi select allowed:" + objSelect.IsMultiple);
+            objSelect.SelectByIndex(0);
             objSelect.SelectByValue("apple");
             objSelect.SelectByText("Grape");
             Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
             objSelect.DeselectByText("Apple");
             
-            //objSelect.DeselectAll();
+            //objSelect.DeselectAll(); //deselect all selected options
             //objSelect.DeselectByText("Grape");
             Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
         
+        }
+        [TearDown]
+        public void Cleanup()
+        {
+            Console.WriteLine(" I am cleanup method");
+            //dr.Close();
         }
     }
 }

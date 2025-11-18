@@ -18,8 +18,8 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
-            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            dr = new ChromeDriver(@"C:\Users\Anand\Downloads");
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
         }
 
@@ -27,14 +27,13 @@ namespace Selenium_Demo.TestCases
         public void VerifyTopCompanyName()
         {
             dr.Navigate().GoToUrl("https://www.moneycontrol.com/stocks/marketinfo/marketcap/bse/index.html");
-            Thread.Sleep(20000);
+            Thread.Sleep(10000);
             IList<IWebElement> listCompanies=  dr.FindElements(By.XPath("//table[@class='Topfilter_web_tbl_indices__Wa1Sj undefined']/tbody/tr"));
             Console.WriteLine(listCompanies.Count);
             IWebElement topComp = dr.FindElement(By.XPath("//table[@class='Topfilter_web_tbl_indices__Wa1Sj undefined']/tbody/tr[1]/td[1]"));
             Console.WriteLine("Top company name:" + topComp.Text);
             Assert.IsTrue(topComp.Text == "Reliance", "Top company name is not reliance");
-
-
+            Console.WriteLine("test case execution completed");
         }
         [Test]
         public void Get2ndCompanyDetails()
@@ -49,17 +48,17 @@ namespace Selenium_Demo.TestCases
 
         }
         [Test]
-        public void GetHighestCompany()
+        public void GetCompanyNameUsingRank()
         {
             string cname = GetCompanyNameByRank(3);
             Console.WriteLine(cname);
             dr.Close();
 
-
         }
         public string GetCompanyNameByRank(int rankNum)
         {
             dr.Navigate().GoToUrl("https://www.moneycontrol.com/stocks/marketinfo/marketcap/bse/index.html");
+            Thread.Sleep(10000);
             IWebElement elemTopComp = dr.FindElement(By.XPath("//table/tbody/tr[" + rankNum + "]/td[1]/a"));
             string cname = elemTopComp.Text;
             // Console.WriteLine("Top company name is:" + cname);
@@ -96,7 +95,6 @@ namespace Selenium_Demo.TestCases
 
             return index;
         }
-
 
     }
 }

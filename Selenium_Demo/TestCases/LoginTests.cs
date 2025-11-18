@@ -73,9 +73,9 @@ namespace Selenium_Demo
             //options.AddArgument("disable-infobars");//disables info bars
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\",options);
             //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
-            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new ChromeDriver(@"C:\Users\Anand\Downloads");
             //dr = new ChromeDriver();
 
             //objLogger.logsEnabled = true;
@@ -414,13 +414,14 @@ namespace Selenium_Demo
         public void VerifyCardetails()
         {
             OpenMySite();
+
              clsBMW1 objBmw = new clsBMW1();
             string carname = objBmw.GetCarName();
             Console.WriteLine("Car name is:" + carname);
             Console.WriteLine("Car model is:" + objBmw.GetCarModel(2022));
             Console.WriteLine(objBmw.GetCarCity());
             Console.WriteLine(clsCar.GetCollegename());
-            
+            Console.WriteLine(objBmw.GetCarModel());
         }
         [Test]
         public void Sampletestcase2()
@@ -682,6 +683,40 @@ namespace Selenium_Demo
         }
 
         [Test]
+        public void LearnExceptionHandling()
+        {
+           
+          
+            try
+            {
+                int x = 20;
+                int y = 0;
+                //if (y == 0)
+                //{
+                //    // Throwing built-in DivideByZeroException
+                //    throw new DivideByZeroException("Y cant be zero.");
+                //}
+
+                int z = x / y;
+                Console.WriteLine("result is:" + z);
+            }
+           
+            catch (NoSuchElementException ex1)
+            {
+                Console.WriteLine(ex1.Message);
+            }
+            catch (DivideByZeroException dex)
+            {
+                Console.WriteLine(dex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+
+        }
+        [Test]
         public void DevideByZeroError()
         {
             try
@@ -739,15 +774,7 @@ namespace Selenium_Demo
             }
             catch (NoSuchElementException nosuchex)
             {
-                Console.WriteLine(nosuchex.Message);
-                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
-                Screenshot screenshot = screenshotDriver.GetScreenshot();
-                // Creating UIScreenshot folder if not exists
-                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
-                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
-
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
+                _common.GetScreenshot(dr);
             }
             //catch (NoSuchWindowException ex)
             //{
@@ -795,6 +822,7 @@ namespace Selenium_Demo
             //dr.SwitchTo().Window(lstWindow[0]); //return to parent window
             Console.WriteLine(dr.Title); //get the parent window title and print
         }
+      
         [Test]
         [Category("Scroll")]
         public void VerifyScrollInAmazon()

@@ -19,35 +19,47 @@ namespace Selenium_Demo
         [SetUp]
         public void setup()
         {
-            dr =  new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            //dr =  new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
 
         }
         [Test]
         public void OpenAmazon()
         {
             //IWebDriver dr = new ChromeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\chrome-win64\\chrome-win64");
-            IWebDriver dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            IWebDriver dr = new EdgeDriver("C:\\Users\\Anand\\Downloads\\");
             dr.Navigate().GoToUrl("https://Amazon.com");
             dr.Manage().Window.Maximize();
             Console.WriteLine(dr.Title);
             Console.WriteLine(dr.Url);
             //dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys("Sony TV");
             //dr.FindElement(By.XPath("//input[@name='field-keywords']")).SendKeys("Sonytv");
-            dr.FindElement(By.XPath("//input[@id='twotabsearchtextbox']")).SendKeys("Sony tv");
-            //dr.Close();
+           dr.FindElement(By.XPath("//input[@id='twotabsearchtextbox']")).SendKeys("Sony tv");
+           dr.Close();
+        }
+        [Test]
+        public void VerifyPriceRange()
+        {
+            //IWebDriver dr = new ChromeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\chrome-win64\\chrome-win64");
+            IWebDriver dr = new EdgeDriver("C:\\Users\\Anand\\Downloads\\");
+            dr.Navigate().GoToUrl("https://Amazon.com");
+            dr.Manage().Window.Maximize();
+            dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys("Sony TV");
+            dr.FindElement(By.Id("nav-search-submit-button")).Click();
+
         }
         [Test]
 
-        public void OpenGmail123()
+        public void LearnGetAttribute()
         {
-            IWebDriver dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+            IWebDriver dr = new EdgeDriver("C:\\Users\\Anand\\Downloads\\");
             dr.Navigate().GoToUrl("https://google.com");
             //dr.FindElement(By.LinkText("Gmail")).Click();
             //dr.FindElement(By.PartialLinkText("capable")).Click();
 
             IWebElement txtSrch = dr.FindElement(By.Name("q"));
             string mlength= txtSrch.GetAttribute("maxlength");
-            Assert.IsTrue(mlength=="2048","Max length is NOT 2048");
+            Console.WriteLine("max length is:" + mlength);
+            Assert.IsTrue(mlength=="3000","Max length is NOT 2048");
 
             string stitle= txtSrch.GetAttribute("title");
             Assert.IsTrue(stitle== "Search","title is not search");
@@ -73,6 +85,24 @@ namespace Selenium_Demo
         private string GetAssemblyPath()
         {
             throw new NotImplementedException();
+        }
+        [Test]
+        public void VerifyMethods()
+        {
+            Class1 obj1 = new Class1();
+            obj1.addNumbers(50, 150);
+            obj1.addNumbers(150, 1500);
+            obj1.addNumbers(1500, 15000);
+
+            int result=obj1.GetSumofNumbers(4000, 5500);
+            Console.WriteLine(result);
+
+           string ccity= obj1.Getcapitalcity("MH");
+            Console.WriteLine(ccity);
+
+            string[] arrStr=obj1.GetWords("My name is Anand");
+            Console.WriteLine(arrStr.Length);
+
         }
     }
 }

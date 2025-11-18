@@ -21,9 +21,9 @@ namespace Selenium_Demo.TestCases
         [SetUp]
         public void Setup()
         {
-            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new ChromeDriver(@"C:\Users\Anand\Downloads");
             // dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
             _utilities = new clsUtilities();
             logger=new clsMyLogger();
@@ -49,15 +49,15 @@ namespace Selenium_Demo.TestCases
         public void Datadriventest2()
         {
 
-            DataTable dtAnvesh = _utilities.ReadExcel("C:\\Anand_Details\\Marks.xlsx","Students");
-            Console.WriteLine("Rows count is:" + dtAnvesh.Rows);
-            for (int i = 0; i < dtAnvesh.Rows.Count; i++)
+            DataTable dtMarks = _utilities.ReadExcel("C:\\Users\\anand\\OneDrive\\Documents\\Anand_Details\\Sandeeps.xlsx", "Marks");
+            Console.WriteLine("Rows count is:" + dtMarks.Rows.Count);
+            for (int i = 0; i < dtMarks.Rows.Count; i++)
             {
                 dr.Navigate().GoToUrl("http://google.com");
-                logger.LogMessage("Opened Google site");
-                dr.FindElement(By.Name("q")).SendKeys(dtAnvesh.Rows[i][0].ToString());
+                //logger.LogMessage("Opened Google site");
+                dr.FindElement(By.Name("q")).SendKeys(dtMarks.Rows[i][0].ToString());
                 dr.FindElement(By.Name("q")).SendKeys(Keys.Enter);
-                logger.LogMessage("searched for:" + dtAnvesh.Rows[i][0].ToString());
+               // logger.LogMessage("searched for:" + dtMarks.Rows[i][0].ToString());
 
             }
             dr.Close();

@@ -34,7 +34,7 @@ namespace Selenium_Demo
         public void VerifyIfstatement()
         {
             int x = 45;
-            if(x>10 && x <30)
+            if(x>10 && x <30) 
             {
                 Console.WriteLine("x is > 10 and < 30");
             }
@@ -50,7 +50,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifySwitchstatement()
         {
-            int x = 30;
+            int x = 20;
            switch(x)
             {
                 case 20:
@@ -67,17 +67,34 @@ namespace Selenium_Demo
                     break;
             }
         }
-
+        [Test]
+        public void VerifySwitchstatement1()
+        {
+            string state = "TS";
+            switch (state)
+            {
+                case "AP":
+                    Console.WriteLine("State is AP");
+                    break;
+                case "TS":
+                    Console.WriteLine("state is telangana");
+                    break;
+                case "MH":
+                    Console.WriteLine("State is MH");
+                    break;
+                default:
+                    Console.WriteLine("state is :" + state );
+                    break;
+            }
+        }
         [Test]
         public void VerifyForLoop()
         {
             int i = 0;
-            for ( i = 0; i < 10; i++)
+            for ( i = 0; i < 10; i=i+1)
             {
-               
-                    Console.WriteLine("i value is:" + i);
-                
-                
+               Console.WriteLine("i value is:" + i);
+                                
             }
             Console.WriteLine("i value after loop is:" + i);
         }
@@ -91,6 +108,17 @@ namespace Selenium_Demo
 
             }
             
+        }
+        [Test]
+        public void PrintOddNumbers()
+        {
+            int i = 1;
+            for (i = 1; i <= 10; i = i + 2) // 1 3 5 7 9 
+            {
+                Console.WriteLine("i value is:" + i);
+
+            }
+
         }
 
         [Test]
@@ -108,7 +136,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyDoWhileLoop()
         {
-            int i = 0;
+            int i = 1;
             do
             {
                 Console.WriteLine("i value is:" + i);

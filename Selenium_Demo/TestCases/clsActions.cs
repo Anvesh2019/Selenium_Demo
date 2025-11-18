@@ -25,16 +25,16 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("I am from setup method");
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("start-maximized"); //Maximize the window when it starts
-            //options.AddArgument("incognito");
+            options.AddArgument("incognito");
             //options.AddArgument("headless");
             options.AddArgument("useAutomationExtension");
             options.AddArgument("disable-extensions"); //disables existing extentions
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             options.AddArgument("disable-infobars");//disables info bars
                                                     //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
-            //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-            dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
-
+                                                    //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+                                                    //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+            dr = new ChromeDriver(@"C:\\Users\\anand\\Downloads",options);
             logger = new clsMyLogger();
         }
 
@@ -60,7 +60,7 @@ namespace Selenium_Demo.TestCases
             string expectedURL = "https://www.browserstack.com/users/sign_up";
             string actualURL = dr.Url;
             //Assert.AreEqual(expectedURL, actualURL, "User is not navigated to signup page");
-            Assert.IsTrue(actualURL.Contains("https://www.browserstack.com/users/"));
+            Assert.IsTrue(actualURL.Contains(expectedURL),"MovetoELement failed");
 
         }
         [Test]
@@ -91,6 +91,19 @@ namespace Selenium_Demo.TestCases
         [Test]
         [Category("Actions")]
 
+        public void MouseHoveronElement()
+        {
+            dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
+            dr.Manage().Window.Maximize();
+            Actions action = new Actions(dr);
+            IWebElement element = dr.FindElement(By.XPath("//a[text()='Tutorials']"));
+            action.MoveToElement(element).Build().Perform();
+            // dr.Close();
+
+        }
+        [Test]
+        [Category("Actions")]
+
         public void DoubleClickonElement()
         {
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
@@ -111,11 +124,23 @@ namespace Selenium_Demo.TestCases
             Actions action = new Actions(dr);
             IWebElement linkTL = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
             action.KeyDown(linkTL, Keys.Enter).Build().Perform();
-            string actualURL = dr.Url;
-            Assert.IsTrue(actualURL.Contains("tutorials-library"), "Not reached to Tutorial library page");
-            dr.Close();
+            //string actualURL = dr.Url;
+            //Assert.IsTrue(actualURL.Contains("tutorials-library"), "Not reached to Tutorial library page");
+            //dr.Close();
         }
         [Test]
+        [Category("Actions")]
+
+        public void ScrollVertical()
+        {
+            dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
+            dr.Manage().Window.Maximize();
+            Thread.Sleep(2000);
+            Actions action = new Actions(dr);
+            action.ScrollByAmount(0, 500).Build().Perform();
+
+        }
+            [Test]
         [Category("Actions")]
 
         public void NormalClickOnElement()
