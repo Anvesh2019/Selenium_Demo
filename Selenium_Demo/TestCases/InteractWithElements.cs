@@ -23,9 +23,14 @@ namespace Selenium_Demo.TestCases
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
+<<<<<<< HEAD
             dr = new ChromeDriver(@"C:\Users\Anand\Downloads");
             //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
             //dr = new EdgeDriver(@"C:\Users\Anand\Downloads");
+=======
+            dr = new ChromeDriver();
+            //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
+>>>>>>> master
 
         }
 
@@ -56,6 +61,7 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void InteractWithCheckBoxAndRadio()
         {
+            IWebDriver dr = new ChromeDriver();
             dr.Navigate().GoToUrl("https://www.ironspider.ca/forms/checkradio.htm");
             IWebElement chkRed = dr.FindElement(By.XPath("//input[@value='red']"));
             //Console.WriteLine("blue color is selected:" + chkRed.Selected);
@@ -78,31 +84,49 @@ namespace Selenium_Demo.TestCases
         [Test]
         public void HandlingSelectBox()
         {
+            IWebDriver dr = new ChromeDriver();
             dr.Navigate().GoToUrl("https://demo.guru99.com/test/newtours/register.php");
             IWebElement ddCountry = dr.FindElement(By.Name("country"));
-            //ddCountry.SendKeys("HYDERABAD");
-            //SelectElement objSelect = new SelectElement(dr.FindElement(By.Name("country")));
             SelectElement objSelect = new SelectElement(ddCountry);
+<<<<<<< HEAD
            
             objSelect.SelectByIndex(8);
             Thread.Sleep(3000);
             objSelect.SelectByText("INDIA");
             Thread.Sleep(3000);
+=======
+
+            //objSelect.SelectByIndex(8);
+            //objSelect.SelectByText("INDIA");
+>>>>>>> master
             objSelect.SelectByValue("CHINA");
             Console.WriteLine("Multiple values allowed:" + objSelect.IsMultiple);
 
             int optCount = objSelect.Options.Count;
             Console.WriteLine("options count is:" + optCount);
 
+<<<<<<< HEAD
             //objSelect.DeselectByValue("CHINA");
             //for (int i = 0; i < optCount; i++)
             //{
             //    objSelect.SelectByIndex(i);
             //}
+=======
+            ////objSelect.DeselectByValue("CHINA");
+            for (int i = 0; i < optCount; i++)
+            {
+                objSelect.SelectByIndex(i);
+                if (i == 10)
+                {
+                    break;
+                }
+            }
+>>>>>>> master
         }
         [Test]
         public void InteractWithListbox()
         {
+            IWebDriver dr = new ChromeDriver();
             dr.Navigate().GoToUrl("https://output.jsbin.com/osebed/2");
             IWebElement fruitsLB = dr.FindElement(By.XPath("//select[@id='fruits']"));
             SelectElement objSelect = new SelectElement(fruitsLB);
@@ -113,6 +137,7 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("Selected options count before:" + objSelect.AllSelectedOptions.Count);
             objSelect.DeselectByText("Apple");
             
+<<<<<<< HEAD
             //objSelect.DeselectAll(); //deselect all selected options
             //objSelect.DeselectByText("Grape");
             Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
@@ -123,6 +148,21 @@ namespace Selenium_Demo.TestCases
         {
             Console.WriteLine(" I am cleanup method");
             //dr.Close();
+=======
+            //objSelect.DeselectAll(); //Deselect all selected options
+            //objSelect.DeselectByText("Grape"); //Deselect Grape option
+            Console.WriteLine("Selected options count after:" + objSelect.AllSelectedOptions.Count);
+        
+        }
+
+        [Test]
+        public void HandleDropdown()
+        {
+            dr.Navigate().GoToUrl("https://formstone.it/components/dropdown/demo/");
+            IWebElement ddLabel = dr.FindElement(By.Id("demo_basic-dropdown-selected"));
+            ddLabel.Click();
+            dr.FindElement(By.XPath("(//button[@data-value='2'])[1]")).Click();
+>>>>>>> master
         }
     }
 }

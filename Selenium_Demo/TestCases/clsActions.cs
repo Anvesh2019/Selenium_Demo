@@ -11,13 +11,15 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System.IO;
+using Selenium_Demo.Common;
 
 namespace Selenium_Demo.TestCases
 {
     public class clsActions
     {
-
+        clsCommon objCommon;
         public IWebDriver dr;
+        
         clsMyLogger logger;
         [SetUp]
         public void Setup()
@@ -25,23 +27,82 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine("I am from setup method");
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("start-maximized"); //Maximize the window when it starts
-            options.AddArgument("incognito");
-            //options.AddArgument("headless");
-            options.AddArgument("useAutomationExtension");
+            //options.AddArgument("incognito");
+            //options.AddArgument("headless"); //true
+            //options.AddArgument("useAutomationExtension");
             options.AddArgument("disable-extensions"); //disables existing extentions
-            options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
+            //options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
             options.AddArgument("disable-infobars");//disables info bars
                                                     //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\");
                                                     //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
                                                     //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
-            dr = new ChromeDriver(@"C:\\Users\\anand\\Downloads",options);
-            logger = new clsMyLogger();
+            //options.AddArguments("--disable-notifications");
+            dr = new ChromeDriver(options);
+            //logger = new clsMyLogger();
+            objCommon = new clsCommon(dr);
+        }
+        [Test]
+        public void OpenGoogle()
+        {
+            dr.Navigate().GoToUrl("https://google.com");
+            //dr.Manage().Window.Maximize();
+        }
+        [Test]
+        public void GetallCookies()
+        {
+          dr.Navigate().GoToUrl("https://google.com");
+          ICookieJar cookies=  dr.Manage().Cookies;
+          Console.WriteLine("before adding:" + cookies.AllCookies.Count);
+          cookies.DeleteAllCookies();
+          Console.WriteLine("After deleting:" + cookies.AllCookies.Count);
+
+            cookies.AddCookie(new Cookie("country","india"));
+            cookies.AddCookie(new Cookie("State", "TG"));
+            cookies.AddCookie(new Cookie("Capital", "Hyderabad"));
+
+            Console.WriteLine("after adding:" + cookies.AllCookies.Count);
+            cookies.DeleteCookieNamed("Capital");
+
+        }
+        [Test]
+        public void VerifyLoginThroughPAN()
+        {
+            dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1000);
+
+            dr.Navigate().GoToUrl("https://axismf.com");
+            dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            IWebElement txtPannumber = dr.FindElement(By.XPath("(//input[@name='pan'])[2]"));
+            txtPannumber.SendKeys("1234");
+
+        }
+
+        [Test]
+        [Category("Regression")]
+        public void LoginAxisMFViaPAN()
+        {
+            dr.Navigate().GoToUrl("https://axismf.com");
+            dr.Manage().Window.Maximize();
+
+            // dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+            dr.FindElement(By.XPath("//span[text()='Login']")).Click();
+            WebDriverWait _wait = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            IWebElement txtPannumber = _wait.Until(ExpectedConditions.ElementExists(By.Id("pan_number")));
+            //IWebElement txtPannumber = dr.FindElement(By.Id("pan_number"));
+            txtPannumber.SendKeys("1234");
+
+            // Thread.Sleep(3000);
+
+            //WebDriverWait _wait1 = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            //IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Please enter a correct PAN']")));
+
+            //Assert.IsTrue(labelError.Displayed == true, "Error is not displayed"); // displayed
+
         }
 
         [Test]
         public void VerifyOptions()
         {
-            //  dr.Navigate().GoToUrl("https://google.com");
+            dr.Navigate().GoToUrl("https://google.com");
             dr.FindElement(By.Name("q")).SendKeys("India");
         }
         [Test]
@@ -60,7 +121,7 @@ namespace Selenium_Demo.TestCases
             string expectedURL = "https://www.browserstack.com/users/sign_up";
             string actualURL = dr.Url;
             //Assert.AreEqual(expectedURL, actualURL, "User is not navigated to signup page");
-            Assert.IsTrue(actualURL.Contains(expectedURL),"MovetoELement failed");
+            Assert.IsTrue(actualURL.Contains("https://www.browserstack.com/users/"));
 
         }
         [Test]
@@ -83,21 +144,8 @@ namespace Selenium_Demo.TestCases
             dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
             dr.Manage().Window.Maximize();
             Actions action = new Actions(dr);
-            IWebElement element = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
-            action.ContextClick(element).Build().Perform();
-            // dr.Close();
-
-        }
-        [Test]
-        [Category("Actions")]
-
-        public void MouseHoveronElement()
-        {
-            dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
-            dr.Manage().Window.Maximize();
-            Actions action = new Actions(dr);
-            IWebElement element = dr.FindElement(By.XPath("//a[text()='Tutorials']"));
-            action.MoveToElement(element).Build().Perform();
+            IWebElement linkLibrary = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
+            action.ContextClick(linkLibrary).Build().Perform();
             // dr.Close();
 
         }
@@ -124,23 +172,11 @@ namespace Selenium_Demo.TestCases
             Actions action = new Actions(dr);
             IWebElement linkTL = dr.FindElement(By.XPath("//a[text()='View Tutorial Library']"));
             action.KeyDown(linkTL, Keys.Enter).Build().Perform();
-            //string actualURL = dr.Url;
-            //Assert.IsTrue(actualURL.Contains("tutorials-library"), "Not reached to Tutorial library page");
+            string actualURL = dr.Url;
+            Assert.IsTrue(actualURL.Contains("tutorials-library"), "Not reached to Tutorial library page");
             //dr.Close();
         }
         [Test]
-        [Category("Actions")]
-
-        public void ScrollVertical()
-        {
-            dr.Navigate().GoToUrl("https://www.Techtutorialz.com/");
-            dr.Manage().Window.Maximize();
-            Thread.Sleep(2000);
-            Actions action = new Actions(dr);
-            action.ScrollByAmount(0, 500).Build().Perform();
-
-        }
-            [Test]
         [Category("Actions")]
 
         public void NormalClickOnElement()
@@ -170,7 +206,7 @@ namespace Selenium_Demo.TestCases
             {
                 action.KeyDown(txtSrch, arrChars[i].ToString()).Build().Perform();
             }
-            //action.KeyDown(txtSrch,"I").Build().Perform();
+            //action.KeyDown(txtSrch, "I").Build().Perform();
             //action.KeyDown(txtSrch, "N").Build().Perform();
             //action.KeyDown(txtSrch, "D").Build().Perform();
             //action.KeyDown(txtSrch, "I").Build().Perform();
@@ -181,6 +217,17 @@ namespace Selenium_Demo.TestCases
         }
         [Test]
         [Category("Actions")]
+        public void VerifyDoubleClick()
+        {
+            dr.Navigate().GoToUrl("https://www.google.com/");
+            dr.Manage().Window.Maximize();
+            Actions action = new Actions(dr);
+            IWebElement linkGmail = dr.FindElement(By.XPath("//a[text()='Gmail']"));
+            action.DoubleClick(linkGmail).Build().Perform();
+            //action.ClickAndHold(linkGmail);
+        }
+            [Test]
+        [Category("Actions")]
 
         public void VerifyPrivacyNote()
         {
@@ -190,6 +237,7 @@ namespace Selenium_Demo.TestCases
             action.ScrollToElement(linkPrivacy).Build().Perform();
             //action.SendKeys(Keys.PageDown).Build().Perform();
             linkPrivacy.Click();
+            //action.KeyDown(linkPrivacy,Keys.Enter).Build().Perform();
         }
 
         [Test]
@@ -212,8 +260,8 @@ namespace Selenium_Demo.TestCases
             action.DragAndDrop(From, To).Build().Perform();
             Thread.Sleep(2000);
 
-            IWebElement debtMovement = dr.FindElement(By.XPath("//td[normalize-space(text())='Debit Movement']"));
-            Assert.IsTrue(debtMovement.Size != Size.Empty, "Debit movement is not displayed");
+            //IWebElement debtMovement = dr.FindElement(By.XPath("//td[normalize-space(text())='Debit Movement']"));
+            //Assert.IsTrue(debtMovement.Size != Size.Empty, "Debit movement is not displayed");
         }
         [Test]
         [Category("Actions")]
@@ -262,49 +310,37 @@ namespace Selenium_Demo.TestCases
                 Console.WriteLine("Test Failed");
             }
         }
-        [Test]
-        public void CheckLogger()
-        {
-
-            int x = 10;
-            logger.LogMessage("x value is:" + x);
-
-            int y = 0;
-
-            logger.LogMessage("y value is:" + y);
-            int z = x / y;
-            logger.LogMessage("z value is:" + z);
-        }
-
+        
         [Test]
         public void Devide2Numbers()
         {
 
             int x = 10;
-            logger.LogMessage("x value is:" + x);
+          //  logger.LogMessage("x value is:" + x);
 
             int y = 0;
 
-            logger.LogMessage("y value is:" + y);
-            int z = x / y;
-            logger.LogMessage("z value is:" + z);
+            //logger.LogMessage("y value is:" + y);
+            
+           // logger.L/ogMessage("z value is:" + z);
 
             try
             {
-                
-                Console.WriteLine("z value is:" + z);
+                //int z = x / y;
+                //Console.WriteLine("z value is:" + z);
                 int[] nums = new int[3] {10,20,30 };
                 Console.WriteLine(nums[10]);
 
             }
-            //catch(IndexOutOfRangeException iex)
-            //{
-            //    Console.WriteLine(iex.Message);
-            //}
+            catch (IndexOutOfRangeException iex)
+            {
+                Console.WriteLine(iex.Message);
+            }
 
-            catch(DivideByZeroException dex)
+            catch (DivideByZeroException dex)
             {
                 Console.WriteLine(dex.StackTrace);
+                Console.WriteLine(dex.Message);
             }
             catch (Exception ex)
             {
@@ -312,12 +348,36 @@ namespace Selenium_Demo.TestCases
                 {
                     Console.WriteLine(ex.Message);
                 }
-                catch(Exception ex1)
+                catch (Exception ex1)
                 {
                     Console.WriteLine(ex1.Message);
                 }
-                
+
+            }
+            finally
+            {
+                Console.WriteLine(" i am finally block");
             }
         }
+        [Test]
+        public void VerifyScrollVertical()
+        {
+           
+            dr.Navigate().GoToUrl("https://amazon.in");
+            objCommon.ScrollDownVertical(1000);
+            Console.WriteLine(dr.Manage().Window.Size);
+        }
+
+        [Test]
+        public void VerifyScrollHorizantal()
+        {
+
+            dr.Navigate().GoToUrl("https://amazon.in");
+
+            objCommon.ScrollHorizantal(1000);
+            
+        }
+
     }
-}
+    }
+

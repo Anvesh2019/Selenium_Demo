@@ -12,6 +12,7 @@ namespace Selenium_Demo_Abstract
         }
 
         public abstract void DisplayDeptAddr();
+       
         public abstract void DisplayWeaterRept();
         public void DisplayDeptAddr(string dname)
         {

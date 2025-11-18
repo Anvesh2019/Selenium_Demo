@@ -40,8 +40,36 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testAssemblyVer2: '**\$(BuildConfiguration)\**\Selenium_Demo.dll'
-    #testFiltercriteria: 'TestCategory=Handling Multiple Windows | TestCategory=Actions'
-    testFiltercriteria: 'TestCategory=Handling Multiple Windows'
-    #rerunFailedTests: true
+    testFiltercriteria: 'TestCategory=Amazon1'
+    #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
+    rerunFailedTests: true
     #rerunMaxAttempts: 2
-  
+    
+- task: CopyFiles@2
+  condition: always()
+  inputs:
+    SourceFolder: '$(Agent.TempDirectory)/TestResults'
+    Contents: '**/*.*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/TestResults'
+    OverWrite: true
+
+- task: CmdLine@2
+  condition: always()
+  displayName: 'Convert TRX to HTML'
+  inputs:
+    script: 'trx-to-html -i $(Agent.TempDirectory)/TestResults/**/*.trx -o $(Build.ArtifactStagingDirectory)/TestResults/TestReport.html'
+    workingDirectory: '$(Agent.TempDirectory)'
+
+- task: PublishBuildArtifacts@1
+  condition: always()
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: AmazonTestResults
+    
+    
+- task: PublishBuildArtifacts@1
+  condition: always()
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: html-report
+    

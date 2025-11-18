@@ -9,6 +9,17 @@ namespace Selenium_Demo
     public class clsStudentNew
     {
 
+        int sno = 0;
+        public clsStudentNew()
+        {
+            sno = 200;
+            Console.WriteLine(" I am costructor");
+        }
+        public clsStudentNew(int snum)
+        {
+            sno = snum;
+           
+        }
         public void PrintMyname()
         {
             Console.WriteLine("My name is Anand");

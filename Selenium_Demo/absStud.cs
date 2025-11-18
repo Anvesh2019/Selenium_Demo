@@ -9,6 +9,7 @@ namespace Selenium_Demo
     public abstract class absStud
     {
         public abstract string getStudName(int sno);
+        public abstract int getAge();
         public string GetStudName(int sno)
         {
             if(sno==20)
@@ -21,5 +22,17 @@ namespace Selenium_Demo
             }
         }
         
+    }
+
+    public class clsChildabs:absStud
+    {
+        public override string getStudName(int sno)
+        {
+            return "venky";
+        }
+        public override int getAge()
+        {
+            return 25;
+        }
     }
 }

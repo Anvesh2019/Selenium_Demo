@@ -10,6 +10,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
 using System.Threading;
+using Selenium_Demo.Common;
 
 namespace Selenium_Demo
 {
@@ -20,11 +21,20 @@ namespace Selenium_Demo
         public void setup()
         {
             //dr =  new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
+<<<<<<< HEAD
 
+=======
+            dr = new ChromeDriver();
+        }
+        public void OpenAmazon1()
+        {
+            Console.WriteLine("open amazon test case");
+>>>>>>> master
         }
         [Test]
         public void OpenAmazon()
         {
+            OpenAmazon1();
             //IWebDriver dr = new ChromeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\chrome-win64\\chrome-win64");
             IWebDriver dr = new EdgeDriver("C:\\Users\\Anand\\Downloads\\");
             dr.Navigate().GoToUrl("https://Amazon.com");
@@ -77,10 +87,21 @@ namespace Selenium_Demo
         public void LearnJavascriptExecuter()
         {
             dr.Navigate().GoToUrl("https://www.google.com/");
-            dr.FindElement(By.Name("q")).SendKeys("India");
-            IWebElement sicon = dr.FindElement(By.XPath("//div[@aria-label='Search by voice']"));
-            Thread.Sleep(2000);
-            sicon.Click();
+            //dr.FindElement(By.Name("q")).SendKeys("India");
+            //IWebElement sicon = dr.FindElement(By.XPath("//div[@aria-label='Search by voice']"));
+            IJavaScriptExecutor js= (IJavaScriptExecutor)dr;
+            //js.ExecuteScript("arguments[0].click(); return true", sicon);
+            js.ExecuteScript("document.getElementById('APjFqb').value='India'");
+            //Thread.Sleep(2000);
+            //sicon.Click();
+        }
+        [Test]
+        public void ClickGmail()
+        {
+            dr.Navigate().GoToUrl("https://www.google.com/");
+            IWebElement gmailLink = dr.FindElement(By.LinkText("Gmail"));
+            clsCommon objCommon = new clsCommon(dr);
+            objCommon.ClickElementUsingJSE(gmailLink);
         }
         private string GetAssemblyPath()
         {

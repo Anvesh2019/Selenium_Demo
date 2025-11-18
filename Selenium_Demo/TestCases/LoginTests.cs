@@ -2,6 +2,8 @@ using NUnit.Framework;
 using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.IE;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
 using System.Drawing;
@@ -23,11 +25,11 @@ using AventStack.ExtentReports.Reporter;
 using System.Reflection;
 using NUnit.Framework.Interfaces;
 using Selenium_Demo.TestCases;
-using OpenQA.Selenium.Edge;
+
 
 namespace Selenium_Demo
 {
-    public class LoginTests
+    public class LoginTests: TestBase
     {
         public static ExtentReports extent;
         public static ExtentTest testlog;
@@ -37,9 +39,11 @@ namespace Selenium_Demo
         
         public IWebDriver dr;
         AxisMfPage _axisPage;
+        clsCommon objCommon;
         [OneTimeSetUp]
         public void StartReport()
         {
+            //logger.LogMessage("StartReport from Logintests.cs");
             string path = Assembly.GetCallingAssembly().CodeBase;
             string actualPath = path.Substring(0, path.LastIndexOf("bin"));
             string projectPath = new Uri(actualPath).LocalPath;
@@ -60,9 +64,10 @@ namespace Selenium_Demo
         [SetUp]
         public void Setup()
         {
+            logger.LogMessage("Setup method from Logintests");
             StartExtentTest(TestContext.CurrentContext.Test.Name);
             Console.WriteLine("I am from setup method");
-
+          
             ChromeOptions options = new ChromeOptions();
             //options.AddArgument("start-maximized"); //Maximize the window when it starts
             options.AddArgument("incognito");
@@ -75,14 +80,38 @@ namespace Selenium_Demo
             //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
             //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
+<<<<<<< HEAD
             dr = new ChromeDriver(@"C:\Users\Anand\Downloads");
             //dr = new ChromeDriver();
 
+=======
+            //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
+            dr = new ChromeDriver();
+            objCommon = new clsCommon(dr);
+>>>>>>> master
             //objLogger.logsEnabled = true;
             //_axisPage = new AxisMfPage(dr);
             _common = new clsCommon(dr);
         }
-       
+        [Test]
+        public void VerifySearchProd()
+        {
+            logger.LogMessage("Started executing VerifySearchProd test case ");
+            dr.Navigate().GoToUrl("https://amazon.in"); //open the amazon.in
+
+            //IWebElement btnContinue = dr.FindElement(By.XPath("//button[@alt='Continue shopping']"));
+            //if (btnContinue.Displayed)
+            //{
+            //    btnContinue.Click();    
+            //}
+            dr.FindElement(By.Id("twotabsearchtextbox")).SendKeys("SonyTV 55");
+            dr.FindElement(By.Id("nav-search-submit-button")).Click();
+            string prodName= dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("value");
+            Console.WriteLine(prodName);
+            Console.WriteLine(dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("placeholder"));
+            logger.LogMessage("Executed successfull VerifySearchProd test case ");
+        }
+
         public static void StartExtentTest(string testsToStart)
         {
             testlog = extent.CreateTest(testsToStart);
@@ -93,7 +122,7 @@ namespace Selenium_Demo
         {
             IWebDriver dr;
             dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-
+           
             dr.Navigate().GoToUrl("https://google.com");
             Console.WriteLine(dr.Title);
         }
@@ -538,6 +567,19 @@ namespace Selenium_Demo
             clsStud objStud4 = objDept4;
             objStud4.DisplaySname();
 
+            //absStud abs1=new absStud(); //cant create instance for abstract class
+            clsChildabs c1=new clsChildabs();
+            Console.WriteLine(c1.getStudName(30));
+           
+        }
+
+        [Test]
+        public void LearnStatic()
+        {
+            clsJun2025 objStat = new clsJun2025();
+            clsJun2025.DisplayName();
+           
+
         }
         [Test]
         public void InvokeAbstractMethod()
@@ -719,6 +761,7 @@ namespace Selenium_Demo
         [Test]
         public void DevideByZeroError()
         {
+
             try
             {
                 int x = 20;
@@ -726,11 +769,11 @@ namespace Selenium_Demo
                 int z = x / y;
                 Console.WriteLine("z value is:" + z);
             }
-            catch(NoSuchElementException nse)
+            catch (NoSuchElementException nse)
             {
                 Console.WriteLine(nse.Message);
             }
-            catch(DivideByZeroException dbz)
+            catch (DivideByZeroException dbz)
             {
                 Console.WriteLine(dbz.Message);
             }
@@ -745,7 +788,7 @@ namespace Selenium_Demo
         }
         [Test]
 
-        public void Getscreenshot()
+        public void LoginAxisMFViaPAN()
         {
             try
             {
@@ -762,19 +805,33 @@ namespace Selenium_Demo
             }
             catch (ElementClickInterceptedException clickex)
             {
-                Console.WriteLine(clickex.Message);
-              
-                ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
-                Screenshot screenshot = screenshotDriver.GetScreenshot();
-                // Creating UIScreenshot folder if not exists
-                System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
-                string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
-                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
-                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
+                objCommon.GetScreenshot();
+                //Console.WriteLine(clickex.Message);
+                //Console.WriteLine("test1");
+                //ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                //Screenshot screenshot = screenshotDriver.GetScreenshot();
+                //// Creating UIScreenshot folder if not exists
+                //System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss");
+                ////string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+                //screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
             }
             catch (NoSuchElementException nosuchex)
             {
+<<<<<<< HEAD
                 _common.GetScreenshot(dr);
+=======
+                objCommon.GetScreenshot();
+                //Console.WriteLine(nosuchex.Message);
+                //ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
+                //Screenshot screenshot = screenshotDriver.GetScreenshot();
+                //// Creating UIScreenshot folder if not exists
+                //System.IO.Directory.CreateDirectory(Environment.CurrentDirectory + "/UIScreenshots/");
+                //string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "sampletestcase" + "_" + DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss") + ".png";
+                ////string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
+
+                //screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
+>>>>>>> master
             }
             //catch (NoSuchWindowException ex)
             //{
@@ -798,10 +855,12 @@ namespace Selenium_Demo
         [Category("Handling Multiple Windows")]
         public void HandleMultipleTabs()
         {
+            
             dr.Navigate().GoToUrl("https://demoqa.com/browser-windows");
             dr.Manage().Window.Maximize();
             string windowhandleParent = dr.CurrentWindowHandle; //getting parentwindow handle
             IWebElement btnNewwindow = dr.FindElement(By.XPath("//button[@id='tabButton']"));
+            Thread.Sleep(2000);
             btnNewwindow.Click();
             System.Collections.ObjectModel.ReadOnlyCollection<string> lstWindow = dr.WindowHandles;
             Console.WriteLine("Tabs count:" + lstWindow.Count);
@@ -1056,6 +1115,17 @@ namespace Selenium_Demo
             //objCol.DisplayUnivName();
             objCol.DisplayCollegename();
 
+        }
+        [Test]
+        public void VerifySname()
+        {
+            clsStud objStud = new clsStud();
+            string sname= objStud.GetStudName(50);
+            Console.WriteLine(sname);
+            bool flgMajor = objStud.CheckMajor(25);
+            Console.WriteLine("student is major:" + flgMajor);
+
+            clsStud s2 = new clsStud(45);
         }
         [OneTimeTearDown]
         public void EndReport()

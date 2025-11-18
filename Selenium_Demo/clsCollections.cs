@@ -12,6 +12,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifySingleDArray()
         {
+<<<<<<< HEAD
             //int[] arrNumbers = new int[4] {10,20,30,40};
             int[] arrNumbers = new int[4];
             arrNumbers[0] = 10;
@@ -20,6 +21,19 @@ namespace Selenium_Demo
             arrNumbers[3] = 40;
             //arrNumbers[4] = 50;
             for (int i=0;i<arrNumbers.Length;i++) //0 1 2 3 
+=======
+            int[] arrNumbers = new int[4] {10,20,30,40};
+            //int[] arrNumbers = new int[4];
+            //arrNumbers[0] = 100;
+            //arrNumbers[1] = 20;
+            //arrNumbers[2] = 30;
+            //arrNumbers[3] = 40;
+            //arrNumbers[4] = 50;
+
+            //Console.WriteLine(arrNumbers[5]);
+
+            for(int i=0;i<arrNumbers.Length;i++) //0 1 2 3 
+>>>>>>> master
             {
                 Console.WriteLine(arrNumbers[i]);
             }
@@ -30,7 +44,11 @@ namespace Selenium_Demo
         public void LearnStringArray()
         {
             string[] states = new string[4] { "Texas", "Florida", "Maryland", "Michigon" };
+<<<<<<< HEAD
             for (int i = 0; i < states.Length; i++) // 1 3 
+=======
+            for (int i = 0; i < states.Length; i=i+1)  
+>>>>>>> master
             {
                 Console.WriteLine(states[i]);
             }
@@ -54,7 +72,7 @@ namespace Selenium_Demo
             //arrNumbers[1,0] = 40;
             //arrNumbers[1,1] = 60;
             //arrNumbers[1,2] = 70;
-            Console.WriteLine(arrNumbers[1,1]);
+            Console.WriteLine(arrNumbers[1,2]);
             
         }
         [Test]
@@ -84,7 +102,7 @@ namespace Selenium_Demo
             arlist1.Add("Anand"); //0
             arlist1.Add(10); //1
             arlist1.Add(null);
-            arlist1.Add("Anand");
+            arlist1.Add("Anvesh");
             Console.WriteLine(arlist1.Count);
 
             arlist1[0] = "Bhavya";
@@ -98,12 +116,13 @@ namespace Selenium_Demo
             arlist1.AddRange(arr); //adding array in arraylist 
             arlist1.AddRange(myQ); //adding Queue in arraylist 
 
-            Console.WriteLine("ArrayList Elements");
-
+            Console.WriteLine("ArrayList Elements after clear");
+            //arlist1.Clear();
+            arlist1.RemoveAt(3);
             Console.WriteLine(arlist1.Count);
             //arlist1.Clear();
             
-           Console.WriteLine("contains anand " + arlist1.Contains("Anand"));
+           Console.WriteLine("contains " + arlist1.Contains("Bhavya"));
 
             for (int i = 0; i < arlist1.Count; i++)
                 Console.WriteLine(arlist1[i]);
@@ -119,6 +138,7 @@ namespace Selenium_Demo
             primeNumbers.Add(3);
             primeNumbers.Add(5);
             primeNumbers.Add(7);
+            
 
             
             Console.WriteLine("No of elelemts: " + primeNumbers.Count);
@@ -133,12 +153,15 @@ namespace Selenium_Demo
             Console.WriteLine("No of elelemts: " + cities.Count);
 
             // adding elements using collection initializer syntax
-            var bigCities = new List<string>() 
-            {
-                "New York", "London", "Mumbai", "Chicago"
-            };
+            var bigCities = new List<string>(){"New York", "London", "Mumbai", "Chicago"};
             bigCities.Add("Dallas");
+            //bigCities.Clear();
+            bigCities.RemoveAt(1);
             Console.WriteLine("No of big cities: " + bigCities.Count);
+            for(int i = 0;i < bigCities.Count;i++)
+            {
+                Console.WriteLine(bigCities[i]);
+            }
 
         }
         [Test]
@@ -146,12 +169,14 @@ namespace Selenium_Demo
         {
             IDictionary<int, string> States = new Dictionary<int, string>();
 
-            States.Add(1, "NY");
-            States.Add(2, "NJ");
-            States.Add(3, "MD");
+            States.Add(1, "NY"); //1
+            States.Add(2, "NJ"); //2
+            States.Add(3, "MD"); //3
             States.Add(4, "NY");
             States.Add(5, "WA");
-
+            States.Remove(2);
+            //States.Clear();
+            Console.WriteLine(States.Count);
             foreach (KeyValuePair<int, string> kvp in States)
                 Console.WriteLine("Key: {0}, Value: {1}", kvp.Key, kvp.Value);
 
@@ -159,9 +184,13 @@ namespace Selenium_Demo
         [Test]
         public void sortarray()
         {
-            string[] friend = { "sathish", "rajesh", "sharath" };
-            Array.Sort(friend);
-            foreach(string s in friend)
+            int[] nums = new int[5] { 100,200,150,250,500};
+            Array.Sort(nums);
+            Console.WriteLine("3RD highest is:" + nums[2]); //3rd element
+
+            string[] friends = { "sathish", "rajesh", "sharath" };
+            Array.Sort(friends);
+            foreach(string s in friends)
             {
                 Console.WriteLine(s);
             }
@@ -215,10 +244,16 @@ namespace Selenium_Demo
         [Test]
         public void stackarray()
         {
+            //LIFO
             Stack <string> car = new Stack<string>();
              
             car.Push("BMW");
             car.Push("Thar");
+            car.Push("scoda");
+            Console.WriteLine(car.Count);
+            car.Pop();
+            car.Pop();
+            Console.WriteLine(car.Count);
             foreach (string s in car)
             {
                 Console.WriteLine(s);
@@ -227,11 +262,15 @@ namespace Selenium_Demo
             
         }
         [Test]
-        public void queue()
+        public void LearnQueue()
         {
             Queue<int> roommates = new Queue<int>();
             roommates.Enqueue(22);
             roommates.Enqueue(25);
+            Console.WriteLine(roommates.Count);
+            roommates.Dequeue();
+            roommates.Dequeue();
+
             foreach (int friends in roommates)
             {
                 Console.WriteLine(friends);
@@ -255,11 +294,22 @@ namespace Selenium_Demo
         [Test]
         public void hashtable()
         {
-            Hashtable age = new Hashtable();
-            age.Add("sahith", 26);
-            age.Add("rio", 26);
+            Dictionary<int, string> dict = new Dictionary<int, string>();
+            dict.Add(1, "one");
+            dict.Add(2, "two");
+            dict.Add(3, "three");
 
-            Console.WriteLine("My age is: "+age["sahith"]);
+            Hashtable hs = new Hashtable(dict);
+            hs.Add("sahith", 26);
+            hs.Add("rio", 26);
+
+            foreach (DictionaryEntry de in hs)
+            {
+                Console.WriteLine("Key: {0}, Value: {1}", de.Key, de.Value);
+            }
+                
+
+            //Console.WriteLine("My age is: "+age["sahith"]);
         }
         [Test]
         public void dictionary()
@@ -292,7 +342,14 @@ namespace Selenium_Demo
             Console.WriteLine("testing1 added by anand");
 
         }
-       
+        [Test]
+        public void DevideNumbers()
+        {
+            Calculator c1 = new Calculator("maths calc");
+            double res=   c1.Divide(20.00, 10.5);
+            Console.WriteLine(res);
+        }
+        
         
     }
 }

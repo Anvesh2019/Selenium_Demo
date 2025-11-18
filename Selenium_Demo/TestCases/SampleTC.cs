@@ -15,7 +15,10 @@ namespace Selenium_Demo.TestCases
         {
 
             Console.WriteLine("sample test case1");
+<<<<<<< HEAD
             Console.WriteLine("sample code");
+=======
+>>>>>>> master
         }
     }
 }
