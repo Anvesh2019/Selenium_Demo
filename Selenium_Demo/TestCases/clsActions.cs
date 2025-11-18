@@ -42,6 +42,11 @@ namespace Selenium_Demo.TestCases
             objCommon = new clsCommon(dr);
         }
         [Test]
+        public void Phanis_Test1()
+        {
+            Console.WriteLine("this is phanis testcase1");
+        }
+        [Test]
         public void OpenGoogle()
         {
             dr.Navigate().GoToUrl("https://google.com");
