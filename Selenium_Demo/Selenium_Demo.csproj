@@ -17,11 +17,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="Selenium.Support" Version="4.4.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.4.0" />
-<<<<<<< HEAD
     <PackageReference Include="System.CodeDom" Version="9.0.10" />
-=======
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="139.0.7258.6800" />
->>>>>>> master
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageReference Include="System.Security.Principal" Version="4.3.0" />
     <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
@@ -30,12 +27,9 @@
   <ItemGroup>
     <None Update="DriverHelper\chromedriver.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-<<<<<<< HEAD
     </None>
     <None Update="DriverHelper\msedgedriver.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-=======
->>>>>>> master
     </None>
     <None Update="Testdata\Anvesh.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
