@@ -18,5 +18,10 @@ namespace Selenium_Demo.TestCases {
     public void PrintSTatement2() {
     Console .WriteLine("SUmanth");
     }
+        [Test]
+    public void PrintSTatement3() {
+    Console .WriteLine("SUmanth3");
+    }
+        
     }
 }
