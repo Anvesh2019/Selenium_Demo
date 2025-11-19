@@ -80,15 +80,12 @@ namespace Selenium_Demo
             //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
             //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
-<<<<<<< HEAD
             dr = new ChromeDriver(@"C:\Users\Anand\Downloads");
             //dr = new ChromeDriver();
 
-=======
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
             dr = new ChromeDriver();
             objCommon = new clsCommon(dr);
->>>>>>> master
             //objLogger.logsEnabled = true;
             //_axisPage = new AxisMfPage(dr);
             _common = new clsCommon(dr);
@@ -818,9 +815,7 @@ namespace Selenium_Demo
             }
             catch (NoSuchElementException nosuchex)
             {
-<<<<<<< HEAD
-                _common.GetScreenshot(dr);
-=======
+                _common.GetScreenshot();
                 objCommon.GetScreenshot();
                 //Console.WriteLine(nosuchex.Message);
                 //ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
@@ -831,7 +826,7 @@ namespace Selenium_Demo
                 ////string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
 
                 //screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
->>>>>>> master
+
             }
             //catch (NoSuchWindowException ex)
             //{

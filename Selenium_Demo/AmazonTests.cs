@@ -21,15 +21,11 @@ namespace Selenium_Demo
         public void setup()
         {
             //dr =  new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
-<<<<<<< HEAD
-
-=======
             dr = new ChromeDriver();
         }
         public void OpenAmazon1()
         {
             Console.WriteLine("open amazon test case");
->>>>>>> master
         }
         [Test]
         public void OpenAmazon()

@@ -34,13 +34,10 @@ namespace Selenium_Demo
         [Test]
         public void VerifyIfstatement()
         {
-<<<<<<< HEAD
+
             int x = 45;
             if(x>10 && x <30) 
-=======
-            int x = 35;
             if (x > 10 || x <30)
->>>>>>> master
             {
                 Console.WriteLine("x is > 10 and < 30");
             }
@@ -142,11 +139,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifyDoWhileLoop()
         {
-<<<<<<< HEAD
-            int i = 1;
-=======
             int i = 10;
->>>>>>> master
             do
             {
                 Console.WriteLine("i value is:" + i);
