@@ -15,6 +15,7 @@ namespace Selenium_Demo.TestCases
         {
 
             Console.WriteLine("sample test case1");
+            Console.WriteLine("sample code");
         }
     }
 }

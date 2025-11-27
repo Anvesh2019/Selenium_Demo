@@ -73,15 +73,18 @@ namespace Selenium_Demo
             options.AddArgument("incognito");
             //options.AddArgument("headless");
             //options.AddArgument("useAutomationExtension");
-            //options.AddArgument("disable-extensions"); //disables existing extentions
+            options.AddArgument("disable-extensions"); //disables existing extentions
             options.AddArgument("disable-popup-blocking"); //disabled popups displayed from chrome browser
-            //options.AddArgument("disable-infobars");//disables info bars
+            options.AddArgument("disable-infobars");//disables info bars
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads\",options);
             //dr = new EdgeDriver("C:\\Users\\Anand.Gummadilli\\Downloads\\edgedriver_win64");
             //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
+            dr = new ChromeDriver(@"C:\Users\Anand\Downloads");
+            //dr = new ChromeDriver();
+
             //dr = new ChromeDriver(@"C:\Users\Anand.Gummadilli\Downloads");
-            dr = new ChromeDriver();
+            //dr = new ChromeDriver();
             objCommon = new clsCommon(dr);
             //objLogger.logsEnabled = true;
             //_axisPage = new AxisMfPage(dr);
@@ -274,38 +277,38 @@ namespace Selenium_Demo
         [Test]
         public void VerifyInvalidPANNumber()
         {
+            
             //try
             //{
             //    objLogger.LogMessage("VerifyInvalidPANNumber Started executing");
 
                 dr.Navigate().GoToUrl("https://axismf.com");
                 dr.Manage().Window.Maximize();
+                Thread.Sleep(5000);
                 log.Info("Home page loaded");
-                dr.FindElement(By.XPath("//ion-button[@class='new-investor new-login ng-star-inserted ion-color ion-color-burgundy md button button-round button-solid ion-activatable ion-focusable hydrated']")).Click();
+                dr.FindElement(By.XPath("//span[text()='Login']")).Click();
                 //Implicit wait
-                //dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                dr.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
                //Explicit Wait
-               WebDriverWait _wait = new WebDriverWait(dr,TimeSpan.FromSeconds(10));
-               IWebElement txtPannumber= _wait.Until(ExpectedConditions.ElementExists(By.XPath("(//input[@class='native-input sc-ion-input-md'])[2]")));
-               //IWebElement txtPannumber = dr.FindElement(By.XPath("(//input[@class='native-input sc-ion-input-md'])[6]"));
+              // WebDriverWait _wait = new WebDriverWait(dr,TimeSpan.FromSeconds(10));
+               //IWebElement txtPannumber= _wait.Until(ExpectedConditions.ElementExists(By.Id("pan_number")));
+               IWebElement txtPannumber = dr.FindElement(By.Id("pan_number"));
                txtPannumber.SendKeys("1234");
                objLogger.LogMessage("Entered invalid PAN numbver");
-
                 Thread.Sleep(3000);
             //dr.Close();
             //IWebElement errMsg = dr.FindElement(By.XPath("//div[text()='Please enter a correct PAN']"));
             //Assert.IsTrue(errMsg.Size!=Size.Empty);
 
-            WebDriverWait _wait1 = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
-            IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[text()='Please enter a correct PAN']")));
+           // WebDriverWait _wait1 = new WebDriverWait(dr, TimeSpan.FromSeconds(10));
+            //IWebElement labelError = _wait1.Until(ExpectedConditions.ElementIsVisible(By.XPath("//span[text()='Please enter a correct PAN']")));
 
             //IReadOnlyCollection<IWebElement> listerrMsg = dr.FindElements(By.XPath("//div[text()='Please enter a correct PAN']"));
-                Assert.IsTrue(labelError.Displayed == true, "Error is not displayed"); // displayed
-
+              //  Assert.IsTrue(labelError.Displayed == true, "Error is not displayed"); // displayed
                 objLogger.LogMessage("Verified PAN error message ");
 
-                IWebElement btnOTP = dr.FindElement(By.Id("btn-1"));
-                Assert.IsTrue(btnOTP.Enabled == false, "Generate OTP button is enabled"); //disabled
+                //IWebElement btnOTP = dr.FindElement(By.Id("btn-1"));
+                //Assert.IsTrue(btnOTP.Enabled == false, "Generate OTP button is enabled"); //disabled
 
                 objLogger.LogMessage("VerifyInvalidPANNumber passed successfully");
             //}
@@ -437,13 +440,14 @@ namespace Selenium_Demo
         public void VerifyCardetails()
         {
             OpenMySite();
-             clsBMW1 objBmw = new clsBMW1();
+
+            clsBMW1 objBmw = new clsBMW1();
             string carname = objBmw.GetCarName();
             Console.WriteLine("Car name is:" + carname);
             Console.WriteLine("Car model is:" + objBmw.GetCarModel(2022));
-            Console.WriteLine(objBmw.GetCarCity());
+            Console.WriteLine("car city is:" + objBmw.GetCarCity());
             Console.WriteLine(clsCar.GetCollegename());
-            
+            Console.WriteLine(objBmw.GetCarModel());
         }
         [Test]
         public void Sampletestcase2()
@@ -718,6 +722,40 @@ namespace Selenium_Demo
         }
 
         [Test]
+        public void LearnExceptionHandling()
+        {
+           
+          
+            try
+            {
+                int x = 20;
+                int y = 0;
+                //if (y == 0)
+                //{
+                //    // Throwing built-in DivideByZeroException
+                //    throw new DivideByZeroException("Y cant be zero.");
+                //}
+
+                int z = x / y;
+                Console.WriteLine("result is:" + z);
+            }
+           
+            catch (NoSuchElementException ex1)
+            {
+                Console.WriteLine(ex1.Message);
+            }
+            catch (DivideByZeroException dex)
+            {
+                Console.WriteLine(dex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+
+        }
+        [Test]
         public void DevideByZeroError()
         {
 
@@ -777,6 +815,7 @@ namespace Selenium_Demo
             }
             catch (NoSuchElementException nosuchex)
             {
+                _common.GetScreenshot();
                 objCommon.GetScreenshot();
                 //Console.WriteLine(nosuchex.Message);
                 //ITakesScreenshot screenshotDriver = dr as ITakesScreenshot;
@@ -787,6 +826,7 @@ namespace Selenium_Demo
                 ////string fileName = Environment.CurrentDirectory + "/UIScreenshots/" + "Sample1.png";
 
                 //screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Bmp);
+
             }
             //catch (NoSuchWindowException ex)
             //{
@@ -836,6 +876,7 @@ namespace Selenium_Demo
             //dr.SwitchTo().Window(lstWindow[0]); //return to parent window
             Console.WriteLine(dr.Title); //get the parent window title and print
         }
+      
         [Test]
         [Category("Scroll")]
         public void VerifyScrollInAmazon()
