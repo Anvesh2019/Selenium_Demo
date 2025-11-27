@@ -18,7 +18,9 @@ namespace Selenium_Demo
         public void Setup()
         {
             Console.WriteLine("I am from setup method");
+            dr = new ChromeDriver(@"C:\Users\Anand\Downloads\");
             dr = new ChromeDriver();
+
             //dr = new EdgeDriver($"{Directory.GetCurrentDirectory()}\\DriverHelper");
 
 
@@ -46,12 +48,17 @@ namespace Selenium_Demo
             Console.WriteLine("1st alert text:" + alert.Text);
             alert.Accept(); //click on OK button
             //alert.Dismiss();
+
+            IAlert deleteAlert = dr.SwitchTo().Alert(); //Switch to delete popup
+            Console.WriteLine("2nd alert text:" + deleteAlert.Text);
+
             Thread.Sleep(2000);
             //alert.SendKeys(Keys.Enter); //Click on Enter button
             //alert.Dismiss(); //Clikc on cancel button
 
-            IAlert deleteAlert = dr.SwitchTo().Alert(); //Switch to delete popup
+            IAlert deleteAlert1 = dr.SwitchTo().Alert(); //Switch to delete popup
             Console.WriteLine("2nd alert text:" + alert.Text);
+
             deleteAlert.Accept(); //Click on OK
 
         }

@@ -14,6 +14,10 @@ namespace Selenium_Demo.Pages
         { 
             dr= driver;
         }
+        public IWebElement linkGiftcards=>dr.FindElement(By.XPath("//span[contains(text(),'Gift Cards') and @id='nav-search-label-id']"));
+        //public IWebElement linkFashion => dr.FindElement(By.XPath("//span[contains(text(),'Fashion') and @id='nav-search-label-id']"));
+        public IWebElement linkFashion => dr.FindElement(By.XPath("//a[text()='Fashion']"));
+
         public IWebElement cart => dr.FindElement(By.XPath("//span[@id='nav-cart-count']"));
         public IWebElement headingCartEmpty => dr.FindElement(By.XPath("//h3[contains(text(),'Your Amazon Cart is empty')]"));
         public IWebElement btnSignupNow => dr.FindElement(By.XPath("//span[contains(text(),'Sign up now')]"));
@@ -32,6 +36,7 @@ namespace Selenium_Demo.Pages
         public void NavigatetoAmazon()
         {
             dr.Navigate().GoToUrl("https://amazon.in");
+            dr.Manage().Window.Maximize();
 
         }
     }
