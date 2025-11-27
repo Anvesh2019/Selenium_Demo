@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Firefox;
-using NUnit.Framework;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 using Selenium_Demo.Common;
+using Selenium_Demo.Pages;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Selenium_Demo
 {
@@ -18,6 +19,11 @@ namespace Selenium_Demo
        public string browser = "chrome";
        
         public clsMyLogger logger;
+        public GiftcardsPage _gcpage;
+        IWebDriver driver;
+        public AmazonPage _amazonpage;
+        public FashionPage _fpage;
+      
         [SetUp]
         public void Setup()
         {
@@ -38,7 +44,7 @@ namespace Selenium_Demo
             else if (browser == "chrome")
             {
 
-                dr = new ChromeDriver();
+                dr = new ChromeDriver(@"C:\Users\anand\Downloads");
                 logger.LogMessage("chrome browser initiated");
             }
             else if (browser == "IE")
@@ -46,7 +52,10 @@ namespace Selenium_Demo
                 dr = new InternetExplorerDriver(@"C:\Users\DSC\Desktop\chromedriver.exe");
             }
             objCommon = new clsCommon(dr);
-           
+            //driver = new ChromeDriver("C:\\Users\\anand\\Downloads");
+            _gcpage = new GiftcardsPage(driver);
+            _amazonpage = new AmazonPage(driver);
+            _fpage = new FashionPage(driver);
         }
 
         public static IWebDriver GetDriver()
