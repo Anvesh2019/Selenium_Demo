@@ -6,6 +6,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using Selenium_Demo.Common;
 using Selenium_Demo.Pages;
+using Selenium_Demo.TestCases;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,17 +19,17 @@ namespace Selenium_Demo
         public clsCommon objCommon;
        public string browser = "chrome";
        
-        public clsMyLogger logger;
+        //public clsMyLogger logger;
         public GiftcardsPage _gcpage;
         IWebDriver driver;
         public AmazonPage _amazonpage;
         public FashionPage _fpage;
-      
+        public clsActions _actions;
         [SetUp]
         public void Setup()
         {
-            logger = new clsMyLogger();
-            logger.LogMessage("Setup from Testbase");
+            //logger = new clsMyLogger();
+            //logger.LogMessage("Setup from Testbase");
             Console.WriteLine("I am from setup method");
 
             if (browser == "firefox")
@@ -38,14 +39,14 @@ namespace Selenium_Demo
             else if(browser=="edge")
             {
                 dr = new EdgeDriver();
-                logger.LogMessage("Edge browser initiated");
+                //logger.LogMessage("Edge browser initiated");
             }
             //Check if parameter passed as 'chrome'
             else if (browser == "chrome")
             {
 
-                dr = new ChromeDriver(@"C:\Users\anand\Downloads");
-                logger.LogMessage("chrome browser initiated");
+                dr = new ChromeDriver(@"C:\Users\dasar\Downloads");
+                //logger.LogMessage("chrome browser initiated");
             }
             else if (browser == "IE")
             {
@@ -53,9 +54,10 @@ namespace Selenium_Demo
             }
             objCommon = new clsCommon(dr);
             //driver = new ChromeDriver("C:\\Users\\anand\\Downloads");
-            _gcpage = new GiftcardsPage(driver);
-            _amazonpage = new AmazonPage(driver);
-            _fpage = new FashionPage(driver);
+            _gcpage = new GiftcardsPage(dr);
+            _amazonpage = new AmazonPage(dr);
+            _fpage = new FashionPage(dr);
+            _actions = new clsActions();
         }
 
         public static IWebDriver GetDriver()
