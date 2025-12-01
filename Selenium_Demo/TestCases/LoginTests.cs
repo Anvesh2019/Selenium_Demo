@@ -64,7 +64,7 @@ namespace Selenium_Demo
         [SetUp]
         public void Setup()
         {
-            logger.LogMessage("Setup method from Logintests");
+            //logger.LogMessage("Setup method from Logintests");
             StartExtentTest(TestContext.CurrentContext.Test.Name);
             Console.WriteLine("I am from setup method");
           
@@ -93,7 +93,7 @@ namespace Selenium_Demo
         [Test]
         public void VerifySearchProd()
         {
-            logger.LogMessage("Started executing VerifySearchProd test case ");
+            //logger.LogMessage("Started executing VerifySearchProd test case ");
             dr.Navigate().GoToUrl("https://amazon.in"); //open the amazon.in
 
             //IWebElement btnContinue = dr.FindElement(By.XPath("//button[@alt='Continue shopping']"));
@@ -106,7 +106,7 @@ namespace Selenium_Demo
             string prodName= dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("value");
             Console.WriteLine(prodName);
             Console.WriteLine(dr.FindElement(By.Id("twotabsearchtextbox")).GetAttribute("placeholder"));
-            logger.LogMessage("Executed successfull VerifySearchProd test case ");
+            //logger.LogMessage("Executed successfull VerifySearchProd test case ");
         }
 
         public static void StartExtentTest(string testsToStart)

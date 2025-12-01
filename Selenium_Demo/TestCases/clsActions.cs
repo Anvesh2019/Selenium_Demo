@@ -58,7 +58,7 @@ namespace Selenium_Demo.TestCases
           dr.Navigate().GoToUrl("https://google.com");
           ICookieJar cookies=  dr.Manage().Cookies;
           Console.WriteLine("before adding:" + cookies.AllCookies.Count);
-          cookies.DeleteAllCookies();
+          //cookies.DeleteAllCookies();
           Console.WriteLine("After deleting:" + cookies.AllCookies.Count);
 
             cookies.AddCookie(new Cookie("country","india"));

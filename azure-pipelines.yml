@@ -43,7 +43,7 @@ steps:
     testFiltercriteria: 'TestCategory=Amazon1'
     #testFiltercriteria: 'TestCategory=Handling Multiple Windows'
     rerunFailedTests: true
-    #rerunMaxAttempts: 2
+    rerunMaxAttempts: 2
     
 - task: CopyFiles@2
   condition: always()
