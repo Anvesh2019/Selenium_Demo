@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Selenium_Demo/Settings1.settings
+/Selenium_Demo/Settings2.settings
+/Selenium_Demo/Selenium_Demo.csproj

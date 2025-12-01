@@ -53,9 +53,9 @@ namespace Selenium_Demo
             }
             objCommon = new clsCommon(dr);
             //driver = new ChromeDriver("C:\\Users\\anand\\Downloads");
-            _gcpage = new GiftcardsPage(driver);
-            _amazonpage = new AmazonPage(driver);
-            _fpage = new FashionPage(driver);
+            _gcpage = new GiftcardsPage(dr);
+            _amazonpage = new AmazonPage(dr);
+            _fpage = new FashionPage(dr);
         }
 
         public static IWebDriver GetDriver()
