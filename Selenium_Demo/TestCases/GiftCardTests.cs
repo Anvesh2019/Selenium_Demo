@@ -8,9 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 using System.Threading.Tasks;
-{
-    
-}
 
 namespace Selenium_Demo.TestCases
 {
@@ -25,7 +22,7 @@ namespace Selenium_Demo.TestCases
             Console.WriteLine(TestContext.CurrentContext.Test.ClassName);
             _amazonpage.NavigatetoAmazon();
             _amazonpage.linkFashion.Click();
-            _fpage.linkMensCloathing.Click();
+            //_fpage.linkMensCloathing.Click();
         }
         [Test]
         public void VerifySettings()
