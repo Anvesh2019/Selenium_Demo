@@ -74,6 +74,7 @@ steps:
     artifactName: html-report
 
 - task: PublishBuildArtifacts@1
+  condition: always()
   inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'Anand_Artifacts'
