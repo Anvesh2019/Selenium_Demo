@@ -72,4 +72,10 @@ steps:
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: html-report
-    
+
+- task: PublishBuildArtifacts@1
+  inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'Anand_Artifacts'
+        publishLocation: 'Container'
+        MaxArtifactSize: 100
